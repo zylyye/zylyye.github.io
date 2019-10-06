@@ -86,7 +86,7 @@ Java内置的`Proxy`主要适用于动态创建某个接口的具体实现，创
 
 `CGLIB`(Code Generation Library) 是一个代码生成库，通过该库提供的工具，可以帮助我们直接创建某个类的代理对象或者动态创建一个类的子类.
 
-`CGLIB`的项目地址：[](https://github.com/cglib/cglib)，使用前，需要先下载相关jar包.
+`CGLIB`的项目地址：[CGLIB](https://github.com/cglib/cglib)，使用前，需要先下载相关jar包.
 
 ### 使用CGLIB创建代理对象
 
@@ -129,4 +129,4 @@ apiConnector.disconnect();
 // disconnected
 ```
 
-不像Java内置的代理对象，使用`CGLIB可以创建类或接口的代理对象，并且在类的代理对象中，还可以方便的调用原对象的方法.且不同于内置的代理对象，`CGLIB`中的代理对象更想一个对象拦截器.
+不像Java内置的代理对象，使用`CGLIB`可以创建类或接口的代理对象，并且在类的代理对象中，还可以方便的调用原对象的方法.且不同于内置的代理对象，`CGLIB`中的代理对象更像一个对象拦截器.
