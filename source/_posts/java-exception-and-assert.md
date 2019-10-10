@@ -19,7 +19,7 @@ Java中预定义异常的主要机构：
 graph BT
 	Error -.-> Throwable
 	Exception -.-> Throwable
-	IoException -.-> Exception
+	IOException -.-> Exception
 	RuntimeException -.-> Exception
 ```
 
