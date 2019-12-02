@@ -9,7 +9,7 @@ Java集合框架对常用的算法、数据结构进行了封装，组成了一�
 
 <!-- more -->
 
-## 集合接口
+## 集合框架中的接口
 
 ---
 
@@ -118,13 +118,118 @@ boolean remove(Object o);
 
 ### 遍历集合
 
-有三种用来遍历集合中元素的方式：
+有四种用来遍历集合中元素的方式：
 
-- 使用聚合操作（自Java8起提供的Stream流来操作集合）
+- 使用聚合操作（自Java8起提供的stream流来操作集合）
 - 使用for-each结构语句
 - 使用迭代器
 
+#### 聚合操作(stream流)
+
+自Java8起，可以通过stream流来对集合进行聚合操作，`Collection`接口中定义了将集合转换为stream流的方法：
+
+```java
+// 返回一个stream流
+Stream<E> stream();
+
+// 返回一个stream并行流
+Stream<E> parallelStream()
+```
+
+例如对一个字符串集合进行筛选联结操作：
+
+```java
+List<String> strList = Arrays.asList("aaa", "a", "b", "c");
+String result = strList.stream()
+        .filter(str -> str.length() == 1)
+        .collect(Collectors.joining(","));
+System.out.println("result = " + result);
+// 
+```
+
+#### 使用for-each结构语句
+
+`Collection`实现了`Iterable`接口，对于实现了`Iterable`接口的类，可以使用for-each结构语句对其进行遍历：
+
+```java
+// 遍历列表中的字符串并打印
+for (String content : list) {
+    System.out.println(content);
+}
+```
+
+`Iterable`中还定义了`forEach()`方法用来对集合进行遍历，不过该方法的内部同样是使用for-each结构语句实现.
+
+#### 使用迭代器
+
+调用集合中的`iterator()`会返回一个迭代器，迭代器接口`Iterator`中定义了如下的基础方法：
+
+```java
+// 判断是否还有待迭代的元素
+boolean hasNext();
+
+// 返回下一个元素，如果没有，则抛出NoSuchElementException
+E next();
+
+// 移除刚才迭代的元素，该方法在每次迭代后，只能调用一次
+void remove();
+
+// 处理剩余的元素
+forEachRemaining(Consumer<? super E> action);
+```
+
+迭代器典型的使用方式如下：
+
+```java
+Iterator<String> iterator = list.iterator();
+while (iterator.hasNext()) {
+    String nextStr = iterator.next();
+    System.out.println(nextStr);
+}
+```
+
+使用迭代器筛选字符串列表：
+
+```java
+List<String> list = new ArrayList<>(Arrays.asList("aaa", "a", "b", "c"));
+Iterator<String> iterator = list.iterator();
+while (iterator.hasNext()) {
+    String str = iterator.next();
+    if (str.length() != 1) {
+        iterator.remove();
+    }
+}
+System.out.println("list = " + list);
+// list = [a, b, c]
+```
+
+**注意与使用stream流进行筛选的方式不同的是，使用迭代器删除会更改原始集合，使用stream流进行筛选不会对原集合产生副作用.**
+
+默认情况下，迭代器只能向后迭代，不过`List`中可以使用`listIterator()`方法来获取一个列表迭代器，该迭代器支持向前迭代.
+
 ### 批操作方法
+
+`Collection`接口中定义了一些有用的批操作方法接口：
+
+```java
+// 判断集合中是否包含指定集合中的全部元素
+boolean containsAll(Collection<?> c);
+
+// 将指定集合中的元素添加到本集合中
+boolean addAll(Collection<? extends E> c);
+
+// 移除包含在指定集合中的全部元素
+boolean removeAll(Collection<?> c);
+
+// 给定一个选择器，移除全部符合条件的元素
+boolean removeIf(Predicate<? super E> filter);
+
+// 只保留和指定集合中相等的元素(取两集合交集)
+boolean retainAll(Collection<?> c);
+
+// 清除集合中的所有元素
+void clear();
+```
 
 
 
