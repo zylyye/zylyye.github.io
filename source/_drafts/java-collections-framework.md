@@ -231,9 +231,31 @@ boolean retainAll(Collection<?> c);
 void clear();
 ```
 
+例如移除集合中为`null`的元素：
 
+```java
+list.removeAll(Collections.singleton(null));
+// 或
+list.removeIf(Objects::isNull);
+```
 
 ### 数组相关方法
+
+集合接口中定义了将集合转化为数组的方法：
+
+```java
+// 转化为Object数组
+Object[] toArray();
+
+// 转化为指定类型数组，集合顺序填充数组a，剩余的填充null，如果a的长度不够，则创建一个新的数组填充返回
+<T> T[] toArray(T[] a);
+```
+
+例如将字符串列表转化为字符串数组：
+
+```java
+String[] strings = list.toArray(new String[0]);
+```
 
 
 
@@ -298,3 +320,10 @@ void clear();
 - `ConcurrentNavigableMap`
 
   
+
+## 参考文档
+
+---
+
+1. <https://docs.oracle.com/javase/tutorial/collections/index.html>
+2. [API文档](https://docs.oracle.com/javase/10/docs/api/java/util/package-summary.html)
