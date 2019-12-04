@@ -82,14 +82,6 @@ List<String> strList = new LinkedList<>();
 
 例如`ArrayList`类即有这个接口，因为`ArrayList`内部是使用数组来存储对象的，因此，可以支持使用存储索引来高效随机访问，但是`List`的另一种数据结构的实现`LinkedList`就不能高效的进行随机访问，因为其内部对象的存储基于双向链表结构，要想访问指定索引出的对象，必须对链表中的各个节点进行顺序遍历.
 
-## 集合与迭代器
-
----
-
-## 批量操作
-
----
-
 ## `Collection`接口
 
 ---
@@ -255,6 +247,36 @@ Object[] toArray();
 
 ```java
 String[] strings = list.toArray(new String[0]);
+```
+
+## `Set`接口
+
+---
+
+`Set`在是一种不包含重复元素的集合，`Set`并没有在`Collection`的基础上增加新的方法，只是在新增时限制不能插入重复元素，利用该特性，可以为一个集合去重：
+
+```java
+Set<String> uniList = new HashSet<>(list);
+// 或者使用stream流，一下语句返回一个HashSet实例
+Set<String> uniList = list.stream().collect(Collectors.toSet());
+```
+
+此外`Set`中重写了`equals()`方法，当两个`Set`实例之间进行比较时，只要两者包含相同的元素(即使顺序不同)，则视为相等.
+
+### 基本实现类型
+
+`Set`接口下主要包含了三种实现：
+
+- `HashSet` - 最常用、性能最佳的实现，内部使用哈希表存储，元素无序
+- `TreeSet` - 使用红黑树结构存储，元素有序存储
+- `LinkedHashSet` - 使用链表结构存储，元素按照插入时的顺序存储
+
+`TreeSet`始终会将元素维持为一个有序的树状结构(红黑树，一种自平衡二叉树)，可以实现高效的有序插入、删除操作.
+
+`LinkedHashSet`内部使用链表结构的哈希表存储，可以保持元素插入的顺序(注意如果插入已存在的元素不会影响之前元素的存储顺序，因为`Set`只会插入集合中不存在的元素)，如果要对一个有序列表进行去重，则可以使用`LinkedHashSet`，以保持有序列表中的位置：
+
+```java
+Set<String> uniList = new LinkedHashSet<>(sortedList);
 ```
 
 
