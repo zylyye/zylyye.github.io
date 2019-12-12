@@ -279,6 +279,59 @@ Set<String> uniList = list.stream().collect(Collectors.toSet());
 Set<String> uniList = new LinkedHashSet<>(sortedList);
 ```
 
+## `List`接口
+
+---
+
+`List`列表是一种有序集合，与`Set`不同，列表中可以包含重复元素.此外，除了实现了集合中的基本接口外,列表中还额外添加了一些有用的功能方法:
+
+- 位置访问
+
+  列表中可以直接使用索引来访问元素,列表接口中定义了以下方法:
+
+  ```java
+  // 获取指定索引处的元素
+  E get(int index);
+  
+  // 设置指定索引除的元素,并返回之前的元素
+  E set(int index, E element);
+  ```
+
+  `List`有基于数组和基于链表两种数据结构的实现,基于数组的实现可以高效的进行位置访问操作, 如`ArrayList`, 而基于链表的实现, 访问指定索引出的元素时, 需要进行顺序遍历, 因此效率较低, 例如`LinkedList`
+
+- 位置搜索
+
+  列表中可以根据给定元素, 确定其在列表中的位置:
+
+  ```java
+  // 返回指定元素第一次和最后一次出现的位置,没有则返回-1
+  int indexOf(Object o);
+  int lastIndexOf(Object o);
+  ```
+
+- 列表迭代器
+
+  与集合中默认的迭代器不同, 列表中的迭代器可以向前遍历, 列表中可以用以下方法获取一个列表迭代器:
+
+  ```java
+  // 返回一个列表迭代器, 可以指定起始位置
+  ListIterator<E> listIterator();
+  ListIterator<E> listIterator(int index);
+  ```
+
+- 范围视图
+
+  列表可以返回一个范围内的列表视图, 列表返回的视图支持列表的所有操作:
+
+  ```java
+  // 返回指定范围的子列表
+  List<E> subList(int fromIndex, int toIndex);
+  ```
+
+  
+
+
+
 
 
 
