@@ -295,6 +295,9 @@ Set<String> uniList = new LinkedHashSet<>(sortedList);
   
   // 设置指定索引除的元素,并返回之前的元素
   E set(int index, E element);
+  
+  // 移除并返回指定索引处的元素
+  E remove(int index);
   ```
 
   `List`有基于数组和基于链表两种数据结构的实现,基于数组的实现可以高效的进行位置访问操作, 如`ArrayList`, 而基于链表的实现, 访问指定索引出的元素时, 需要进行顺序遍历, 因此效率较低, 例如`LinkedList`
@@ -328,9 +331,60 @@ Set<String> uniList = new LinkedHashSet<>(sortedList);
   List<E> subList(int fromIndex, int toIndex);
   ```
 
+  对`sublist()`方法返回的列表视图进行修改会直接影响到源列表, 由此,可以结合列表的其他方法来简化工作, 例如删除列表中的某个范围内的元素:
   
+  ```java
+  list.subList(1, 5).clear();
+  ```
+  
+### 基本实现类型
+
+合框架中的`List`有两种基本实现:
+
+- `ArrayList` - 最常用的实现, 内部基于数组实现, 可以提供高效的随机访问与遍历
+- `LinkedLisk` - 内部基于链表结构, 可以提供高效的删除/插入操作
 
 
+
+## `Queue`接口
+
+---
+
+`Queue`是一个队列, 用于保存待处理的元素集合, 队列接口在集合的基础上增加了额外的增删/获取方法, 方法作用及特点如下(表中只有`add()`不是新方法):
+
+|      操作类型      | 失败时方法抛出抛出异常 | 失败时返回特殊值 null/false |
+| :----------------: | :--------------------: | :-------------------------: |
+|      插入队列      |         add(e)         |          offer(e)           |
+|  获取并从队列移除  |        remove()        |           poll()            |
+| 获取但不从队列移除 |       element()        |           peek()            |
+
+当队列为空时, 调用获取元素的方法会返回null, 因此, 一般队列的队列的实现中限制了不能存放null(`LinkedList`没有这个限制, 它允许插入null), 
+
+### 队列元素的顺序
+
+ Queue`的一般实现都是一个FIFO(先入先出)对列, 队列新增的元素会放置到队列的末尾, 需要取出元素时, 会从返回队列头部的元素. 不过也有可以指定排序规则的队列, 例如`PriorityQueue`, 创建该队列时, 可以指定一个比较器(Compartor), 这样队列中的元素将按照指定的顺序排序. 
+
+### 有界队列
+
+在`java.util`包中的队列实现都是无界的, `java.util.concurrent`包中的实现是有界的, 该包中的实现都是线程安全的.
+
+## `Deque`接口
+
+`Deque`是一个双端队列, 与`Queue`队列不同的是, 双端队列可以在队列的两端进行元素的插入和删除操作, 其提供的操作队列的功能与`Queue`一致, 不过分为操作队首和队尾两个版本:
+
+|             操作             | 失败抛出异常                      | 失败返回false/null              |
+| :--------------------------: | --------------------------------- | ------------------------------- |
+|        插入队首或队尾        | addFirst(e)<br />addList(e)       | offerFirst(e)<br />offerLast(e) |
+|    获取并从队首或队尾删除    | removeFirst(e)<br />removeLast(e) | pollFirst(e)<br />pollLast(e)   |
+| 获取队首或队尾的元素但不删除 | getFirst()<br />getLast()         | peekFirst()<br />peekLast()     |
+
+除了这些基本的操作队列方法外, `Deque`中还提供了其它有关从队列中移除元素的方法:
+
+```java
+// 从队列中移除第一个或最后一个出现的指定元素, 如果移除成功则返回true, 否则返回false
+boolean removeFirstOccurrence(Object o);
+boolean removeLastOccurrence(Object o);
+```
 
 
 
