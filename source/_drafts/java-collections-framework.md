@@ -344,8 +344,6 @@ Set<String> uniList = new LinkedHashSet<>(sortedList);
 - `ArrayList` - 最常用的实现, 内部基于数组实现, 可以提供高效的随机访问与遍历
 - `LinkedLisk` - 内部基于链表结构, 可以提供高效的删除/插入操作
 
-
-
 ## `Queue`接口
 
 ---
@@ -362,11 +360,11 @@ Set<String> uniList = new LinkedHashSet<>(sortedList);
 
 ### 队列元素的顺序
 
- Queue`的一般实现都是一个FIFO(先入先出)对列, 队列新增的元素会放置到队列的末尾, 需要取出元素时, 会从返回队列头部的元素. 不过也有可以指定排序规则的队列, 例如`PriorityQueue`, 创建该队列时, 可以指定一个比较器(Compartor), 这样队列中的元素将按照指定的顺序排序. 
+ `Queue`的一般实现都是一个FIFO(first in firt out, 先入先出)对列, 队列新增的元素会放置到队列的末尾, 需要取出元素时, 会从返回队列头部的元素. 不过也有可以指定排序规则的队列, 例如`PriorityQueue`, 创建该队列时, 可以指定一个比较器(Compartor), 这样队列中的元素将按照指定的顺序排序. 
 
 ### 有界队列
 
-在`java.util`包中的队列实现都是无界的, `java.util.concurrent`包中的实现是有界的, 该包中的实现都是线程安全的.
+在`java.util`包中的队列实现都是无界的, `java.util.concurrent`包中的实现是有界的, 该包中的存放的都是线程安全的实现.
 
 ## `Deque`接口
 
@@ -386,7 +384,45 @@ boolean removeFirstOccurrence(Object o);
 boolean removeLastOccurrence(Object o);
 ```
 
+## `Map`接口
 
+---
+
+`Map`不是属于集合, 它是一个存放键值对的映射表, 映射表中的键不会重复, 因此同一个键值对, 映射表中最多只会存在一个, 此外, 与队列不同, `Map`中的键值都可为null,  `Map`接口中定义了有关映射表的基础方法:
+
+```java
+// 存放指定键值对
+V put(K key, V value);
+
+// 使用键获取指定的值, 没有则返回null
+V get(Object key);
+
+// 获取映射表中指定键对应的值, 没有则使用指定的默认值
+V getOrDefault(Object key, V defaultValue)
+
+// 删除指定的键值
+V remove(Object key);
+
+// 获取映射表中键值对的数量
+int size();
+
+// 判断表映射是否为空
+boolean isEmpty();
+
+// 判断映射表中是否包含指定的键
+boolean containsKey(Object key);
+
+// 判断映射表中是否包含指定的值
+boolean containsValue(Object value);
+```
+
+### `Map`的基本实现类型
+
+`Map`接口的基本实现类型及特点:
+
+- `HashMap` - 最常用, 最高效的hash表实现, 键值无序存放
+- `TreeMap` - 键有序存放, 内部是红黑树结构
+- `LinkedHashMap` - 键值使用双向链表存放, 可以保持键的插入顺序
 
 
 
