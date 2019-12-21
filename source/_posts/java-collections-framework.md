@@ -1,9 +1,11 @@
 ---
 title: Java集合框架
-categories: [Java基础]
-tags: [Java, 集合框架]
+categories: []
+tags: []
 date: 2018-07-27 22:44:22
 ---
+
+
 
 Java集合框架对常用的算法、数据结构进行了封装，组成了一套可以用于多种处理对象集合场景的框架.
 
@@ -505,7 +507,7 @@ map.entrySet() == map.entrySet();  // true
 
 
 
-## 常用集合说明
+## 集合框架实现类
 
 ### 集`Set`
 
