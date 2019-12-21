@@ -424,6 +424,85 @@ boolean containsValue(Object value);
 - `TreeMap` - 键有序存放, 内部是红黑树结构
 - `LinkedHashMap` - 键值使用双向链表存放, 可以保持键的插入顺序
 
+### 批操作接口
+
+`Map`中定义了与集合类似的批操作接口:
+
+```java
+// 复制指定映射表中的所有键值对到当前映射表
+void putAll(Map<? extends K, ? extends V> m);
+
+// 清空映射表
+void clear();
+```
+
+`putAll()`方法通常用来合并一个映射表, 如果只是想简单的复制一个映射表, 直接使用构造方法即可:
+
+```java
+Map<String> mapCopies = new HashMap(map);
+```
+
+### 集合视图
+
+`Map`接口中定义了三个与集合视图相关的方法, 分别返回三种视图:
+
+```java
+// 返回键的集
+Set<K> keySet();
+
+// 返回值的集合
+Collection<V> values();
+
+// 返回键值对的集
+Set<Map.Entry<K, V>> entrySet();
+```
+
+#### 集合视图的巧妙用处
+
+`Map`对象返回的集合视图是可以修改的, 这些修改会直接影响到原有的映射表, 例如:
+
+- 删除指定的键:
+
+    ```java
+    map.keySet().removeAll(keyList);
+    ```
+
+- 保留两个映射表共同键的部分:
+
+    ```java
+    map1.keySet().retainAll(map2.keySet());
+    ```
+
+- 删除表中指定的值:
+
+    ```java
+    map.values().removeAll(Collections.singleton(specValue));
+    ```
+
+- 删除表中键和值相等的数据:
+
+    ```java
+    map1.keySet().removeAll(map1.values());
+    ```
+
+此外, 可以使用集合视图来遍历映射表:
+
+```java
+for (Map.Entry<String, Integer> entry : map.entrySet()) {
+    String key = entry.getKey();
+    Integer value = entry.getValue();
+    // ...
+}
+```
+
+需留意, 调用Map对象获取视图的方法时, Map对象中会缓存创建的视图, 如果多次调用, 返回的将是同一个视图对象, 即:
+
+```java
+map.keySet() == map.keySet(); // true
+map.values() == map.values();  // true
+map.entrySet() == map.entrySet();  // true
+```
+
 
 
 ## 常用集合说明
@@ -463,7 +542,8 @@ boolean containsValue(Object value);
 
 
 - `BlockingQueue`与`BlockDeque`
-- 
+
+  
 
 ## 常用映射类说明
 
