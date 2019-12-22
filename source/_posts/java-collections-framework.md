@@ -497,7 +497,7 @@ for (Map.Entry<String, Integer> entry : map.entrySet()) {
 }
 ```
 
-需留意, 调用Map对象获取视图的方法时, Map对象中会缓存创建的视图, 如果多次调用, 返回的将是同一个视图对象, 即:
+**需留意, 调用Map对象获取视图的方法时, Map对象中会缓存创建的视图, 如果多次调用, 返回的将是同一个视图对象, 即:**
 
 ```java
 map.keySet() == map.keySet(); // true
@@ -505,7 +505,19 @@ map.values() == map.values();  // true
 map.entrySet() == map.entrySet();  // true
 ```
 
+### Stream流的聚合操作
 
+Stream流只能用于处理集合, 不能直接处理Map对象, 使用Stream流提供的方法可以将一个集合转换为Map对象, 例如将`Student`对象集合转换为使用`id`作为键的映射表:
+
+```java
+Map<Integer, Student> studentMap = students.stream().collect(Collectors.toMap(Student::getId, Function.identity()));
+```
+
+按照性别将`Student`对象集合分组:
+
+```java
+Map<Integer, List<Student>> genderMap = students.stream().collect(Collectors.groupingBy(Student::getGender));
+```
 
 ## 集合框架实现类
 
