@@ -281,6 +281,52 @@ Set<String> uniList = list.stream().collect(Collectors.toSet());
 Set<String> uniList = new LinkedHashSet<>(sortedList);
 ```
 
+## `SortedSet`接口
+
+---
+
+`SortedSet`是一个有序的集, 该集合中的元素以升序排序, 在创建`SortedSet`对象时, 可以指定一个比较器, 如果不指定比较器, 存储的元素必须实现`Comparable`接口来指定元素的排序规则. SortedSet`构造器可以接收一个集合, 如果这个集合也是`SortedSet的一个实例, 则新建的有序集会沿用之前的比较器, 并将旧集合的元素依照原顺序插入到新集合中.
+
+`SortedSet`与普通`Set`最显著的区别是其将元素有序存储, 且该集返回的迭代器和`toArray()`返回的数组都可以用来有序遍历. 除此之外, `SortedSet`还增加了几个额外的方法:
+
+```java
+// 返回有序集的第一个元素
+E first();
+
+// 返回有序集的最后一个元素
+E last();
+
+// 返回集合的一个范围视图 包含fromElement, 不包含toElement
+SortedSet<E> subSet(E fromElement, E toElement);
+
+// 返回集合开始部分的元素视图, 不包含toElement
+SortedSet<E> headSet(E toElement);
+
+// 返回集合结尾部分的元素视图, 包含fromElement
+SortedSet<E> tailSet(E fromElement);
+```
+
+比较特别的是, 该接口中定义的几个返回视图的方法, 其中接收的参数(fromElement, toElement)是用来确定位置的参照元素, 这些元素并不一定要在集合中, 例如一个数字集的子视图:
+
+```java
+intSortedSet.subSet(3, 10);
+```
+
+返回的子视图包含元素x: `x >= 3 && x < 10`, 由此, 文档中给出几个有趣的例子:
+
+```java
+// 统计以 a 开头的单词的数量, 因为按照字符串的排序规则, "ab" > "a"
+int count = wordSet.subset("a", "b").size();
+
+// 统计以 a 开头的单词的数量, 但不包含 "a", 其中"\0"表示空字符, "a" < "a\0" < "ab"
+int count = wordSet.subset("a\0", "b").size();
+
+// 清除 a 到 b 之间的单词
+wordSet.subset("a", "b").clear();
+```
+
+同样的, 这些特性也能应用在`headSet()`, `tailSet()`上.
+
 ## `List`接口
 
 ---
@@ -519,66 +565,7 @@ Map<Integer, Student> studentMap = students.stream().collect(Collectors.toMap(St
 Map<Integer, List<Student>> genderMap = students.stream().collect(Collectors.groupingBy(Student::getGender));
 ```
 
-## 集合框架实现类
 
-### 集`Set`
-
-`Set`集中不会包含重复的元素，`Set`中最多只能有一个`null`元素
-
-#### 线程不安全的`Set`
-
-- `HashSet`
-  - `LinkedHashSet`
-- `SortedSet`
-  - `NavigableSet`
-    - `TreeSet`
-- `EnumSet`
-
-#### 线程安全的`Set`
-
-- `ConcurrentSkipListSet`
-- `CopyOnWriteArraySet`
-
-### 列表`List`
-
-
-
-- `ArrayList`
-- `LinkedList`
-- `CheckList`
-- `Vector`
-- `Stack`
-
-
-
-### 队列`Queue`与双端队列`Deque`
-
-
-
-- `BlockingQueue`与`BlockDeque`
-
-  
-
-## 常用映射类说明
-
-### 线程不安全的`Map`
-
-- `HashMap`
-- `LinkedHashMap`
-- `IdentityHashMap`
-- `WeakHashMap`
-- `SortedMap`
-- `TreeMap`
-- `EnumMap`
-- `HashTable`
-
-### 线程安全的`Map`
-
-- `ConcurrentMap`
-- `ConcurrentHashMap`
-- `ConcurrentNavigableMap`
-
-  
 
 ## 参考文档
 
