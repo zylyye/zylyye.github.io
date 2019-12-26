@@ -112,7 +112,7 @@ boolean remove(Object o);
 
 ### 遍历集合
 
-有四种用来遍历集合中元素的方式：
+有三种用来遍历集合中元素的方式：
 
 - 使用聚合操作（自Java8起提供的stream流来操作集合）
 - 使用for-each结构语句
@@ -464,6 +464,8 @@ boolean containsKey(Object key);
 boolean containsValue(Object value);
 ```
 
+与其他集合类似, `Map`中`equals()`方法的实现可以保证两个包含相等键值对的Map对象比较结果为`true`, 而无需担心Map对象具体的实现类型
+
 ### `Map`的基本实现类型
 
 `Map`接口的基本实现类型及特点:
@@ -565,7 +567,28 @@ Map<Integer, Student> studentMap = students.stream().collect(Collectors.toMap(St
 Map<Integer, List<Student>> genderMap = students.stream().collect(Collectors.groupingBy(Student::getGender));
 ```
 
+## `SortedMap` 接口
 
+---
+
+`SortedMap`是有序的映射表, 该接口定义的功能与`SortedSet`类似(`SortedSet`内部就是使用`SortedMap`来存储元素), `SortedMap`对存储的键进行排序, 因此, 在创建`SortedMap`对象时, 可以为键指定一个比较器, 或者键需要实现`Comparable`接口.
+
+`SortedMap`很多特性与`SortedSet`相同:
+
+- 构造方法如果接收一个`SortedMap`对象, 则会保留该对象的比较规则和元素顺序
+- 可以进行有序遍历
+- 额外定义了获取端点(EndPoints)和范围视图的方法
+
+其在`Map`接口基础上额外定义的方法如下:
+
+```java
+K firstKey();
+K lastKey();
+SortedMap<K,V> subMap(K fromKey, K toKey);
+SortedMap<K,V> headMap(K toKey);
+SortedMap<K,V> tailMap(K fromKey);
+SortedMap<K,V> subMap(K fromKey, K toKey);
+```
 
 ## 参考文档
 
