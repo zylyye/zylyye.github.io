@@ -270,16 +270,23 @@ Set<String> uniList = list.stream().collect(Collectors.toSet());
 `Set`接口下主要包含了三种实现：
 
 - `HashSet` - 最常用、性能最佳的实现，内部使用哈希表存储，元素无序
+
 - `TreeSet` - 使用红黑树结构存储，元素有序存储
+
+  `TreeSet`始终会将元素维持为一个有序的树状结构(红黑树，一种自平衡二叉树)，可以实现高效的有序插入、删除操作.
+
 - `LinkedHashSet` - 使用链表结构存储，元素按照插入时的顺序存储
 
-`TreeSet`始终会将元素维持为一个有序的树状结构(红黑树，一种自平衡二叉树)，可以实现高效的有序插入、删除操作.
+  `LinkedHashSet`内部使用链表结构的哈希表存储，可以保持元素插入的顺序(注意如果插入已存在的元素不会影响之前元素的存储顺序，因为`Set`只会插入集合中不存在的元素)，如果要对一个有序列表进行去重，则可以使用`LinkedHashSet`，以保持有序列表中的位置：
 
-`LinkedHashSet`内部使用链表结构的哈希表存储，可以保持元素插入的顺序(注意如果插入已存在的元素不会影响之前元素的存储顺序，因为`Set`只会插入集合中不存在的元素)，如果要对一个有序列表进行去重，则可以使用`LinkedHashSet`，以保持有序列表中的位置：
+  ```java
+  Set<String> uniList = new LinkedHashSet<>(sortedList);
+  ```
 
-```java
-Set<String> uniList = new LinkedHashSet<>(sortedList);
-```
+除此之外, `Set`接口下还包含两种特殊用途的实现:
+
+- `EnumSet`  高性能的枚举集
+- `CopyOnWriteArraySet` 一个**写时复制**集, 所有的修改操作都会在内部复制一个新的数组, 避免影响修改前的数组. 在遍历该集合时, 可以无需担心并发修改的影响. 该实现适用于**频繁遍历, 少数修改**的场景, 例如一个不重复的事件处理器列表.
 
 ## `SortedSet`接口
 
@@ -391,6 +398,10 @@ wordSet.subset("a", "b").clear();
 
 - `ArrayList` - 最常用的实现, 内部基于数组实现, 可以提供高效的随机访问与遍历
 - `LinkedLisk` - 内部基于链表结构, 可以提供高效的删除/插入操作
+
+初次之外, 列表的也有一个特殊用途的实现:
+
+- `CopyOnWriteArrayList` 一个**写时复制**列表, 与 CopyOnWriteArraySet 类似, 在遍历该集合时, 无需担心并发修改该集合的影响, 该实现同样适用于**频繁遍历, 少数修改的情况**.
 
 ## `Queue`接口
 
