@@ -482,8 +482,42 @@ boolean containsValue(Object value);
 `Map`接口的基本实现类型及特点:
 
 - `HashMap` - 最常用, 最高效的hash表实现, 键值无序存放
+
 - `TreeMap` - 键有序存放, 内部是红黑树结构
+
 - `LinkedHashMap` - 键值使用双向链表存放, 可以保持键的插入顺序
+
+  LinkedHashMap 中元素的顺序默认使用元素第一次插入的顺序, 不过, 该实现类还提供了一种构造方法用于指定以访问顺序排序:
+
+  ```java
+  public LinkedHashMap(int initialCapacity,
+                           float loadFactor,
+                           boolean accessOrder);
+  ```
+
+  其参数的含义如下:
+
+  - initialCapacity  Map中的初始桶数, 每个桶会存放多个元素, 默认值为 16
+  - loadFactor  填充因子, 用于表示桶中存放元素个数的最大占比, 当占比达到此值时, 会增加新的桶, 重新散列存储元素到各个桶中, 默认为 0.75
+  - accessOrder   元素顺序, 默认为 false, 即为元素插入顺序, 如果设置为true, 则为元素访问顺序
+
+  同时, 该实现类中有一个 removeEldestEntry 方法, 该方法会在每次执行插入操作后调用, 如果该方法返回 true 则会移除最旧的元素, 利用该特性可以将该 Map 作为一个 LRU (Least Recently Used, 最近最少使用) 缓存, 例如实现一个最大容量 100 的 LRU 缓存:
+
+  ```java
+  public class LRUCache<K, V> extends LinkedHashMap<K, V> {
+  
+      @Override
+      protected boolean removeEldestEntry(Map.Entry<K, V> eldest) {
+          return size() > 100;
+      }
+  }
+  ```
+
+此外, Map 接口下还有三种特殊用途的实现:
+
+- EnumMap  以枚举作为键的映射表, 其内部使用数组实现, 拥有同数组相近的性能
+- WeakHashMap 弱引用映射表, 其性能与 HashMap 类似, 该实现的特别之处在于, 当值对应的键不在被外部引用, 则该键值对会在垃圾回收时被回收释放
+- IdentityHashMap 该映射内部的比较不是使用 `equals()` 方法, 而是使用 == , 因此需要只有两个对象内存地址相同, 才会被视为相等
 
 ### 批操作接口
 
