@@ -519,6 +519,11 @@ boolean containsValue(Object value);
 - WeakHashMap 弱引用映射表, 其性能与 HashMap 类似, 该实现的特别之处在于, 当值对应的键不在被外部引用, 则该键值对会在垃圾回收时被回收释放
 - IdentityHashMap 该映射内部的比较不是使用 `equals()` 方法, 而是使用 == , 因此需要只有两个对象内存地址相同, 才会被视为相等
 
+线程安全的实现:
+
+- ConcurrentHashMap  高效的线程安全Map, 特性与 HashMap 类似, 键值无序
+- ConcurrentSkipListMap  有序的线程安全 Map, 元素默认按照**键**的自然顺序排序, 也可指定一个自定义比较器
+
 ### 批操作接口
 
 `Map`中定义了与集合类似的批操作接口:
