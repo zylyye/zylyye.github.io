@@ -423,7 +423,29 @@ wordSet.subset("a", "b").clear();
 
 ### 有界队列
 
-在`java.util`包中的队列实现都是无界的, `java.util.concurrent`包中的实现是有界的, 该包中的存放的都是线程安全的实现.
+在`java.util`包中的队列实现都是无界的, `java.util.concurrent`包中的大部分实现是有界的, 该包中的存放的都是线程安全的实现.
+
+### Queue 基本实现类型
+
+队列的实现类型分为两种: **一般实现类型** 和 **线程安全实现类型**.
+
+**一般实现类型**
+
+常用的实现类如:
+
+- LinkedList  - 一个FIFO(先入先出)的无界队列, 基于链表实现
+- PriorityQueue - 一个优先级队列, 队列的排序顺序可通过构造器指定, 没有则使用自然排序
+
+**线程安全实现类型**
+
+线程安全的实现类都在包 java.util.concurrent 包下, 主要有:
+
+- LinkedBlockingQueue - 有界FIFO阻塞队列, 基于链表实现
+- ArrayBlockingQueue - 有界FIFO阻塞队列, 基于数组实现
+- PriorityBlockingQueue - 无界优先队列
+- DelayQueue - 元素带有过期时间(存放的元素需实现 Delayed接口), 有序队列
+- SynchronousQueue - 一个简单中转同步队列, 不存储元素
+- LinkedTransferQueue - 一个无界传输队列, 生产者调用其中的 `trasfer(E e)`会阻塞, 直到有消费者进行消费
 
 ## `Deque`接口
 
