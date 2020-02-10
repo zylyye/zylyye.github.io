@@ -15,20 +15,20 @@ Java集合框架对常用的算法、数据结构进行了封装，组成了一�
 
 ---
 
-Java集合框架中为不同类型的集合定义了一个接口，并根据这个接口，提供了多种实现，几乎所有的集合接口或类都支持泛型，集合框架中定义了两大基础接口：`Collection`与`Map`
+Java 集合框架中为不同类型的集合定义了一个接口，并根据这个接口，提供了多种实现，几乎所有的集合接口或类都支持泛型，集合框架中定义了两大基础接口：Collection 与 Map
 
-集合框架中所有的集合类都实现自这两个接口，其中`Collection`下包含了一以下几个核心接口：
+集合框架中所有的集合类都实现自这两个接口，其中 Collection 下包含了一以下几个核心接口：
 
-- `Set` - 一个没有重复元素集
-  - `SortedSet` - 有序集
-- `List` - 有序列表
-- `Queue` - 队列
-- `Deque` - 双端队列
+- Set - 一个没有重复元素集
+  - SortedSet - 有序集
+- List - 有序列表
+- Queue - 队列
+- Deque - 双端队列
 
-`Map`中包含了以下核心接口：
+Map 中包含了以下核心接口：
 
-- `Map` - 包含键值对的映射
-  - `SortedMap` - 按照键进行有序存储的映射
+- Map - 包含键值对的映射
+  - SortedMap - 按照键进行有序存储的映射
 
 把功能抽象为接口与实现分离的设计使得这些集合类充分享有多态带来的灵活性，例如常见的：
 
@@ -51,7 +51,7 @@ List<String> strList = new LinkedList<>();
 | `Deque`   |                                                              | [`ArrayDeque`](https://docs.oracle.com/javase/10/docs/api/java/util/ArrayDeque.html) |                                                              | [`LinkedList`](https://docs.oracle.com/javase/10/docs/api/java/util/LinkedList.html) |                                                              |
 | `Map`     | [`HashMap`](https://docs.oracle.com/javase/10/docs/api/java/util/HashMap.html) |                                                              | [`TreeMap`](https://docs.oracle.com/javase/10/docs/api/java/util/TreeMap.html) |                                                              | [`LinkedHashMap`](https://docs.oracle.com/javase/10/docs/api/java/util/LinkedHashMap.html) |
 
-其中`Deque`是双端队列，是`Queue`的子类.
+其中 Deque 是双端队列，是 Queue 的子接口.
 
 ## 抽象集合类
 
@@ -74,21 +74,21 @@ List<String> strList = new LinkedList<>();
 
 ### 可选的方法
 
-集合接口中定义的修改集合的方法不强制子类必须实现以提供支持(例如add, remove, clear)，子类在实现集合接口时，可以根据需要在实现了这些接口的方法中抛出`UnsupportedOperationException`以表示当前的实现类不支持该操作.
+集合接口中定义的修改集合的方法不强制子类必须实现以提供支持(例如 add, remove, clear)，子类在实现集合接口时，可以根据需要在实现了这些接口的方法中抛出 UnsupportedOperationException 以表示当前的实现类不支持该操作.
 
-例如`Arrays.asList()`方法返回的`List`是一个不可修改的列表，调用其`add()`方法时，会抛出`UnsupportedOperationException`异常.
+例如 `Arrays.asList()` 方法返回的 List 是一个不可修改的列表，调用其 `add()` 方法时，会抛出 UnsupportedOperationException 异常.
 
-### `RandomAccess`标记接口
+### RandomAccess 标记接口
 
-集合框架中使用`RandomAccess`接口来标记当前集合类支持高效的随机访问.
+集合框架中使用 RandomAccess 接口来标记当前集合类支持高效的随机访问.
 
-例如`ArrayList`类即有这个接口，因为`ArrayList`内部是使用数组来存储对象的，因此，可以支持使用存储索引来高效随机访问，但是`List`的另一种数据结构的实现`LinkedList`就不能高效的进行随机访问，因为其内部对象的存储基于双向链表结构，要想访问指定索引出的对象，必须对链表中的各个节点进行顺序遍历.
+例如 ArrayList 类即有这个接口，因为 ArrayList 内部是使用数组来存储对象的，因此，可以支持使用存储索引来高效随机访问，但是 List 的另一种数据结构的实现 LinkedList 就不能高效的进行随机访问，因为其内部对象的存储基于双向链表结构，要想访问指定索引出的对象，必须对链表中的各个节点进行顺序遍历.
 
-## `Collection`接口
+## Collection 接口
 
 ---
 
-`Collection`接口是所有集合的基础接口，其中定义了操作集合的基础方法：
+Collection 接口是所有集合的基础接口，其中定义了操作集合的基础方法：
 
 ```java
 // 返回集合的大小
@@ -114,13 +114,13 @@ boolean remove(Object o);
 
 有三种用来遍历集合中元素的方式：
 
-- 使用聚合操作（自Java8起提供的stream流来操作集合）
-- 使用for-each结构语句
+- 使用聚合操作（自 Java 8 起提供的 stream 流来操作集合）
+- 使用 for-each 结构语句
 - 使用迭代器
 
-#### 聚合操作(stream流)
+#### 聚合操作(stream 流)
 
-自Java8起，可以通过stream流来对集合进行聚合操作，`Collection`接口中定义了将集合转换为stream流的方法：
+自 Java 8 起，可以通过 stream 流来对集合进行聚合操作，Collection 接口中定义了将集合转换为 stream 流的方法：
 
 ```java
 // 返回一个stream流
@@ -141,9 +141,9 @@ System.out.println("result = " + result);
 // 
 ```
 
-#### 使用for-each结构语句
+#### 使用 for-each 结构语句
 
-`Collection`实现了`Iterable`接口，对于实现了`Iterable`接口的类，可以使用for-each结构语句对其进行遍历：
+Collection 实现了 Iterable 接口，对于实现了 Iterable 接口的类，可以使用 for-each 结构语句对其进行遍历：
 
 ```java
 // 遍历列表中的字符串并打印
@@ -152,11 +152,11 @@ for (String content : list) {
 }
 ```
 
-`Iterable`中还定义了`forEach()`方法用来对集合进行遍历，不过该方法的内部同样是使用for-each结构语句实现.
+Iterable 中还定义了 `forEach()` 方法用来对集合进行遍历，不过该方法的内部同样是使用 for-each 结构语句实现.
 
 #### 使用迭代器
 
-调用集合中的`iterator()`会返回一个迭代器，迭代器接口`Iterator`中定义了如下的基础方法：
+调用集合中的 `iterator()` 会返回一个迭代器，迭代器接口 Iterator 中定义了如下的基础方法：
 
 ```java
 // 判断是否还有待迭代的元素
@@ -197,13 +197,13 @@ System.out.println("list = " + list);
 // list = [a, b, c]
 ```
 
-**注意与使用stream流进行筛选的方式不同的是，使用迭代器删除会更改原始集合，使用stream流进行筛选不会对原集合产生副作用.**
+**注意与使用 stream 流进行筛选的方式不同的是，使用迭代器删除会更改原始集合，使用 stream 流进行筛选不会对原集合产生副作用.**
 
-默认情况下，迭代器只能向后迭代，不过`List`中可以使用`listIterator()`方法来获取一个列表迭代器，该迭代器支持向前迭代.
+默认情况下，迭代器只能向后迭代，不过 List 中可以使用 `listIterator()` 方法来获取一个列表迭代器，该迭代器支持向前迭代.
 
 ### 批操作方法
 
-`Collection`接口中定义了一些有用的批操作方法接口：
+Collection 接口中定义了一些有用的批操作方法接口：
 
 ```java
 // 判断集合中是否包含指定集合中的全部元素
@@ -225,7 +225,7 @@ boolean retainAll(Collection<?> c);
 void clear();
 ```
 
-例如移除集合中为`null`的元素：
+例如移除集合中为 null 的元素：
 
 ```java
 list.removeAll(Collections.singleton(null));
@@ -251,11 +251,11 @@ Object[] toArray();
 String[] strings = list.toArray(new String[0]);
 ```
 
-## `Set`接口
+## Set 接口
 
 ---
 
-`Set`在是一种不包含重复元素的集合，`Set`并没有在`Collection`的基础上增加新的方法，只是在新增时限制不能插入重复元素，利用该特性，可以为一个集合去重：
+Set 在是一种不包含重复元素的集合，Set 并没有在 Collection 的基础上增加新的方法，只是在新增时限制不能插入重复元素，利用该特性，可以为一个集合去重：
 
 ```java
 Set<String> uniList = new HashSet<>(list);
@@ -263,38 +263,38 @@ Set<String> uniList = new HashSet<>(list);
 Set<String> uniList = list.stream().collect(Collectors.toSet());
 ```
 
-此外`Set`中重写了`equals()`方法，当两个`Set`实例之间进行比较时，只要两者包含相同的元素(即使顺序不同)，则视为相等.
+此外 Set 中重写了 `equals()` 方法，当两个 Set 实例之间进行比较时，只要两者包含相同的元素(即使顺序不同)，则视为相等.
 
 ### 基本实现类型
 
-`Set`接口下主要包含了三种实现：
+Set 接口下主要包含了三种实现：
 
-- `HashSet` - 最常用、性能最佳的实现，内部使用哈希表存储，元素无序
+- HashSet - 最常用、性能最佳的实现，内部使用哈希表存储，元素无序
 
-- `TreeSet` - 使用红黑树结构存储，元素有序存储
+- TreeSet - 使用红黑树结构存储，元素有序存储
 
-  `TreeSet`始终会将元素维持为一个有序的树状结构(红黑树，一种自平衡二叉树)，可以实现高效的有序插入、删除操作.
+  TreeSet 始终会将元素维持为一个有序的树状结构(红黑树，一种自平衡二叉树)，可以实现高效的有序插入、删除操作.
 
-- `LinkedHashSet` - 使用链表结构存储，元素按照插入时的顺序存储
+- LinkedHashSet - 使用链表结构存储，元素按照插入时的顺序存储
 
-  `LinkedHashSet`内部使用链表结构的哈希表存储，可以保持元素插入的顺序(注意如果插入已存在的元素不会影响之前元素的存储顺序，因为`Set`只会插入集合中不存在的元素)，如果要对一个有序列表进行去重，则可以使用`LinkedHashSet`，以保持有序列表中的位置：
+  LinkedHashSet 内部使用链表结构的哈希表存储，可以保持元素插入的顺序(注意如果插入已存在的元素不会影响之前元素的存储顺序，因为 Set 只会插入集合中不存在的元素)，如果要对一个有序列表进行去重，则可以使用 LinkedHashSet，以保持有序列表中的位置：
 
   ```java
   Set<String> uniList = new LinkedHashSet<>(sortedList);
   ```
 
-除此之外, `Set`接口下还包含两种特殊用途的实现:
+除此之外, Set 接口下还包含两种特殊用途的实现:
 
-- `EnumSet`  高性能的枚举集
-- `CopyOnWriteArraySet` 一个**写时复制**集, 所有的修改操作都会在内部复制一个新的数组, 避免影响修改前的数组. 在遍历该集合时, 可以无需担心并发修改的影响. 该实现适用于**频繁遍历, 少数修改**的场景, 例如一个不重复的事件处理器列表.
+- EnumSet - 高性能的枚举集
+- CopyOnWriteArraySet - 一个**写时复制**集, 所有的修改操作都会在内部复制一个新的数组, 避免影响修改前的数组. 在遍历该集合时, 可以无需担心并发修改的影响. 该实现适用于**频繁遍历, 少数修改**的场景, 例如一个不重复的事件处理器列表.
 
-## `SortedSet`接口
+## SortedSet 接口
 
 ---
 
-`SortedSet`是一个有序的集, 该集合中的元素以升序排序, 在创建`SortedSet`对象时, 可以指定一个比较器, 如果不指定比较器, 存储的元素必须实现`Comparable`接口来指定元素的排序规则. SortedSet`构造器可以接收一个集合, 如果这个集合也是`SortedSet的一个实例, 则新建的有序集会沿用之前的比较器, 并将旧集合的元素依照原顺序插入到新集合中.
+SortedSet 是一个有序的集, 该集合中的元素以升序排序, 在创建 SortedSet 对象时, 可以指定一个比较器, 如果不指定比较器, 存储的元素必须实现 Comparable 接口来指定元素的排序规则. SortedSet 构造器可以接收一个集合, 如果这个集合也是 SortedSet 的一个实例, 则新建的有序集会沿用之前的比较器, 并将旧集合的元素依照原顺序插入到新集合中.
 
-`SortedSet`与普通`Set`最显著的区别是其将元素有序存储, 且该集返回的迭代器和`toArray()`返回的数组都可以用来有序遍历. 除此之外, `SortedSet`还增加了几个额外的方法:
+SortedSet 与普通 Set 最显著的区别是其将元素有序存储, 且该集返回的迭代器和 `toArray()` 返回的数组都可以用来有序遍历. 除此之外, SortedSet 还增加了几个额外的方法:
 
 ```java
 // 返回有序集的第一个元素
@@ -334,11 +334,11 @@ wordSet.subset("a", "b").clear();
 
 同样的, 这些特性也能应用在`headSet()`, `tailSet()`上.
 
-## `List`接口
+## List 接口
 
 ---
 
-`List`列表是一种有序集合，与`Set`不同，列表中可以包含重复元素.此外，除了实现了集合中的基本接口外,列表中还额外添加了一些有用的功能方法:
+List 列表是一种有序集合，与 Set 不同，列表中可以包含重复元素. 此外，除了实现了集合中的基本接口外,列表中还额外添加了一些有用的功能方法:
 
 - 位置访问
 
@@ -355,7 +355,7 @@ wordSet.subset("a", "b").clear();
   E remove(int index);
   ```
 
-  `List`有基于数组和基于链表两种数据结构的实现,基于数组的实现可以高效的进行位置访问操作, 如`ArrayList`, 而基于链表的实现, 访问指定索引出的元素时, 需要进行顺序遍历, 因此效率较低, 例如`LinkedList`
+  List有基于数组和基于链表两种数据结构的实现,基于数组的实现可以高效的进行位置访问操作, 如 ArrayList, 而基于链表的实现, 访问指定索引出的元素时, 需要进行顺序遍历, 因此效率较低, 例如 LinkedList
 
 - 位置搜索
 
@@ -386,7 +386,7 @@ wordSet.subset("a", "b").clear();
   List<E> subList(int fromIndex, int toIndex);
   ```
 
-  对`sublist()`方法返回的列表视图进行修改会直接影响到源列表, 由此,可以结合列表的其他方法来简化工作, 例如删除列表中的某个范围内的元素:
+  对 `sublist()` 方法返回的列表视图进行修改会直接影响到源列表, 由此,可以结合列表的其他方法来简化工作, 例如删除列表中的某个范围内的元素:
   
   ```java
   list.subList(1, 5).clear();
@@ -394,20 +394,20 @@ wordSet.subset("a", "b").clear();
   
 ### 基本实现类型
 
-合框架中的`List`有两种基本实现:
+合框架中的 List 有两种基本实现:
 
-- `ArrayList` - 最常用的实现, 内部基于数组实现, 可以提供高效的随机访问与遍历
-- `LinkedLisk` - 内部基于链表结构, 可以提供高效的删除/插入操作
+- ArrayList - 最常用的实现, 内部基于数组实现, 可以提供高效的随机访问与遍历
+- LinkedLisk - 内部基于链表结构, 可以提供高效的删除/插入操作
 
 初次之外, 列表的也有一个特殊用途的实现:
 
-- `CopyOnWriteArrayList` 一个**写时复制**列表, 与 CopyOnWriteArraySet 类似, 在遍历该集合时, 无需担心并发修改该集合的影响, 该实现同样适用于**频繁遍历, 少数修改的情况**.
+- CopyOnWriteArrayList - 一个**写时复制**列表, 与 CopyOnWriteArraySet 类似, 在遍历该集合时, 无需担心并发修改该集合的影响, 该实现同样适用于**频繁遍历, 少数修改的情况**.
 
-## `Queue`接口
+## Queue 接口
 
 ---
 
-`Queue`是一个队列, 用于保存待处理的元素集合, 队列接口在集合的基础上增加了额外的增删/获取方法, 方法作用及特点如下(表中只有`add()`不是新方法):
+Queue 是一个队列, 用于保存待处理的元素集合, 队列接口在集合的基础上增加了额外的增删/获取方法, 方法作用及特点如下(表中只有 `add()` 不是新方法):
 
 |      操作类型      | 失败时方法抛出抛出异常 | 失败时返回特殊值 null/false |
 | :----------------: | :--------------------: | :-------------------------: |
@@ -415,15 +415,15 @@ wordSet.subset("a", "b").clear();
 |  获取并从队列移除  |        remove()        |           poll()            |
 | 获取但不从队列移除 |       element()        |           peek()            |
 
-当队列为空时, 调用获取元素的方法会返回null, 因此, 一般队列的队列的实现中限制了不能存放null(`LinkedList`没有这个限制, 它允许插入null), 
+当队列为空时, 调用获取元素的方法会返回 null, 因此, 一般队列的队列的实现中限制了不能存放 null (`LinkedList` 没有这个限制, 它允许插入 null), 
 
 ### 队列元素的顺序
 
- `Queue`的一般实现都是一个FIFO(first in firt out, 先入先出)对列, 队列新增的元素会放置到队列的末尾, 需要取出元素时, 会从返回队列头部的元素. 不过也有可以指定排序规则的队列, 例如`PriorityQueue`, 创建该队列时, 可以指定一个比较器(Compartor), 这样队列中的元素将按照指定的顺序排序. 
+  Queue 的一般实现都是一个 FIFO(first in firt out, 先入先出)对列, 队列新增的元素会放置到队列的末尾, 需要取出元素时, 会从返回队列头部的元素. 不过也有可以指定排序规则的队列, 例如 PriorityQueue, 创建该队列时, 可以指定一个比较器(Compartor), 这样队列中的元素将按照指定的顺序排序. 
 
 ### 有界队列
 
-在`java.util`包中的队列实现都是无界的, `java.util.concurrent`包中的大部分实现是有界的, 该包中的存放的都是线程安全的实现.
+在 java.util 包中的队列实现都是无界的, java.util.concurrent 包中的大部分实现是有界的, 该包中的存放的都是线程安全的实现.
 
 ### Queue 基本实现类型
 
@@ -440,16 +440,16 @@ wordSet.subset("a", "b").clear();
 
 线程安全的实现类都在包 java.util.concurrent 包下, 主要有:
 
-- LinkedBlockingQueue - 有界FIFO阻塞队列, 基于链表实现
-- ArrayBlockingQueue - 有界FIFO阻塞队列, 基于数组实现
+- LinkedBlockingQueue - 有界 FIFO 阻塞队列, 基于链表实现
+- ArrayBlockingQueue - 有界 FIFO 阻塞队列, 基于数组实现
 - PriorityBlockingQueue - 无界优先队列
-- DelayQueue - 元素带有过期时间(存放的元素需实现 Delayed接口), 有序队列
+- DelayQueue - 元素带有过期时间(存放的元素需实现 Delayed 接口), 有序队列
 - SynchronousQueue - 一个简单中转同步队列, 不存储元素
-- LinkedTransferQueue - 一个无界传输队列, 生产者调用其中的 `trasfer(E e)`会阻塞, 直到有消费者进行消费
+- LinkedTransferQueue - 一个无界传输队列, 生产者调用其中的 `trasfer(E e)` 会阻塞, 直到有消费者进行消费
 
-## `Deque`接口
+## Deque 接口
 
-`Deque`是一个双端队列, 与`Queue`队列不同的是, 双端队列可以在队列的两端进行元素的插入和删除操作, 其提供的操作队列的功能与`Queue`一致, 不过分为操作队首和队尾两个版本:
+Deque 是一个双端队列, 与 Queue 队列不同的是, 双端队列可以在队列的两端进行元素的插入和删除操作, 其提供的操作队列的功能与 Queue 一致, 不过分为操作队首和队尾两个版本:
 
 |             操作             | 失败抛出异常                      | 失败返回false/null              |
 | :--------------------------: | --------------------------------- | ------------------------------- |
@@ -457,25 +457,39 @@ wordSet.subset("a", "b").clear();
 |    获取并从队首或队尾删除    | removeFirst(e)<br />removeLast(e) | pollFirst(e)<br />pollLast(e)   |
 | 获取队首或队尾的元素但不删除 | getFirst()<br />getLast()         | peekFirst()<br />peekLast()     |
 
-除了这些基本的操作队列方法外, `Deque`中还提供了其它有关从队列中移除元素的方法:
+除了这些基本的操作队列方法外, Deque 中还提供了其它有关从队列中移除元素的方法:
 
 ```java
-// 从队列中移除第一个或最后一个出现的指定元素, 如果移除成功则返回true, 否则返回false
+// 从队列中移除第一个或最后一个出现的指定元素, 如果移除成功则返回 true, 否则返回 false
 boolean removeFirstOccurrence(Object o);
 boolean removeLastOccurrence(Object o);
 ```
 
-## `Map`接口
+### Deque 基本实现类型
+
+双端队列的实现类同样分为两类: **一般实现类型**和**线程安全的实现类型**.
+
+**一般实现类型**
+
+- LinkedList - 基于链表结构的双端队列
+- ArrayDeque - 基于数组实现的双端队列, 类似于 ArrayList, 可自动扩容
+
+**线程安全的实现**
+
+- ConcurrentLinkedDeque - 基于链表结构, 无界线程安全队列
+- LinkedBlockingDeque - 可通过构造器指定容量, 基于链表结构, 阻塞队列
+
+## Map`接口
 
 ---
 
-`Map`不是属于集合, 它是一个存放键值对的映射表, 映射表中的键不会重复, 因此同一个键值对, 映射表中最多只会存在一个, 此外, 与队列不同, `Map`中的键值都可为null,  `Map`接口中定义了有关映射表的基础方法:
+Map 不是属于集合, 它是一个存放键值对的映射表, 映射表中的键不会重复, 因此同一个键值对, 映射表中最多只会存在一个, 此外, 与队列不同, Map 中的键值都可为 null, Map 接口中定义了有关映射表的基础方法:
 
 ```java
 // 存放指定键值对
 V put(K key, V value);
 
-// 使用键获取指定的值, 没有则返回null
+// 使用键获取指定的值, 没有则返回 null
 V get(Object key);
 
 // 获取映射表中指定键对应的值, 没有则使用指定的默认值
@@ -497,17 +511,17 @@ boolean containsKey(Object key);
 boolean containsValue(Object value);
 ```
 
-与其他集合类似, `Map`中`equals()`方法的实现可以保证两个包含相等键值对的Map对象比较结果为`true`, 而无需担心Map对象具体的实现类型
+与其他集合类似, Map 中 `equals()` 方法的实现可以保证两个包含相等键值对的 Map 对象比较结果为 true, 而无需担心 Map 对象具体的实现类型
 
-### `Map`的基本实现类型
+### Map 的基本实现类型
 
-`Map`接口的基本实现类型及特点:
+Map接口的基本实现类型及特点:
 
-- `HashMap` - 最常用, 最高效的hash表实现, 键值无序存放
+- HashMap - 最常用, 最高效的 hash 表实现, 键值无序存放
 
-- `TreeMap` - 键有序存放, 内部是红黑树结构
+- TreeMap - 键有序存放, 内部是红黑树结构
 
-- `LinkedHashMap` - 键值使用双向链表存放, 可以保持键的插入顺序
+- LinkedHashMap - 键值使用双向链表存放, 可以保持键的插入顺序
 
   LinkedHashMap 中元素的顺序默认使用元素第一次插入的顺序, 不过, 该实现类还提供了一种构造方法用于指定以访问顺序排序:
 
@@ -519,9 +533,9 @@ boolean containsValue(Object value);
 
   其参数的含义如下:
 
-  - initialCapacity  Map中的初始桶数, 每个桶会存放多个元素, 默认值为 16
-  - loadFactor  填充因子, 用于表示桶中存放元素个数的最大占比, 当占比达到此值时, 会增加新的桶, 重新散列存储元素到各个桶中, 默认为 0.75
-  - accessOrder   元素顺序, 默认为 false, 即为元素插入顺序, 如果设置为true, 则为元素访问顺序
+  - initialCapacity - Map 中的初始桶数, 每个桶会存放多个元素, 默认值为 16
+  - loadFactor - 填充因子, 用于表示桶中存放元素个数的最大占比, 当占比达到此值时, 会增加新的桶, 重新散列存储元素到各个桶中, 默认为 0.75
+  - accessOrder - 元素顺序, 默认为 false, 即为元素插入顺序, 如果设置为 true, 则为元素访问顺序
 
   同时, 该实现类中有一个 removeEldestEntry 方法, 该方法会在每次执行插入操作后调用, 如果该方法返回 true 则会移除最旧的元素, 利用该特性可以将该 Map 作为一个 LRU (Least Recently Used, 最近最少使用) 缓存, 例如实现一个最大容量 100 的 LRU 缓存:
 
@@ -537,18 +551,18 @@ boolean containsValue(Object value);
 
 此外, Map 接口下还有三种特殊用途的实现:
 
-- EnumMap  以枚举作为键的映射表, 其内部使用数组实现, 拥有同数组相近的性能
-- WeakHashMap 弱引用映射表, 其性能与 HashMap 类似, 该实现的特别之处在于, 当值对应的键不在被外部引用, 则该键值对会在垃圾回收时被回收释放
-- IdentityHashMap 该映射内部的比较不是使用 `equals()` 方法, 而是使用 == , 因此需要只有两个对象内存地址相同, 才会被视为相等
+- EnumMap - 以枚举作为键的映射表, 其内部使用数组实现, 拥有同数组相近的性能
+- WeakHashMap - 弱引用映射表, 其性能与 HashMap 类似, 该实现的特别之处在于, 当值对应的键不在被外部引用, 则该键值对会在垃圾回收时被回收释放
+- IdentityHashMap - 该映射内部的比较不是使用 `equals()` 方法, 而是使用 == , 因此需要只有两个对象内存地址相同, 才会被视为相等
 
 线程安全的实现:
 
-- ConcurrentHashMap  高效的线程安全Map, 特性与 HashMap 类似, 键值无序
+- ConcurrentHashMap  高效的线程安全 Map, 特性与 HashMap 类似, 键值无序
 - ConcurrentSkipListMap  有序的线程安全 Map, 元素默认按照**键**的自然顺序排序, 也可指定一个自定义比较器
 
 ### 批操作接口
 
-`Map`中定义了与集合类似的批操作接口:
+Map 中定义了与集合类似的批操作接口:
 
 ```java
 // 复制指定映射表中的所有键值对到当前映射表
@@ -558,7 +572,7 @@ void putAll(Map<? extends K, ? extends V> m);
 void clear();
 ```
 
-`putAll()`方法通常用来合并一个映射表, 如果只是想简单的复制一个映射表, 直接使用构造方法即可:
+`putAll()` 方法通常用来合并一个映射表, 如果只是想简单的复制一个映射表, 直接使用构造方法即可:
 
 ```java
 Map<String> mapCopies = new HashMap(map);
@@ -566,7 +580,7 @@ Map<String> mapCopies = new HashMap(map);
 
 ### 集合视图
 
-`Map`接口中定义了三个与集合视图相关的方法, 分别返回三种视图:
+Map 接口中定义了三个与集合视图相关的方法, 分别返回三种视图:
 
 ```java
 // 返回键的集
@@ -581,7 +595,7 @@ Set<Map.Entry<K, V>> entrySet();
 
 #### 集合视图的巧妙用处
 
-`Map`对象返回的集合视图是可以修改的, 这些修改会直接影响到原有的映射表, 例如:
+Map 对象返回的集合视图是可以修改的, 这些修改会直接影响到原有的映射表, 例如:
 
 - 删除指定的键:
 
@@ -617,7 +631,7 @@ for (Map.Entry<String, Integer> entry : map.entrySet()) {
 }
 ```
 
-**需留意, 调用Map对象获取视图的方法时, Map对象中会缓存创建的视图, 如果多次调用, 返回的将是同一个视图对象, 即:**
+**需留意, 调用 Map 对象获取视图的方法时, Map 对象中会缓存创建的视图, 如果多次调用, 返回的将是同一个视图对象, 即:**
 
 ```java
 map.keySet() == map.keySet(); // true
@@ -625,33 +639,33 @@ map.values() == map.values();  // true
 map.entrySet() == map.entrySet();  // true
 ```
 
-### Stream流的聚合操作
+### Stream 流的聚合操作
 
-Stream流只能用于处理集合, 不能直接处理Map对象, 使用Stream流提供的方法可以将一个集合转换为Map对象, 例如将`Student`对象集合转换为使用`id`作为键的映射表:
+Stream 流只能用于处理集合, 不能直接处理 Map 对象, 使用 Stream 流提供的方法可以将一个集合转换为 Map 对象, 例如将 Student 对象集合转换为使用 id 作为键的映射表:
 
 ```java
 Map<Integer, Student> studentMap = students.stream().collect(Collectors.toMap(Student::getId, Function.identity()));
 ```
 
-按照性别将`Student`对象集合分组:
+按照性别将 Student 对象集合分组:
 
 ```java
 Map<Integer, List<Student>> genderMap = students.stream().collect(Collectors.groupingBy(Student::getGender));
 ```
 
-## `SortedMap` 接口
+## SortedMap 接口
 
 ---
 
-`SortedMap`是有序的映射表, 该接口定义的功能与`SortedSet`类似(`SortedSet`内部就是使用`SortedMap`来存储元素), `SortedMap`对存储的键进行排序, 因此, 在创建`SortedMap`对象时, 可以为键指定一个比较器, 或者键需要实现`Comparable`接口.
+SortedMap 是有序的映射表, 该接口定义的功能与 SortedSet 类似 (SortedSet 内部就是使用 SortedMap 来存储元素),  SortedMap 对存储的键进行排序, 因此, 在创建 SortedMap 对象时, 可以为键指定一个比较器, 或者键需要实现 Comparable 接口.
 
-`SortedMap`很多特性与`SortedSet`相同:
+SortedMap 很多特性与 SortedSet 相同:
 
-- 构造方法如果接收一个`SortedMap`对象, 则会保留该对象的比较规则和元素顺序
+- 构造方法如果接收一个 SortedMap 对象, 则会保留该对象的比较规则和元素顺序
 - 可以进行有序遍历
-- 额外定义了获取端点(EndPoints)和范围视图的方法
+- 额外定义了获取端点 (EndPoints) 和范围视图的方法
 
-其在`Map`接口基础上额外定义的方法如下:
+其在 Map 接口基础上额外定义的方法如下:
 
 ```java
 K firstKey();
