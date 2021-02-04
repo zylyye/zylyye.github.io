@@ -1,6 +1,6 @@
 ---
 title: 变量
-categories: [bash]
+categories: [Bash]
 tags: [linux, bash]
 p: bash/variable
 date: 2021-02-02 15:27:09

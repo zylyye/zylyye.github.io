@@ -1,6 +1,6 @@
 ---
 title: 引号和转义
-categories: [bash]
+categories: [Bash]
 tags: [linux, bash]
 p: bash/quotation
 date: 2021-01-29 18:04:25

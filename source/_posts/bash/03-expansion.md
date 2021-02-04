@@ -1,6 +1,6 @@
 ---
 title: 模式扩展
-categories: [bash]
+categories: [Bash]
 tags: [linux, bash]
 p: bash/expansion
 date: 2021-01-28 17:50:46

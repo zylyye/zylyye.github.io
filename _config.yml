@@ -82,6 +82,7 @@ theme: material-x
 deploy:
   type: git
   repo: git@github.com:zylyye/zylyye.github.io.git
+  branch: main
   
  # Material-x config
  

@@ -1,6 +1,6 @@
 ---
 title: 基本语法
-categories: [bash]
+categories: [Bash]
 tags: [linux, bash]
 p: bash/basic-grammar
 date: 2021-01-27 17:06:00

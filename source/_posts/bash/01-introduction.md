@@ -1,6 +1,6 @@
 ---
 title: 简介
-categories: [bash]
+categories: [Bash]
 tags: [linux, bash]
 p: bash/introduction
 date: 2021-01-27 16:18:30
