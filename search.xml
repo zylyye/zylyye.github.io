@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>字符串操作</title>
+      <link href="/2021/02/04/bash/06-string/"/>
+      <url>/2021/02/04/bash/06-string/</url>
+      
+        <content type="html"><![CDATA[<h2 id="字符串长度"><a href="#字符串长度" class="headerlink" title="字符串长度"></a>字符串长度</h2><hr><p>获取字符串长度：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;#varname&#125;</span><br></pre></td></tr></table></figure><a id="more"></a><h2 id="子字符串"><a href="#子字符串" class="headerlink" title="子字符串"></a>子字符串</h2><hr><p>截取子字符串：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">&#123;varname:offset:length&#125;</span></span><br></pre></td></tr></table></figure><ul><li>offset: 其实索引，从 0 开始，如果为负值则表示从结尾开始，<strong>注意负值必须在负号前增加空格，否则和<code>${name:-value}</code> 冲突</strong>，负值正确写法：<code>${name: -6}</code></li><li>length: 截取的长度，不指定则截取到末尾，length 可以为负，如果为负，则表示排除末尾的字符，如 -2 表示排除结尾 2 个字符</li></ul><p>例如:</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name=zhuyilong</span><br><span class="line">echo $&#123;name:3:6&#125; // yilong</span><br><span class="line">echo $&#123;name:3&#125;// yilong</span><br></pre></td></tr></table></figure><p><strong>该语法不能直接操作字符串</strong>，错误示例：<code>${&quot;zhuyilong&quot;:3:6}</code></p><h2 id="搜索和替换"><a href="#搜索和替换" class="headerlink" title="搜索和替换"></a>搜索和替换</h2><hr><p>Bash 提供的字符串搜索和替换方法：</p><h3 id="字符串头部模式匹配"><a href="#字符串头部模式匹配" class="headerlink" title="字符串头部模式匹配"></a>字符串头部模式匹配</h3><p>从头部开始匹配，返回匹配之外的部分，分为<strong>贪婪匹配</strong>和<strong>非贪婪匹配</strong>两种：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非贪婪匹配，匹配最短部分，返回剩余部分</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var<span class="comment">#pattern&#125;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 贪婪匹配，匹配最长部分，返回剩余部分</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var<span class="comment">##pattern&#125;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 匹配后替换</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var/<span class="comment">#pattern/string&#125;</span></span></span><br></pre></td></tr></table></figure><p>其中的 pattern 可取 <code>*</code>, <code>?</code>, <code>[]</code> 等通配符。</p><h3 id="字符串尾部模式匹配"><a href="#字符串尾部模式匹配" class="headerlink" title="字符串尾部模式匹配"></a>字符串尾部模式匹配</h3><p>从尾部开始匹配，返回剩余的部分：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非贪婪匹配，返回剩余部分</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var%pattern&#125;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 贪婪匹配，返回剩余部分</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var%%pattern&#125;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 替换尾部的内容</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var/%pattern/string&#125;</span></span><br></pre></td></tr></table></figure><h3 id="任意位置匹配"><a href="#任意位置匹配" class="headerlink" title="任意位置匹配"></a>任意位置匹配</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 贪婪匹配替换，仅替换第一个匹配</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var/pattern/string&#125;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 贪婪匹配替换，替换所有的匹配</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var//pattern/string&#125;</span></span><br></pre></td></tr></table></figure><h3 id="改变大小写"><a href="#改变大小写" class="headerlink" title="改变大小写"></a>改变大小写</h3><p>语法：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 转为大写</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var^^&#125;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">转为小写</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var,,&#125;</span></span><br></pre></td></tr></table></figure><hr>]]></content>
+      
+      
+      <categories>
+          
+          <category> Bash </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> bash </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>变量</title>
       <link href="/2021/02/02/bash/05-variable/"/>
       <url>/2021/02/02/bash/05-variable/</url>
@@ -13,7 +40,7 @@
       
       <categories>
           
-          <category> bash </category>
+          <category> Bash </category>
           
       </categories>
       
@@ -40,7 +67,7 @@
       
       <categories>
           
-          <category> bash </category>
+          <category> Bash </category>
           
       </categories>
       
@@ -67,7 +94,7 @@
       
       <categories>
           
-          <category> bash </category>
+          <category> Bash </category>
           
       </categories>
       
@@ -94,7 +121,7 @@
       
       <categories>
           
-          <category> bash </category>
+          <category> Bash </category>
           
       </categories>
       
@@ -121,7 +148,7 @@
       
       <categories>
           
-          <category> bash </category>
+          <category> Bash </category>
           
       </categories>
       

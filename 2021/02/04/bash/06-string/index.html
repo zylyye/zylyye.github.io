@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Category: bash | zylyye - notebook</title>
+  <title>字符串操作 | zylyye - notebook</title>
   
   
 
@@ -48,7 +48,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class='cover  half'>
+    <cover class='cover post half'>
       
         
   <h1 class='title'>zylyye</h1>
@@ -231,33 +231,12 @@
 
   <div class="l_body">
     <div class='body-wrapper'>
-      
-<div class='l_main'>
+      <div class='l_main'>
   
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
+
   
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -266,11 +245,13 @@
     <div class="meta" id="header-meta">
       
         
-  <h2 class="title">
-    <a href="/2021/02/02/bash/05-variable/">
-      变量
-    </a>
-  </h2>
+  
+    <h1 class="title">
+      <a href="/2021/02/04/bash/06-string/">
+        字符串操作
+      </a>
+    </h1>
+  
 
 
       
@@ -296,7 +277,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-02-02</p>
+    <p>2021-02-04</p>
   </a>
 </div>
 
@@ -306,9 +287,9 @@
             
   
   <div class='new-meta-item category'>
-    <a href='/categories/bash/' rel="nofollow">
+    <a href='/categories/Bash/' rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>bash</p>
+      <p>Bash</p>
     </a>
   </div>
 
@@ -317,6 +298,19 @@
         
           
             
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
 
           
         
@@ -333,496 +327,139 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><hr>
-<p>Bash 中有两类变量：</p>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h2 id="字符串长度"><a href="#字符串长度" class="headerlink" title="字符串长度"></a>字符串长度</h2><hr>
+<p>获取字符串长度：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;#varname&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="子字符串"><a href="#子字符串" class="headerlink" title="子字符串"></a>子字符串</h2><hr>
+<p>截取子字符串：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">&#123;varname:offset:length&#125;</span></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li><strong>环境变量</strong></li>
-<li><strong>自定义变量</strong></li>
+<li>offset: 其实索引，从 0 开始，如果为负值则表示从结尾开始，<strong>注意负值必须在负号前增加空格，否则和<code>${name:-value}</code> 冲突</strong>，负值正确写法：<code>${name: -6}</code></li>
+<li>length: 截取的长度，不指定则截取到末尾，length 可以为负，如果为负，则表示排除末尾的字符，如 -2 表示排除结尾 2 个字符</li>
 </ul>
-      
-        <div class="readmore">
-          <a href="/2021/02/02/bash/05-variable/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
+<p>例如:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">name=zhuyilong</span><br><span class="line">echo $&#123;name:3:6&#125; // yilong</span><br><span class="line">echo $&#123;name:3&#125;	// yilong</span><br></pre></td></tr></table></figure>
+
+<p><strong>该语法不能直接操作字符串</strong>，错误示例：<code>${&quot;zhuyilong&quot;:3:6}</code></p>
+<h2 id="搜索和替换"><a href="#搜索和替换" class="headerlink" title="搜索和替换"></a>搜索和替换</h2><hr>
+<p>Bash 提供的字符串搜索和替换方法：</p>
+<h3 id="字符串头部模式匹配"><a href="#字符串头部模式匹配" class="headerlink" title="字符串头部模式匹配"></a>字符串头部模式匹配</h3><p>从头部开始匹配，返回匹配之外的部分，分为<strong>贪婪匹配</strong>和<strong>非贪婪匹配</strong>两种：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非贪婪匹配，匹配最短部分，返回剩余部分</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var<span class="comment">#pattern&#125;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 贪婪匹配，匹配最长部分，返回剩余部分</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var<span class="comment">##pattern&#125;</span></span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 匹配后替换</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var/<span class="comment">#pattern/string&#125;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>其中的 pattern 可取 <code>*</code>, <code>?</code>, <code>[]</code> 等通配符。</p>
+<h3 id="字符串尾部模式匹配"><a href="#字符串尾部模式匹配" class="headerlink" title="字符串尾部模式匹配"></a>字符串尾部模式匹配</h3><p>从尾部开始匹配，返回剩余的部分：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 非贪婪匹配，返回剩余部分</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var%pattern&#125;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 贪婪匹配，返回剩余部分</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var%%pattern&#125;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 替换尾部的内容</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var/%pattern/string&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="任意位置匹配"><a href="#任意位置匹配" class="headerlink" title="任意位置匹配"></a>任意位置匹配</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 贪婪匹配替换，仅替换第一个匹配</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var/pattern/string&#125;</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 贪婪匹配替换，替换所有的匹配</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var//pattern/string&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="改变大小写"><a href="#改变大小写" class="headerlink" title="改变大小写"></a>改变大小写</h3><p>语法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 转为大写</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var^^&#125;</span></span><br><span class="line"><span class="meta">#</span><span class="bash">转为小写</span></span><br><span class="line"><span class="meta">$</span><span class="bash">&#123;var,,&#125;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+
         </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>linux</a>
-        
-          <a href="/tags/bash/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>bash</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2021/01/29/bash/04-quotation/">
-      引号和转义
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
         
           
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="http://zylyye.cn" rel="nofollow">
-      
-        <img src="/assets/images/favicon.ico">
-      
-      <p>zylyye</p>
-    </a>
-  </div>
 
 
-          
+  <section class='meta' id="footer-meta">
+    <hr>
+    <div class='new-meta-box'>
+      
         
-          
-            <div class="new-meta-item date">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-05T17:22:04+08:00">
   <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-01-29</p>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2021年2月5日</p>
   </a>
 </div>
 
-          
         
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/bash/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>bash</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
       
-        <hr>
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>linux</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/bash/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>bash</p></a></div>
+
+
+        
       
     </div>
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><hr>
-<p>Bash 接收的数据都视为字符串类型，遇到特殊含义的字符需要使用反斜杠转义：\</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo \$abc</span><br><span class="line">echo \\</span><br></pre></td></tr></table></figure>
-      
-        <div class="readmore">
-          <a href="/2021/01/29/bash/04-quotation/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
         
-          <a href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>linux</a>
         
-          <a href="/tags/bash/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>bash</a>
+            <div class="prev-next">
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2021/02/02/bash/05-variable/" rel="prev" title="变量">
+                                    
+                                        变量
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/linux/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>linux</a> <a class="tag" href="/tags/bash/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>bash</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
         
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
+      </section>
+    </article>
   
 
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2021/01/28/bash/03-expansion/">
-      模式扩展
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="http://zylyye.cn" rel="nofollow">
-      
-        <img src="/assets/images/favicon.ico">
-      
-      <p>zylyye</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-01-28</p>
-  </a>
-</div>
-
-          
-        
-          
-            
   
-  <div class='new-meta-item category'>
-    <a href='/categories/bash/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>bash</p>
-    </a>
-  </div>
+    <!-- 显示推荐文章和评论 -->
 
 
-          
-        
-          
-            
 
-          
-        
-          
-            
-
-          
-        
-      </div>
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
       
-        <hr>
       
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><hr>
-<p>模式扩展(globbing)，Bash 中提供了八种扩展</p>
-<ul>
-<li>波浪线扩展</li>
-<li><code>?</code> 字符扩展</li>
-<li><code>*</code> 字符扩展</li>
-<li>方括号扩展</li>
-<li>大括号扩展</li>
-<li>变量扩展</li>
-<li>子命令扩展</li>
-<li>算术扩展</li>
-</ul>
       
-        <div class="readmore">
-          <a href="/2021/01/28/bash/03-expansion/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
       
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>linux</a>
-        
-          <a href="/tags/bash/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>bash</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
       
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
+    </section>
+  </article>
 
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2021/01/27/bash/02-grammar/">
-      基本语法
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="http://zylyye.cn" rel="nofollow">
-      
-        <img src="/assets/images/favicon.ico">
-      
-      <p>zylyye</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-01-27</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/bash/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>bash</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h2><hr>
-<p><code>command [arg1 ... [argN]]</code></p>
-<ul>
-<li>命令的参数使用空格隔开</li>
-<li>如果命令过长，可以使用饭斜杠 \ 进行换行</li>
-<li>一行可以放多个命令，多个命令使用分号 (;) 隔开</li>
-<li>命令可以使用逻辑组合 &amp;&amp; 与 ||</li>
-</ul>
-      
-        <div class="readmore">
-          <a href="/2021/01/27/bash/02-grammar/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>linux</a>
-        
-          <a href="/tags/bash/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>bash</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
-  
-
-
-  <section class='meta'>
-    
-    
-    <div class="meta" id="header-meta">
-      
-        
-  <h2 class="title">
-    <a href="/2021/01/27/bash/01-introduction/">
-      简介
-    </a>
-  </h2>
-
-
-      
-      <div class='new-meta-box'>
-        
-          
-        
-          
-            
-  <div class='new-meta-item author'>
-    <a href="http://zylyye.cn" rel="nofollow">
-      
-        <img src="/assets/images/favicon.ico">
-      
-      <p>zylyye</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2021-01-27</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/bash/' rel="nofollow">
-      <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>bash</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-
-          
-        
-          
-            
-
-          
-        
-      </div>
-      
-        <hr>
-      
-    </div>
-  </section>
-
-
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <h2 id="什么是-Shell"><a href="#什么是-Shell" class="headerlink" title="什么是 Shell"></a>什么是 Shell</h2><hr>
-<p> shell 是一个提供命令行环境的程序。</p>
-      
-        <div class="readmore">
-          <a href="/2021/01/27/bash/01-introduction/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>linux</a>
-        
-          <a href="/tags/bash/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>bash</a>
-        
-      </div>
-    
-  </section>
-</article>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
 
   
 
 
-    
-  
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '字符串操作',
+      tools: true
+    }
+  </script>
+
 
 </div>
 <aside class='l_side'>
@@ -888,6 +525,20 @@
           
           
             
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符串长度"><span class="toc-text">字符串长度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#子字符串"><span class="toc-text">子字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#搜索和替换"><span class="toc-text">搜索和替换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串头部模式匹配"><span class="toc-text">字符串头部模式匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串尾部模式匹配"><span class="toc-text">字符串尾部模式匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#任意位置匹配"><span class="toc-text">任意位置匹配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#改变大小写"><span class="toc-text">改变大小写</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
 
           
         
@@ -969,9 +620,9 @@
     <div class='content pure'>
       <ul class="entry">
         
-          <li><a class="flat-box" title="/categories/Java基础/" href="/categories/Java基础/"><div class='name'>Java基础</div><div class='badge'>(11)</div></a></li>
+          <li><a class="flat-box" title="/categories/Bash/" href="/categories/Bash/"><div class='name'>Bash</div><div class='badge'>(6)</div></a></li>
         
-          <li><a class="flat-box" title="/categories/bash/" href="/categories/bash/"><div class='name'>bash</div><div class='badge'>(5)</div></a></li>
+          <li><a class="flat-box" title="/categories/Java基础/" href="/categories/Java基础/"><div class='name'>Java基础</div><div class='badge'>(11)</div></a></li>
         
           <li><a class="flat-box" title="/categories/阅读笔记/" href="/categories/阅读笔记/"><div class='name'>阅读笔记</div><div class='badge'>(3)</div></a></li>
         
@@ -1215,6 +866,23 @@
 
 
 
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "b6f9b746a182fa465877",
+      clientSecret: "470e5a860fdf9d2fec9ce9a9bc6cdbb8ff918e1c",
+      repo: "zylyye.github.io",
+      owner: "zylyye",
+      admin: "zylyye",
+      
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
 
 
 
