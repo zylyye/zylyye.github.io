@@ -252,9 +252,191 @@
         
           
         
+          
+        
       
     
     
+      
+        
+          <div class='post-wrapper'>
+            <article class="post reveal ">
+  
+
+
+  <section class='meta'>
+    
+    
+    <div class="meta" id="header-meta">
+      
+        
+  <h2 class="title">
+    <a href="/2021/02/07/bash/07-arithmetic/">
+      算术运算
+    </a>
+  </h2>
+
+
+      
+      <div class='new-meta-box'>
+        
+          
+        
+          
+            
+  <div class='new-meta-item author'>
+    <a href="http://zylyye.cn" rel="nofollow">
+      
+        <img src="/assets/images/favicon.ico">
+      
+      <p>zylyye</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt" aria-hidden="true"></i>
+    <p>2021-02-07</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/Bash/' rel="nofollow">
+      <i class="fas fa-folder-open" aria-hidden="true"></i>
+      <p>Bash</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+
+          
+        
+          
+            
+
+          
+        
+      </div>
+      
+        <hr>
+      
+    </div>
+  </section>
+
+
+  <section class="article typo">
+    <div class="article-entry" itemprop="articleBody">
+      <h2 id="算术表达式"><a href="#算术表达式" class="headerlink" title="算术表达式"></a>算术表达式</h2><hr>
+<p>算术表达式语法：<code>((...))</code>，在 Bash 中，该表达式只能进行<strong>整数</strong>运算，返回的结果也是<strong>整数</strong>。</p>
+<ul>
+<li>表达式不会返回运算结果的的值，如需取表达式的运算结果，需使用语法：<code>$((...))</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">((1+2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 其中的空格会被忽略</span></span><br><span class="line">((1 + 2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可直接在其中进行变量赋值</span></span><br><span class="line">((sum = 1 + 2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">sum=$((1 + 2))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>((...))</code> 语法支持的运算符如下：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+	// 加</span><br><span class="line">-	// 减</span><br><span class="line">*	// 乘</span><br><span class="line">/	// 除</span><br><span class="line"><span class="meta">%</span><span class="bash">	// 余数</span></span><br><span class="line">**	// 指数</span><br><span class="line">++	// 自增</span><br><span class="line">--	// 自减</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>$(())</code> 内部可以嵌套，也可以增加括号改变运算顺序，<code>((...))</code> 内部不能嵌套</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum=$(((1+2)*3+4))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>$(())</code> 内部的变量前不需要加 <code>$</code>，内部的字符串会当作变量解析</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">varname=sum</span><br><span class="line">echo $(($varname + 1))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">echo $((varname + 1))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">echo $((sum + 1))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>旧的语法： <code>$[...]</code></li>
+</ul>
+<h2 id="数值进制"><a href="#数值进制" class="headerlink" title="数值进制"></a>数值进制</h2><hr>
+<p>Bash 中数字默认为是十进制，可以使用特定语法表示其它进制：</p>
+<ul>
+<li><code>num</code>: 十进制</li>
+<li><code>0num</code>: 八进制</li>
+<li><code>0xnum</code>: 十六进制</li>
+<li><code>base#num</code>: 任意指定进制， base 表示进制的数，例如 2进制：<code>2#101</code></li>
+</ul>
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><hr>
+<p><code>$((...))</code> 支持二进制位运算， <code>((...))</code> 也同样支持：</p>
+<ul>
+<li><code>&lt;&lt;</code>: 位左移</li>
+<li><code>&gt;&gt;</code>：位右移</li>
+<li><code>&amp;</code>： 与 运算</li>
+<li><code>|</code>： 或 运算</li>
+<li><code>~</code>: 否 运算</li>
+<li><code>^</code>：异或 运算</li>
+</ul>
+<h2 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h2><hr>
+<p><code>$((...))</code>， <code>((...))</code> 支持以的逻辑运算符，逻辑运算 true 返回 1, false 返回 0：</p>
+<ul>
+<li><p><code>&lt;</code> : 小于</p>
+</li>
+<li><p><code>&gt;</code> : 大于</p>
+</li>
+<li><p><code>&lt;=</code> : 小于等于</p>
+</li>
+<li><p><code>&gt;=</code> : 大于等于</p>
+</li>
+<li><p><code>==</code> ： 等于</p>
+</li>
+<li><p><code>!=</code> : 不等于</p>
+</li>
+<li><p><code>&amp;&amp;</code> : 逻辑与</p>
+</li>
+<li><p><code>||</code> : 逻辑或</p>
+</li>
+<li><p><code>!</code> : 逻辑否</p>
+</li>
+<li><p><code>expr1? expr2 : expr3</code> : 三元运算</p>
+</li>
+</ul>
+<h2 id="赋值运算"><a href="#赋值运算" class="headerlink" title="赋值运算"></a>赋值运算</h2><hr>
+<p><code>((...))</code>, <code>$((...))</code>中支持的赋值运算：<code>+=</code>,  <code>-=</code>,  <code>*=</code>, <code>/=</code>, <code>%=</code>, <code>&lt;&lt;=</code>, <code>&gt;&gt;=</code>, <code>&amp;=</code>, <code>|=</code>, <code>^=</code>.</p>
+<h2 id="求值运算"><a href="#求值运算" class="headerlink" title="求值运算"></a>求值运算</h2><hr>
+<p><code>$((...))</code>中的运算可以使用逗号 <code>,</code> 隔开，这个逗号叫做<strong>求值运算符</strong>，使用求值运算符分隔的运算，会先顺序执行，然后返回<strong>最后一个运算的结果</strong>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $((1 + 2, 3 +  4)) // 7</span><br></pre></td></tr></table></figure>
+
+<h2 id="expr-命令"><a href="#expr-命令" class="headerlink" title="expr 命令"></a>expr 命令</h2><hr>
+<p>使用 <code>expr</code> 命令可以直接进行<strong>整数</strong>算术运算，<strong>注意算术中数字与算术符号要用空格隔开</strong>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expr 1 + 2</span><br></pre></td></tr></table></figure>
+
+<h2 id="let-命令"><a href="#let-命令" class="headerlink" title="let 命令"></a>let 命令</h2><hr>
+<p>let 命令用于将算术运算结果赋值给一个变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let a=1+2</span><br><span class="line"><span class="meta">#</span><span class="bash"> 加空格</span></span><br><span class="line">let "a = 1 + 2"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 多个</span></span><br><span class="line">let "a = 1 + 2" "b = a + 1"</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+      <div class="full-width auto-padding tags">
+        
+          <a href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>linux</a>
+        
+          <a href="/tags/bash/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>bash</a>
+        
+      </div>
+    
+  </section>
+</article>
+
+          </div>
+        
       
         
           <div class='post-wrapper'>
@@ -1078,7 +1260,7 @@
     <div class='content pure'>
       <ul class="entry">
         
-          <li><a class="flat-box" title="/categories/Bash/" href="/categories/Bash/"><div class='name'>Bash</div><div class='badge'>(6)</div></a></li>
+          <li><a class="flat-box" title="/categories/Bash/" href="/categories/Bash/"><div class='name'>Bash</div><div class='badge'>(7)</div></a></li>
         
           <li><a class="flat-box" title="/categories/Java基础/" href="/categories/Java基础/"><div class='name'>Java基础</div><div class='badge'>(11)</div></a></li>
         

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   
-  <title>Archives: 2019/7 | zylyye - notebook</title>
+  <title>算术运算 | zylyye - notebook</title>
   
   
 
@@ -48,7 +48,7 @@
   
   
   <div class="cover-wrapper">
-    <cover class='cover  half'>
+    <cover class='cover post half'>
       
         
   <h1 class='title'>zylyye</h1>
@@ -232,22 +232,11 @@
   <div class="l_body">
     <div class='body-wrapper'>
       <div class='l_main'>
-	
-		
-  <section class="post-list">
-    
-      
-        
-          
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <article class="post reveal ">
   
+
+  
+    <article id="post" class="post white-box article-type-post" itemscope itemprop="blogPost">
+      
 
 
   <section class='meta'>
@@ -256,11 +245,13 @@
     <div class="meta" id="header-meta">
       
         
-  <h2 class="title">
-    <a href="/2019/07/27/java-base/java-collections-framework/">
-      Java集合框架
-    </a>
-  </h2>
+  
+    <h1 class="title">
+      <a href="/2021/02/07/bash/07-arithmetic/">
+        算术运算
+      </a>
+    </h1>
+  
 
 
       
@@ -286,7 +277,7 @@
             <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-    <p>2019-07-27</p>
+    <p>2021-02-07</p>
   </a>
 </div>
 
@@ -296,9 +287,9 @@
             
   
   <div class='new-meta-item category'>
-    <a href='/categories/Java基础/' rel="nofollow">
+    <a href='/categories/Bash/' rel="nofollow">
       <i class="fas fa-folder-open" aria-hidden="true"></i>
-      <p>Java基础</p>
+      <p>Bash</p>
     </a>
   </div>
 
@@ -307,6 +298,19 @@
         
           
             
+  
+    <div class="new-meta-item browse busuanzi">
+      <a class='notlink'>
+        <i class="fas fa-eye" aria-hidden="true"></i>
+        <p>
+          <span id="busuanzi_value_page_pv">
+            <i class="fas fa-spinner fa-spin fa-fw" aria-hidden="true"></i>
+          </span>
+        </p>
+      </a>
+    </div>
+  
+
 
           
         
@@ -323,45 +327,188 @@
   </section>
 
 
-  <section class="article typo">
-    <div class="article-entry" itemprop="articleBody">
-      <p>Java集合框架对常用的算法、数据结构进行了封装，组成了一套可以用于多种处理对象集合场景的框架.</p>
-      
-        <div class="readmore">
-          <a href="/2019/07/27/java-base/java-collections-framework/" class="flat-box">
-            <i class="fas fa-book-open fa-fw" aria-hidden="true"></i>
-            阅读全文
-          </a>
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          <h2 id="算术表达式"><a href="#算术表达式" class="headerlink" title="算术表达式"></a>算术表达式</h2><hr>
+<p>算术表达式语法：<code>((...))</code>，在 Bash 中，该表达式只能进行<strong>整数</strong>运算，返回的结果也是<strong>整数</strong>。</p>
+<ul>
+<li>表达式不会返回运算结果的的值，如需取表达式的运算结果，需使用语法：<code>$((...))</code></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">((1+2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 其中的空格会被忽略</span></span><br><span class="line">((1 + 2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可直接在其中进行变量赋值</span></span><br><span class="line">((sum = 1 + 2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">sum=$((1 + 2))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>((...))</code> 语法支持的运算符如下：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+	// 加</span><br><span class="line">-	// 减</span><br><span class="line">*	// 乘</span><br><span class="line">/	// 除</span><br><span class="line"><span class="meta">%</span><span class="bash">	// 余数</span></span><br><span class="line">**	// 指数</span><br><span class="line">++	// 自增</span><br><span class="line">--	// 自减</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>$(())</code> 内部可以嵌套，也可以增加括号改变运算顺序，<code>((...))</code> 内部不能嵌套</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum=$(((1+2)*3+4))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>$(())</code> 内部的变量前不需要加 <code>$</code>，内部的字符串会当作变量解析</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">varname=sum</span><br><span class="line">echo $(($varname + 1))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">echo $((varname + 1))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">echo $((sum + 1))</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>旧的语法： <code>$[...]</code></li>
+</ul>
+<h2 id="数值进制"><a href="#数值进制" class="headerlink" title="数值进制"></a>数值进制</h2><hr>
+<p>Bash 中数字默认为是十进制，可以使用特定语法表示其它进制：</p>
+<ul>
+<li><code>num</code>: 十进制</li>
+<li><code>0num</code>: 八进制</li>
+<li><code>0xnum</code>: 十六进制</li>
+<li><code>base#num</code>: 任意指定进制， base 表示进制的数，例如 2进制：<code>2#101</code></li>
+</ul>
+<h2 id="位运算"><a href="#位运算" class="headerlink" title="位运算"></a>位运算</h2><hr>
+<p><code>$((...))</code> 支持二进制位运算， <code>((...))</code> 也同样支持：</p>
+<ul>
+<li><code>&lt;&lt;</code>: 位左移</li>
+<li><code>&gt;&gt;</code>：位右移</li>
+<li><code>&amp;</code>： 与 运算</li>
+<li><code>|</code>： 或 运算</li>
+<li><code>~</code>: 否 运算</li>
+<li><code>^</code>：异或 运算</li>
+</ul>
+<h2 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h2><hr>
+<p><code>$((...))</code>， <code>((...))</code> 支持以的逻辑运算符，逻辑运算 true 返回 1, false 返回 0：</p>
+<ul>
+<li><p><code>&lt;</code> : 小于</p>
+</li>
+<li><p><code>&gt;</code> : 大于</p>
+</li>
+<li><p><code>&lt;=</code> : 小于等于</p>
+</li>
+<li><p><code>&gt;=</code> : 大于等于</p>
+</li>
+<li><p><code>==</code> ： 等于</p>
+</li>
+<li><p><code>!=</code> : 不等于</p>
+</li>
+<li><p><code>&amp;&amp;</code> : 逻辑与</p>
+</li>
+<li><p><code>||</code> : 逻辑或</p>
+</li>
+<li><p><code>!</code> : 逻辑否</p>
+</li>
+<li><p><code>expr1? expr2 : expr3</code> : 三元运算</p>
+</li>
+</ul>
+<h2 id="赋值运算"><a href="#赋值运算" class="headerlink" title="赋值运算"></a>赋值运算</h2><hr>
+<p><code>((...))</code>, <code>$((...))</code>中支持的赋值运算：<code>+=</code>,  <code>-=</code>,  <code>*=</code>, <code>/=</code>, <code>%=</code>, <code>&lt;&lt;=</code>, <code>&gt;&gt;=</code>, <code>&amp;=</code>, <code>|=</code>, <code>^=</code>.</p>
+<h2 id="求值运算"><a href="#求值运算" class="headerlink" title="求值运算"></a>求值运算</h2><hr>
+<p><code>$((...))</code>中的运算可以使用逗号 <code>,</code> 隔开，这个逗号叫做<strong>求值运算符</strong>，使用求值运算符分隔的运算，会先顺序执行，然后返回<strong>最后一个运算的结果</strong>。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $((1 + 2, 3 +  4)) // 7</span><br></pre></td></tr></table></figure>
+
+<h2 id="expr-命令"><a href="#expr-命令" class="headerlink" title="expr 命令"></a>expr 命令</h2><hr>
+<p>使用 <code>expr</code> 命令可以直接进行<strong>整数</strong>算术运算，<strong>注意算术中数字与算术符号要用空格隔开</strong>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expr 1 + 2</span><br></pre></td></tr></table></figure>
+
+<h2 id="let-命令"><a href="#let-命令" class="headerlink" title="let 命令"></a>let 命令</h2><hr>
+<p>let 命令用于将算术运算结果赋值给一个变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let a=1+2</span><br><span class="line"><span class="meta">#</span><span class="bash"> 加空格</span></span><br><span class="line">let "a = 1 + 2"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 多个</span></span><br><span class="line">let "a = 1 + 2" "b = a + 1"</span><br></pre></td></tr></table></figure>
+
+
         </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <hr>
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-07T16:08:30+08:00">
+  <a class='notlink'>
+    <i class="fas fa-clock" aria-hidden="true"></i>
+    <p>最后更新于 2021年2月7日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>linux</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/bash/" rel="nofollow"><i class="fas fa-hashtag" aria-hidden="true"></i>&nbsp;<p>bash</p></a></div>
+
+
+        
       
     </div>
-    
-      <div class="full-width auto-padding tags">
-        
-          <a href="/tags/Java/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>Java</a>
-        
-          <a href="/tags/集合框架/" rel="nofollow"><i class="fas fa-hashtag fa-fw"></i>集合框架</a>
-        
-      </div>
-    
   </section>
-</article>
 
-          </div>
+
         
+        
+            <div class="prev-next">
+                
+                
+                    <section class="next">
+                        <span class="art-item-right" aria-hidden="true">
+                            <h6>下一页&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i></h6>
+                            <h4>
+                                <a href="/2021/02/04/bash/06-string/" rel="prev" title="字符串操作">
+                                    
+                                        字符串操作
+                                    
+                                </a>
+                            </h4>
+                            
+                                
+                                <h6 class="tags">
+                                    <a class="tag" href="/tags/linux/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>linux</a> <a class="tag" href="/tags/bash/"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i>bash</a>
+                                </h6>
+                            
+                        </span>
+                    </section>
+                
+            </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box comments">
+    <section class="article typo">
+      <h4><i class="fas fa-comments fa-fw" aria-hidden="true"></i>&nbsp;评论</h4>
       
-    
-  </section>
-  
-    
-    <!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-    
-    
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+    </section>
+  </article>
+
 
   
 
 
-	
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '算术运算',
+      tools: true
+    }
+  </script>
+
+
 </div>
 <aside class='l_side'>
   
@@ -426,6 +573,20 @@
           
           
             
+  <section class='widget toc-wrapper'>
+    
+<header class='pure'>
+  <div><i class="fas fa-list fa-fw" aria-hidden="true"></i>&nbsp;&nbsp;本文目录</div>
+  
+    <div class='wrapper'><a class="s-toc rightBtn" rel="external nofollow noopener noreferrer" href="javascript:void(0)"><i class="fas fa-thumbtack fa-fw"></i></a></div>
+  
+</header>
+
+    <div class='content pure'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#算术表达式"><span class="toc-text">算术表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数值进制"><span class="toc-text">数值进制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位运算"><span class="toc-text">位运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逻辑运算"><span class="toc-text">逻辑运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#赋值运算"><span class="toc-text">赋值运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#求值运算"><span class="toc-text">求值运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#expr-命令"><span class="toc-text">expr 命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#let-命令"><span class="toc-text">let 命令</span></a></li></ol>
+    </div>
+  </section>
+
 
           
         
@@ -669,14 +830,6 @@
  
 
 
-
-
-	<!-- 根据主题中的设置决定是否在archive中针对摘要部分的MathJax公式加载mathjax.js文件 -->
-	
-
-	
-
-
       <script>setLoadingBarProgress(60);</script>
     </div>
     <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
@@ -761,6 +914,23 @@
 
 
 
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "b6f9b746a182fa465877",
+      clientSecret: "470e5a860fdf9d2fec9ce9a9bc6cdbb8ff918e1c",
+      repo: "zylyye.github.io",
+      owner: "zylyye",
+      admin: "zylyye",
+      
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
 
 
 
