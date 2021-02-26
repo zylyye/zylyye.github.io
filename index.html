@@ -233,10 +233,16 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2021-02-24 21:01:46 / 修改时间：21:52:22" itemprop="dateCreated datePublished" datetime="2021-02-24T21:01:46+08:00">2021-02-24</time>
+      <time title="创建时间：2021-02-24 21:01:46" itemprop="dateCreated datePublished" datetime="2021-02-24T21:01:46+08:00">2021-02-24</time>
     </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-02-26 10:42:43" itemprop="dateModified" datetime="2021-02-26T10:42:43+08:00">2021-02-26</time>
+      </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-folder"></i>
@@ -261,31 +267,14 @@
 <p>Bash 中提供了操作目录堆栈的命令。</p>
 <h2 id="cd"><a href="#cd" class="headerlink" title="cd -"></a>cd -</h2><hr>
 <p><code>cd -</code> 可以返回用户上次所在的目录。</p>
-<h2 id="pushd，-popd"><a href="#pushd，-popd" class="headerlink" title="pushd， popd"></a>pushd， popd</h2><hr>
-<ul>
-<li><code>pushd dirname</code>在进入目录的同时，会将当前目录放入堆栈中：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pushd /a</span><br><span class="line">pushd /b</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>popd</code>  命令不带参数时，会进入并移除栈顶目录</li>
-<li><code>popd -n</code>  删除栈顶目录，不改变目录</li>
-<li><code>popd</code> 和 <code>pushd</code> 可以接收整数参数，操作从栈顶（0）算起的目录，不会切换目录</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 从栈顶算起的 3 号移动到栈顶</span></span><br><span class="line">pushd +3</span><br><span class="line"><span class="meta">#</span><span class="bash"> 从栈底算起的 3 号移动到栈顶</span></span><br><span class="line">pushd -3</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除从栈顶算起的 3 号目录</span></span><br><span class="line">popd +3</span><br><span class="line"><span class="meta">#</span><span class="bash"> 删除从栈底算起的 3 号目录</span></span><br><span class="line">popd -3</span><br></pre></td></tr></table></figure>
-
-<h2 id="dirs"><a href="#dirs" class="headerlink" title="dirs"></a>dirs</h2><hr>
-<p>dirs 可以显示目录堆栈的内容，不加参数会打印使用空格隔开的目录栈，参数如下：</p>
-<ul>
-<li>-c ： 清空堆栈</li>
-<li>-l ：用户目录显示完整路径而不是<code>~</code></li>
-<li>-p ：打印目录栈，每行一个</li>
-<li>-v ： 打印目录栈，每行前都有位置编号，从 0 开始</li>
-<li>+num ： 显示栈顶算起的第 num 个目录</li>
-<li>-num ： 显示栈底算起的第 num 个目录</li>
-</ul>
-<hr>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/02/24/bash/09-stack/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
