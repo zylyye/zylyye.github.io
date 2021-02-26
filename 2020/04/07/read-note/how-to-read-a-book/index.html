@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/function%20()%20%7B%0A%20%20%20%20%20%20for%20(var%20_len2%20=%20arguments.length,%20args%20=%20new%20Array(_len2),%20_key2%20=%200;%20_key2%20%3C%20_len2;%20_key2++)%20%7B%0A%20%20%20%20%20%20%20%20args%5B_key2%5D%20=%20arguments%5B_key2%5D;%0A%20%20%20%20%20%20%7D%0A%0A%20%20%20%20%20%20return%20obj%5Bval%5D.apply(obj,%20args);%0A%20%20%20%20%7D">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zylyye.cn","root":"/","images":"/images","scheme":"Gemini","version":"8.2.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
+  </script>
+<meta name="description" content="我是出于何种目的阅读 为获取资讯（碎片化阅读，例如浏览新闻，朋友圈动态等） 为增进对某个领域的理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何阅读一本书">
+<meta property="og:url" content="http://zylyye.cn/2020/04/07/read-note/how-to-read-a-book/index.html">
+<meta property="og:site_name" content="zylyye - notebook">
+<meta property="og:description" content="我是出于何种目的阅读 为获取资讯（碎片化阅读，例如浏览新闻，朋友圈动态等） 为增进对某个领域的理解">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-07T01:11:19.000Z">
+<meta property="article:modified_time" content="2021-02-19T14:26:58.218Z">
+<meta property="article:author" content="zylyye">
+<meta property="article:tag" content="阅读">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://zylyye.cn/2020/04/07/read-note/how-to-read-a-book/">
+
+
+<script class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<title>如何阅读一本书 | zylyye - notebook</title>
+  
+
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="zylyye - notebook" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">zylyye - notebook</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E6%98%AF%E5%87%BA%E4%BA%8E%E4%BD%95%E7%A7%8D%E7%9B%AE%E7%9A%84%E9%98%85%E8%AF%BB"><span class="nav-number">1.</span> <span class="nav-text">我是出于何种目的阅读</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E8%AF%A5%E6%80%8E%E4%B9%88%E5%81%9A"><span class="nav-number">2.</span> <span class="nav-text">我该怎么做</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E9%98%85%E8%AF%BB"><span class="nav-number">2.1.</span> <span class="nav-text">基础阅读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A3%80%E8%A7%86%E9%98%85%E8%AF%BB"><span class="nav-number">2.2.</span> <span class="nav-text">检视阅读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E9%98%85%E8%AF%BB"><span class="nav-number">2.3.</span> <span class="nav-text">分析阅读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E9%A2%98%E9%98%85%E8%AF%BB%EF%BC%88%E9%92%88%E5%AF%B9%E4%B8%8D%E5%90%8C%E4%B9%A6%E6%9C%AC%E7%9A%84%E7%9B%B8%E5%90%8C%E4%B8%BB%E9%A2%98%EF%BC%89"><span class="nav-number">2.4.</span> <span class="nav-text">主题阅读（针对不同书本的相同主题）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">3.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zylyye</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://zylyye.cn/2020/04/07/read-note/how-to-read-a-book/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zylyye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zylyye - notebook">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何阅读一本书
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-04-07 09:11:19" itemprop="dateCreated datePublished" datetime="2020-04-07T09:11:19+08:00">2020-04-07</time>
+    </span>
+      <span class="post-meta-item">
+        <span class="post-meta-item-icon">
+          <i class="far fa-calendar-check"></i>
+        </span>
+        <span class="post-meta-item-text">更新于</span>
+        <time title="修改时间：2021-02-19 22:26:58" itemprop="dateModified" datetime="2021-02-19T22:26:58+08:00">2021-02-19</time>
+      </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">阅读笔记</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="我是出于何种目的阅读"><a href="#我是出于何种目的阅读" class="headerlink" title="我是出于何种目的阅读"></a>我是出于何种目的阅读</h2><ul>
+<li>为获取资讯（碎片化阅读，例如浏览新闻，朋友圈动态等）</li>
+<li>为增进对某个领域的理解</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="我该怎么做"><a href="#我该怎么做" class="headerlink" title="我该怎么做"></a>我该怎么做</h2><h3 id="基础阅读"><a href="#基础阅读" class="headerlink" title="基础阅读"></a>基础阅读</h3><ul>
+<li>理解语句的意思</li>
+</ul>
+<h3 id="检视阅读"><a href="#检视阅读" class="headerlink" title="检视阅读"></a>检视阅读</h3><ul>
+<li>概览书的内容：序言、目录、感兴趣的章节及段落</li>
+<li>粗读整书的内容，暂时略过不懂的地方</li>
+</ul>
+<h3 id="分析阅读"><a href="#分析阅读" class="headerlink" title="分析阅读"></a>分析阅读</h3><ul>
+<li><p>带着基本问题阅读</p>
+<ul>
+<li>这本书整体上说了些什么</li>
+<li>整本书在细部说了什么</li>
+<li>这本书说的对吗</li>
+<li>这本书与我们有何关联</li>
+</ul>
+</li>
+<li><p>输出理解的内容</p>
+<ul>
+<li>结构笔记</li>
+<li>概念笔记（书中的观点及自己的理解）</li>
+<li>辩证笔记</li>
+</ul>
+</li>
+<li><p>规则</p>
+<ul>
+<li>将书籍分类（明白书籍要讲述哪个领域的知识）</li>
+<li>概括书籍（大体了解书籍要讲述哪些内容）</li>
+<li>了解内容的整体结构</li>
+<li>找出作者在问或想要回答的问题</li>
+<li>保持同频道（对于使用到的关键字、专业术语及主题，确保自己正在理解的与作者所讨论的含义一致）</li>
+<li>找出作者的观点及陈述的理由</li>
+<li>找出作者的解答</li>
+<li>做一个有修养的读者，以尊重的态度耐心听作者叙述完</li>
+<li>做出理性的评价，反驳前准备好充分的理论依据</li>
+</ul>
+</li>
+</ul>
+<h3 id="主题阅读（针对不同书本的相同主题）"><a href="#主题阅读（针对不同书本的相同主题）" class="headerlink" title="主题阅读（针对不同书本的相同主题）"></a>主题阅读（针对不同书本的相同主题）</h3><ul>
+<li>根据主题挑选内容</li>
+<li>寻找作者们的共识</li>
+<li>提出问题，寻求作者的解答</li>
+<li>细化问题，寻求不同的观点解答</li>
+<li>对不同的观点进行分析、总结</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><hr>
+<ul>
+<li> [美] 莫提默·J. 艾德勒 / 查尔斯·范多伦《如何阅读一本书》</li>
+<li> <a href="https://zhuanlan.zhihu.com/p/23241617">https://zhuanlan.zhihu.com/p/23241617</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%98%85%E8%AF%BB/" rel="tag"># 阅读</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/03/15/java-base/java-jar/" rel="prev" title="JAR包">
+                  <i class="fa fa-chevron-left"></i> JAR包
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/04/08/read-note/how-to-meke-your-front-end-look-better/" rel="next" title="How to make your front end projects look better">
+                  How to make your front end projects look better <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zylyye</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
