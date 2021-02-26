@@ -4,7 +4,7 @@
 
 # Site
 title: zylyye - notebook
-subtitle: 热爱可抵岁月漫长
+subtitle: 
 description:
 keywords:
 author: zylyye
@@ -75,7 +75,8 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: material-x
+## theme: material-x
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -110,3 +111,4 @@ mermaid: ## mermaid url https://github.com/knsv/mermaid
   version: "8.3.1" # default v7.1.2
   options:  # find more api options from https://github.com/knsv/mermaid/blob/master/src/mermaidAPI.js
   #startOnload: true  // default true
+
