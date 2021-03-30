@@ -6,7 +6,7 @@
   <link href="http://zylyye.cn/atom.xml" rel="self"/>
   
   <link href="http://zylyye.cn/"/>
-  <updated>2021-03-24T14:52:33.255Z</updated>
+  <updated>2021-03-30T14:42:26.017Z</updated>
   <id>http://zylyye.cn/</id>
   
   <author>
@@ -17,21 +17,41 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Bash 启动环境</title>
+    <link href="http://zylyye.cn/2021/03/30/bash/18-startup/"/>
+    <id>http://zylyye.cn/2021/03/30/bash/18-startup/</id>
+    <published>2021-03-30T12:29:30.000Z</published>
+    <updated>2021-03-30T14:42:26.017Z</updated>
+    
+    <content type="html"><![CDATA[<hr><p>Bash 启动时会通过脚本来初始化环境，有关的启动初始化脚本有两种：1. profile 2. bashrc 。</p><span id="more"></span><h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Bash 启动时会新建会话 (session)，会话分为两种：</p><ol><li>登录 session</li><li>非登录 session</li></ol><p>启动使用的初始化脚本与 session 类型有关。</p><h3 id="登录-session"><a href="#登录-session" class="headerlink" title="登录 session"></a>登录 session</h3><p>用户登录系统新建的 session 是登录 session，此时 Bash 初始化脚本 profile，其初始化顺序如下：</p><ol><li>/etc/profile  全局脚本，所有用户登录时都会执行</li><li>/etc/profile.d 下的脚本，一般以 <code>.sh</code> 结尾，全局脚本，<strong>通常自定义的初始化脚本放在这里</strong></li><li>~/.bash_profile  用户的个人配置脚本。<strong>该脚本存在，则不再往下执行。</strong></li><li>~/.bash_login  如果 ~/.bash_login 不存在，执行该脚本。<strong>该脚本存在则不再往下执行。</strong></li><li>~/.profile 最后一个尝试执行的脚本</li></ol><p>bash 命令可以使用 <code>--login</code> 选项执行 profile 脚本。</p><h3 id="非登录-session"><a href="#非登录-session" class="headerlink" title="非登录 session"></a>非登录 session</h3><p>用户登录后，手动打开 Bash 新建的 session 是非登录 session，非登录 session 使用 bashrc 会使用 bashrc 进行脚本初始化，顺序如下：</p><ol><li>/etc/bash.bashrc  全局有效</li><li>~/.bashrc  只对当前登录用户有效</li></ol><h2 id="bash-logout"><a href="#bash-logout" class="headerlink" title=".bash_logout"></a>.bash_logout</h2><p>Bash 退出时会执行 ~/.bash_logout 脚本</p><h2 id="键盘绑定"><a href="#键盘绑定" class="headerlink" title="键盘绑定"></a>键盘绑定</h2><p>可以在 /etc/inputrc 和 ~/.inputrc 文件里定义快捷键：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> Ctrl + t 触发 <span class="built_in">pwd</span> 命令</span></span><br><span class="line">&quot;\C-t&quot;:&quot;pwd\n&quot;</span><br></pre></td></tr></table></figure><hr>]]></content>
+    
+    
+    <summary type="html">&lt;hr&gt;
+&lt;p&gt;Bash 启动时会通过脚本来初始化环境，有关的启动初始化脚本有两种：1. profile 2. bashrc 。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="Bash" scheme="http://zylyye.cn/categories/Bash/"/>
+    
+    
+    <category term="linux" scheme="http://zylyye.cn/tags/linux/"/>
+    
+    <category term="bash" scheme="http://zylyye.cn/tags/bash/"/>
+    
+  </entry>
+  
+  <entry>
     <title>mktemp 与 trap</title>
     <link href="http://zylyye.cn/2021/03/24/bash/17-mktemp/"/>
     <id>http://zylyye.cn/2021/03/24/bash/17-mktemp/</id>
     <published>2021-03-24T14:29:47.000Z</published>
-    <updated>2021-03-24T14:52:33.255Z</updated>
+    <updated>2021-03-24T15:46:33.599Z</updated>
     
-    <content type="html"><![CDATA[<hr><p>mktemp 命令可以创建临时文件或文件夹，trap 命令用于指定当 shell 触发某个信号时执行的指令（例如 shell 退出时清理临时文件）。</p><h2 id="创建临时文件"><a href="#创建临时文件" class="headerlink" title="创建临时文件"></a>创建临时文件</h2><p>使用 mktemp 可以创建临时文件：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temp_file=$(mktemp) || exit 1</span><br></pre></td></tr></table></figure><p>mktemp 支持的一些参数：</p><ul><li> <code>-d</code>  创建临时文件夹：</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temp_dir=$(mktemp -d) || exit 1</span><br></pre></td></tr></table></figure><ul><li><code>-p</code> 指定临时文件所在目录</li><li><code>-t</code> 指定临时文件名的模板，如 <code>mytemp.XXXXXX</code> 其中 X 会使用随机字符替换</li></ul><h2 id="捕捉-shell-信号"><a href="#捕捉-shell-信号" class="headerlink" title="捕捉 shell 信号"></a>捕捉 shell 信号</h2><p>使用 trap 命令可以捕捉shell 执行过程中触发的信号，指定执行某个命令。</p><p>语法：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trap [动作] [信号1] [信号2]...</span><br></pre></td></tr></table></figure><p>使用 <code>trap -l</code> 可以查看系统信号列表，常见的信号如下：</p><ul><li><ol><li>HUP    挂起，一般是与终端连接丢失时触发</li></ol></li><li><ol start="2"><li>INT      使用 Ctrl + C 时触发</li></ol></li><li><ol start="3"><li>QUIT   按下 Ctrl + / 意图退出脚本时触发</li></ol></li><li><ol start="9"><li>KILL    进程被杀死时</li></ol></li><li><ol start="15"><li>TERM 终止信号，kill 默认信号</li></ol></li><li><ol start="0"><li>EXIT 脚本终止信号，<strong>只要脚本退出就会触发</strong></li></ol></li></ul><p>例如退出时删除临时文件：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">trap &#x27;rm -f &quot;$temp_file&quot;&#x27; EXIT</span><br><span class="line">temp_file=$(mktemp) || exit 1</span><br></pre></td></tr></table></figure><p>注意 trap 命令应放在脚本开头，防止还没有执行到 trap 命令就触发了信号。</p><hr>]]></content>
+    <content type="html"><![CDATA[<hr><p>mktemp 命令可以创建临时文件或文件夹，trap 命令可用于指定当 shell 触发某个信号时执行指令（例如 shell 退出时清理临时文件）。</p><span id="more"></span><h2 id="创建临时文件"><a href="#创建临时文件" class="headerlink" title="创建临时文件"></a>创建临时文件</h2><p>使用 mktemp 可以创建临时文件：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temp_file=$(mktemp) || exit 1</span><br></pre></td></tr></table></figure><p>mktemp 支持的一些参数：</p><ul><li> <code>-d</code>  创建临时文件夹：</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temp_dir=$(mktemp -d) || exit 1</span><br></pre></td></tr></table></figure><ul><li><code>-p</code> 指定临时文件所在目录</li><li><code>-t</code> 指定临时文件名的模板，如 <code>mytemp.XXXXXX</code> 其中 X 会使用随机字符替换</li></ul><h2 id="捕捉-shell-信号"><a href="#捕捉-shell-信号" class="headerlink" title="捕捉 shell 信号"></a>捕捉 shell 信号</h2><p>使用 trap 命令可以捕捉shell 执行过程中触发的信号，指定执行某个命令。</p><p>语法：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trap [动作] [信号1] [信号2]...</span><br></pre></td></tr></table></figure><p>使用 <code>trap -l</code> 可以查看系统信号列表，常见的信号如下：</p><ul><li><ol><li>HUP    挂起，一般是与终端连接丢失时触发</li></ol></li><li><ol start="2"><li>INT      使用 Ctrl + C 时触发</li></ol></li><li><ol start="3"><li>QUIT   按下 Ctrl + / 意图退出脚本时触发</li></ol></li><li><ol start="9"><li>KILL    进程被杀死时</li></ol></li><li><ol start="15"><li>TERM 终止信号，kill 默认信号</li></ol></li><li><ol start="0"><li>EXIT 脚本终止信号，<strong>只要脚本退出就会触发</strong></li></ol></li></ul><p>例如退出时删除临时文件：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">trap &#x27;rm -f &quot;$temp_file&quot;&#x27; EXIT</span><br><span class="line">temp_file=$(mktemp) || exit 1</span><br></pre></td></tr></table></figure><p>注意 trap 命令应放在脚本开头，防止还没有执行到 trap 命令就触发了信号。</p><hr>]]></content>
     
     
-      
-      
     <summary type="html">&lt;hr&gt;
-&lt;p&gt;mktemp 命令可以创建临时文件或文件夹，trap 命令用于指定当 shell 触发某个信号时执行的指令（例如 shell 退出时清理临时文件）。&lt;/p&gt;
-&lt;h2 id=&quot;创建临时文件&quot;&gt;&lt;a href=&quot;#创建临时文件&quot; class=&quot;headerlink&quot; </summary>
-      
+&lt;p&gt;mktemp 命令可以创建临时文件或文件夹，trap 命令可用于指定当 shell 触发某个信号时执行指令（例如 shell 退出时清理临时文件）。&lt;/p&gt;</summary>
     
     
     
@@ -495,30 +515,6 @@
     
     <category term="阅读笔记" scheme="http://zylyye.cn/categories/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>如何阅读一本书</title>
-    <link href="http://zylyye.cn/2020/04/07/read-note/how-to-read-a-book/"/>
-    <id>http://zylyye.cn/2020/04/07/read-note/how-to-read-a-book/</id>
-    <published>2020-04-07T01:11:19.000Z</published>
-    <updated>2021-02-19T14:26:58.218Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="我是出于何种目的阅读"><a href="#我是出于何种目的阅读" class="headerlink" title="我是出于何种目的阅读"></a>我是出于何种目的阅读</h2><ul><li>为获取资讯（碎片化阅读，例如浏览新闻，朋友圈动态等）</li><li>为增进对某个领域的理解</li></ul><span id="more"></span><h2 id="我该怎么做"><a href="#我该怎么做" class="headerlink" title="我该怎么做"></a>我该怎么做</h2><h3 id="基础阅读"><a href="#基础阅读" class="headerlink" title="基础阅读"></a>基础阅读</h3><ul><li>理解语句的意思</li></ul><h3 id="检视阅读"><a href="#检视阅读" class="headerlink" title="检视阅读"></a>检视阅读</h3><ul><li>概览书的内容：序言、目录、感兴趣的章节及段落</li><li>粗读整书的内容，暂时略过不懂的地方</li></ul><h3 id="分析阅读"><a href="#分析阅读" class="headerlink" title="分析阅读"></a>分析阅读</h3><ul><li><p>带着基本问题阅读</p><ul><li>这本书整体上说了些什么</li><li>整本书在细部说了什么</li><li>这本书说的对吗</li><li>这本书与我们有何关联</li></ul></li><li><p>输出理解的内容</p><ul><li>结构笔记</li><li>概念笔记（书中的观点及自己的理解）</li><li>辩证笔记</li></ul></li><li><p>规则</p><ul><li>将书籍分类（明白书籍要讲述哪个领域的知识）</li><li>概括书籍（大体了解书籍要讲述哪些内容）</li><li>了解内容的整体结构</li><li>找出作者在问或想要回答的问题</li><li>保持同频道（对于使用到的关键字、专业术语及主题，确保自己正在理解的与作者所讨论的含义一致）</li><li>找出作者的观点及陈述的理由</li><li>找出作者的解答</li><li>做一个有修养的读者，以尊重的态度耐心听作者叙述完</li><li>做出理性的评价，反驳前准备好充分的理论依据</li></ul></li></ul><h3 id="主题阅读（针对不同书本的相同主题）"><a href="#主题阅读（针对不同书本的相同主题）" class="headerlink" title="主题阅读（针对不同书本的相同主题）"></a>主题阅读（针对不同书本的相同主题）</h3><ul><li>根据主题挑选内容</li><li>寻找作者们的共识</li><li>提出问题，寻求作者的解答</li><li>细化问题，寻求不同的观点解答</li><li>对不同的观点进行分析、总结</li></ul><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><hr><ul><li> [美] 莫提默·J. 艾德勒 / 查尔斯·范多伦《如何阅读一本书》</li><li> <a href="https://zhuanlan.zhihu.com/p/23241617">https://zhuanlan.zhihu.com/p/23241617</a></li></ul>]]></content>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;我是出于何种目的阅读&quot;&gt;&lt;a href=&quot;#我是出于何种目的阅读&quot; class=&quot;headerlink&quot; title=&quot;我是出于何种目的阅读&quot;&gt;&lt;/a&gt;我是出于何种目的阅读&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;为获取资讯（碎片化阅读，例如浏览新闻，朋友圈动态等）&lt;/li&gt;
-&lt;li&gt;为增进对某个领域的理解&lt;/li&gt;
-&lt;/ul&gt;</summary>
-    
-    
-    
-    <category term="阅读笔记" scheme="http://zylyye.cn/categories/%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/"/>
-    
-    
-    <category term="阅读" scheme="http://zylyye.cn/tags/%E9%98%85%E8%AF%BB/"/>
     
   </entry>
   
