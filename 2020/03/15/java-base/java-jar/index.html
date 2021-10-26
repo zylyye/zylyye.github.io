@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.ico">
+  <link rel="mask-icon" href="/assets/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zylyye.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JAR 包是一个 ZIP 格式的压缩包, 通常使用 JAR 包来打包 Java 程序及其使用的相关资源文件, 以便于程序的发布、传输和运行。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAR包">
+<meta property="og:url" content="https://zylyye.cn/2020/03/15/java-base/java-jar/index.html">
+<meta property="og:site_name" content="Forgetful Alann">
+<meta property="og:description" content="JAR 包是一个 ZIP 格式的压缩包, 通常使用 JAR 包来打包 Java 程序及其使用的相关资源文件, 以便于程序的发布、传输和运行。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-15T04:02:44.000Z">
+<meta property="article:modified_time" content="2021-02-19T14:26:58.216Z">
+<meta property="article:author" content="zylyye">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="JAR">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zylyye.cn/2020/03/15/java-base/java-jar/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>JAR包 | Forgetful Alann</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Forgetful Alann</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">In youth we learn, in age we understand.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://zylyye.cn/2020/03/15/java-base/java-jar/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+      <meta itemprop="name" content="zylyye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Forgetful Alann">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JAR包
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-15 12:02:44" itemprop="dateCreated datePublished" datetime="2020-03-15T12:02:44+08:00">2020-03-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-19 22:26:58" itemprop="dateModified" datetime="2021-02-19T22:26:58+08:00">2021-02-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Java基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>JAR 包是一个 ZIP 格式的压缩包, 通常使用 JAR 包来打包 Java 程序及其使用的相关资源文件, 以便于程序的发布、传输和运行。</p>
+<span id="more"></span>
+
+<h2 id="JAR-包的特点"><a href="#JAR-包的特点" class="headerlink" title="JAR 包的特点"></a>JAR 包的特点</h2><hr>
+<ul>
+<li>便于传输</li>
+<li>压缩文件便于存储， 节省空间</li>
+<li>提升安全性（可进行签名与验证）</li>
+<li>可进行包密封（Package Sealing）</li>
+<li>可用于扩展系统核心库</li>
+<li>可携带额外的描述信息（发布者、版本等信息）</li>
+<li>不依赖平台（portability）</li>
+</ul>
+<h2 id="使用-JAR-包"><a href="#使用-JAR-包" class="headerlink" title="使用 JAR 包"></a>使用 JAR 包</h2><hr>
+<h3 id="创建-JAR-包"><a href="#创建-JAR-包" class="headerlink" title="创建 JAR 包"></a>创建 JAR 包</h3><p>使用 JDK 提供的打包命令行工具 jar 创建一个 JAR 包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar cf file-name.jar files-or-directories</span><br></pre></td></tr></table></figure>
+
+<p>例如，将当前文件夹下的 class 文件和 images 目录下的文件打包进 JAR 包中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar cf app.jar *.class images</span><br></pre></td></tr></table></figure>
+
+<p>该命令的其它可选选项：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>v</td>
+<td>打包时显示详细信息，会显示所有打包文件的文件名</td>
+</tr>
+<tr>
+<td>0(数字0)</td>
+<td>指定压缩等级，0 表示不进行压缩</td>
+</tr>
+<tr>
+<td>M</td>
+<td>不自动生成 JAR 包的清单文件（manifest）</td>
+</tr>
+<tr>
+<td>m</td>
+<td>手动指定清单文件（manifest），打包时将会把指定清单文件中的内容放入 JAR 包</td>
+</tr>
+<tr>
+<td>-C</td>
+<td>临时更改 jar 命令执行时的当前文件夹</td>
+</tr>
+</tbody></table>
+<p>对于 <code>-C</code> 命令，例如现在需要打包 images 目录下的所有图片，而不是连同 images 目录打包，可以使用 -C 来临时将当前目录更改为 images 目录进行打包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar cf app.jar -C images .</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看-JAR-包"><a href="#查看-JAR-包" class="headerlink" title="查看 JAR 包"></a>查看 JAR 包</h3><p>查看一个 JAR 包内的文件列表：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar tf app.jar</span><br></pre></td></tr></table></figure>
+
+<p>可以使用 v 选项来展示更详细的信息（文件字节大小、创建时间等）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar tvf app.jar</span><br></pre></td></tr></table></figure>
+
+<h3 id="解压-JAR-包"><a href="#解压-JAR-包" class="headerlink" title="解压 JAR 包"></a>解压 JAR 包</h3><p>解压 JAR 包内的全部文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar xf app.jar</span><br></pre></td></tr></table></figure>
+
+<p>解压 JAR 包内指定文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar xf app.jar filenames</span><br></pre></td></tr></table></figure>
+
+<h3 id="更新-JAR-包"><a href="#更新-JAR-包" class="headerlink" title="更新 JAR 包"></a>更新 JAR 包</h3><p>更新 JAR 包的命令可以用来新增或覆盖 JAR 包中的文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar uf app.jar add-files</span><br></pre></td></tr></table></figure>
+
+<p>如果 JAR 包中已包含指定的文件，则直接覆盖，否则新增</p>
+<h3 id="运行-JAR-包"><a href="#运行-JAR-包" class="headerlink" title="运行 JAR 包"></a>运行 JAR 包</h3><p>一般的 JAR 包仅仅只是打包了需要的文件，如果希望 JAR 包可以直接运行，需要在 JAR 包的清单文件(manifest)中指定运行的主类(Main-CLass), 运行的方式如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar app.jar</span><br></pre></td></tr></table></figure>
+
+<p><strong>还可以使用 javaw 来运行 JAR 包，区别是 Javaw 不会打开命令行窗口。</strong></p>
+<p>还可以在运行 JAR 包时指定虚拟机参数，例如指定最大允许分配内存为 512 m：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar -Xmx512m app.jar</span><br></pre></td></tr></table></figure>
+
+<h2 id="MANIFEST-文件"><a href="#MANIFEST-文件" class="headerlink" title="MANIFEST 文件"></a>MANIFEST 文件</h2><hr>
+<p>MANIFEST 是 JAR 包的清单文件，用来存储 JAR 包和包中文件的属性信息，MANIFEST文件在 JAR 包中的存储路径为 META-INF/MANIFEST.MF。</p>
+<h3 id="MANIFEST-文件的定义格式"><a href="#MANIFEST-文件的定义格式" class="headerlink" title="MANIFEST 文件的定义格式"></a>MANIFEST 文件的定义格式</h3><p><strong>属性命名方式：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Attr-Name: value</span><br></pre></td></tr></table></figure>
+
+<p>属性名称中每个单词首字母大写，单词间使用中划线隔开，属性名称和属性值之间使用逗号隔开，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Main-Class: com.example.Main</span><br></pre></td></tr></table></figure>
+
+<p><strong>清单文件中定义的属性分为两种</strong>：</p>
+<ul>
+<li>全局属性 - 针对整个 JAR 包及其中的所有文件</li>
+<li>局部属性 - 针对某个文件夹或文件，局部属性会覆盖全局属性</li>
+</ul>
+<p>全局属性定义在清单文件的开始部分，局部属性定义在全局属性之后，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Main-Class: com.example.Main</span><br><span class="line">Sealed: true</span><br><span class="line">Name: some/package/</span><br><span class="line">Sealed: false</span><br></pre></td></tr></table></figure>
+
+<p>其中属性 Name 用于指定局部属性，该属性的值指定了作用的文件或文件夹（包）。</p>
+<h3 id="创建、更新-MANIFEST-文件"><a href="#创建、更新-MANIFEST-文件" class="headerlink" title="创建、更新 MANIFEST 文件"></a>创建、更新 MANIFEST 文件</h3><p>MANIFEST 文件会在每次使用 <code>jar cf</code> 命令创建 JAR 包时自动生成（除非指定了 M 参数来禁用自动生成），默认生成的 MANEFIST 文件通常会包含一些基础的描述信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Manifest-Version: 1.0</span><br><span class="line">Created-By: 1.8.0_171 (Oracle Corporation)</span><br></pre></td></tr></table></figure>
+
+<p>可以指定一个自定义的清单文件，来添加需要的属性：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar cfm app.jar manifest-add.mf files</span><br></pre></td></tr></table></figure>
+
+<p>其中 manifest-add.mf 是纯文本文件，内容包含了自定义的属性内容，<strong>该操作会将自定义清单文件的内容添加到自动生成的清单文件中。</strong></p>
+<h2 id="可运行的-JAR-包"><a href="#可运行的-JAR-包" class="headerlink" title="可运行的 JAR 包"></a>可运行的 JAR 包</h2><hr>
+<p>如果希望 JAR 包可以执行，需要在 JAR 包中的清单文件中指定应用的入口：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Main-Class: com.example.classname</span><br></pre></td></tr></table></figure>
+
+<p>Main-Class 来指定应用中包含 main 方法类的全限定名，有两种设置该属性的方式：</p>
+<ul>
+<li><p>在自定义清单文件中添加</p>
+</li>
+<li><p>使用 jar 命令打包时，使用选项 e 来指定 Main-Class 的值，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar cfe app.jar com.example.classname files</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>指定了 Main-Class 后的 JAR 包，可以使用 java 命令运行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar app.jar</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><hr>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/tutorial/deployment/jar/index.html">https://docs.oracle.com/javase/tutorial/deployment/jar/index.html</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/specs/jar/jar.html">https://docs.oracle.com/javase/10/docs/specs/jar/jar.html</a></p>
+</li>
+<li><p>《Java 核心技术卷》卷一 第 13 章 第十版</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/JAR/" rel="tag"># JAR</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/07/27/java-base/java-collections-framework/" rel="prev" title="Java集合框架">
+      <i class="fa fa-chevron-left"></i> Java集合框架
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/07/read-note/how-to-read-a-book/" rel="next" title="如何阅读一本书">
+      如何阅读一本书 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JAR-%E5%8C%85%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">JAR 包的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-JAR-%E5%8C%85"><span class="nav-number">2.</span> <span class="nav-text">使用 JAR 包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-JAR-%E5%8C%85"><span class="nav-number">2.1.</span> <span class="nav-text">创建 JAR 包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B-JAR-%E5%8C%85"><span class="nav-number">2.2.</span> <span class="nav-text">查看 JAR 包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%8E%8B-JAR-%E5%8C%85"><span class="nav-number">2.3.</span> <span class="nav-text">解压 JAR 包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0-JAR-%E5%8C%85"><span class="nav-number">2.4.</span> <span class="nav-text">更新 JAR 包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C-JAR-%E5%8C%85"><span class="nav-number">2.5.</span> <span class="nav-text">运行 JAR 包</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MANIFEST-%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">MANIFEST 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MANIFEST-%E6%96%87%E4%BB%B6%E7%9A%84%E5%AE%9A%E4%B9%89%E6%A0%BC%E5%BC%8F"><span class="nav-number">3.1.</span> <span class="nav-text">MANIFEST 文件的定义格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E3%80%81%E6%9B%B4%E6%96%B0-MANIFEST-%E6%96%87%E4%BB%B6"><span class="nav-number">3.2.</span> <span class="nav-text">创建、更新 MANIFEST 文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E8%BF%90%E8%A1%8C%E7%9A%84-JAR-%E5%8C%85"><span class="nav-number">4.</span> <span class="nav-text">可运行的 JAR 包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99"><span class="nav-number">5.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zylyye"
+      src="/assets/images/avatar.png">
+  <p class="site-author-name" itemprop="name">zylyye</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zylyye@gmail.com" title="E-Mail → mailto:zylyye@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:zylyye?call|chat" title="Skype → skype:zylyye?call|chat" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i>Skype</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zylyye</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

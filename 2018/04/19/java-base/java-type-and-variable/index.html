@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.ico">
+  <link rel="mask-icon" href="/assets/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zylyye.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Java中的基本类型 Java中共有8中基本类型：  整型：byte, short, int, long 浮点型：float, double 字符型：char 布尔型：boolean">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java类型与变量">
+<meta property="og:url" content="https://zylyye.cn/2018/04/19/java-base/java-type-and-variable/index.html">
+<meta property="og:site_name" content="Forgetful Alann">
+<meta property="og:description" content="Java中的基本类型 Java中共有8中基本类型：  整型：byte, short, int, long 浮点型：float, double 字符型：char 布尔型：boolean">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-04-18T16:35:24.000Z">
+<meta property="article:modified_time" content="2021-02-19T14:26:58.217Z">
+<meta property="article:author" content="zylyye">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zylyye.cn/2018/04/19/java-base/java-type-and-variable/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>Java类型与变量 | Forgetful Alann</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Forgetful Alann</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">In youth we learn, in age we understand.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://zylyye.cn/2018/04/19/java-base/java-type-and-variable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+      <meta itemprop="name" content="zylyye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Forgetful Alann">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java类型与变量
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-04-19 00:35:24" itemprop="dateCreated datePublished" datetime="2018-04-19T00:35:24+08:00">2018-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-19 22:26:58" itemprop="dateModified" datetime="2021-02-19T22:26:58+08:00">2021-02-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Java基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Java中的基本类型"><a href="#Java中的基本类型" class="headerlink" title="Java中的基本类型"></a>Java中的基本类型</h2><hr>
+<p>Java中共有8中基本类型：</p>
+<ul>
+<li>整型：byte, short, int, long</li>
+<li>浮点型：float, double</li>
+<li>字符型：char</li>
+<li>布尔型：boolean</li>
+</ul>
+<span id="more"></span>
+
+<h3 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h3><hr>
+<p>Java中没有无符号整型，所有的数据类型存储位数也与平台无关，整型存储位数与范围如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">存储字节数</th>
+<th align="center">范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">1字节</td>
+<td align="center">-2^7 ~ 2^7-1</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">2字节</td>
+<td align="center">-2^15 ~ 2^15-1</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">4字节</td>
+<td align="center">-2^31 ~ 2^31-1</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">8字节</td>
+<td align="center">-2^63 ~ 2^63-1</td>
+</tr>
+</tbody></table>
+<p>其中byte类型类似于C中的char类型，Java程序中可以使用十进制，八进制，十六进制以及二进制的形式来表示这些数值：</p>
+<ul>
+<li>八进制：以数字0开头，如 <code>017</code></li>
+<li>十六进制：以0x或0X开头，如 <code>0X4a</code></li>
+<li>二进制(自Java7开始)：以0b或0B开头，如 <code>0B1011</code>，还可以用下划线来进行分割，以便更好的阅读，编译器会自动去除下划线，如 <code>0B1001_0011</code></li>
+</ul>
+<p><strong>此外，在表示长整型数值时，应当在数值后添加一字母l或L，来显示的表明该数值为long类型.</strong></p>
+<h3 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h3><hr>
+<p>浮点类型及存储位数：</p>
+<table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">存储字节数</th>
+<th align="center">范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">float</td>
+<td align="center">4字节</td>
+<td align="center">大约 ± 3.402 823 47E+38F (有效位数为 6 ~ 7 位）</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">8字节</td>
+<td align="center">大约 ± 1.797 693 134 862 315 70E+308 (有效位数为 15 位）</td>
+</tr>
+</tbody></table>
+<p>浮点数可以使用带小数点的小数如：<code>3.14</code>，或科学计数法，如: <code>3.1412E2</code>,以及十六进制，如：<code>0x4ap-3</code>,来表示，在十六进制表示法中，p用来分隔尾数(4a)与指数(-3),且尾数用十六进制表示，而指数用十进制表示，并以2为基数，例如 0x4ap-3=(4*16+10)*2^-3.</p>
+<p><strong>在表示float类型是，应在数值后添加字母f或F来显示的表明该数值为float类型，否则Java默认将该数值当做double型来处理(double类型数值后也可添加字母d或D).</strong></p>
+<h3 id="字符型char"><a href="#字符型char" class="headerlink" title="字符型char"></a>字符型char</h3><hr>
+<p>Java中的char类型原本设计用来存储单个字符，char变量中存储字符时采用UTF-16编码格式，UTF-16一个代码单元占用16位，可以用来存储大多数unicode编码中的字符，但对于其他的字符，则需要至少2个UTF-16代码单元，因此，char变量并不能表示一个字符，其真是的含义是表示一个UTF-16代码单元，因此char变量的含义如下：</p>
+<ul>
+<li>代表一个UTF-16代码单元</li>
+<li>占用2字节</li>
+</ul>
+<h3 id="布尔型boolean"><a href="#布尔型boolean" class="headerlink" title="布尔型boolean"></a>布尔型boolean</h3><hr>
+<p>Java中用true与false表示布尔型，且布尔型与其他类型不能相互转换。</p>
+<h3 id="字符串String"><a href="#字符串String" class="headerlink" title="字符串String"></a>字符串String</h3><hr>
+<p>Java中提供了一个预定义类<strong>String</strong>用来表示字符串，字符串之间可以使用加号(+)进行拼接，如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;hello&quot;</span> + <span class="string">&quot;java&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>String类中没有提供修改当前字符串的方法。</p>
+<h4 id="字符串与编码"><a href="#字符串与编码" class="headerlink" title="字符串与编码"></a>字符串与编码</h4><p>Java使用unicode编码，String类中使用一个char数组来保存字符串，这个char数组使用了UTF-16编码格式来保存unicode字符。</p>
+<h4 id="获取字符串的长度"><a href="#获取字符串的长度" class="headerlink" title="获取字符串的长度"></a>获取字符串的长度</h4><p>String中提供了获取字符串长度的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">length</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>而该方法只是简单的返回内char数组的长度，因此，该方法实际返回的是该字符串使用UTF-16编码格式编码后的代码单元数量，由于大多数字符使用UTF-16格式编码都只产生一个代码单元，因此该方法一般不会产生问题，但不够严谨。</p>
+<p>一串字符串的字符数应该使用字符串中unicode码点数(code point)来表示，因此，应该这样来获取字符串的长度：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> length = str.codePointCount(<span class="number">0</span>, str.length());</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">length = str.codePoints().toArray().length;</span><br></pre></td></tr></table></figure>
+
+<h4 id="判断字符串相等"><a href="#判断字符串相等" class="headerlink" title="判断字符串相等"></a>判断字符串相等</h4><p>不能依赖运算符<code>==</code>来判断两个字符串是否相等，因为字符串是一个对象，两个相同的字符串可能是两个不同的对象，而使用<code>==</code>来比较两个对象时，实际比较的是这两个对象的地址是否相等。</p>
+<p>String对象中提供了用于比较字符串是否相等的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="变量与常量"><a href="#变量与常量" class="headerlink" title="变量与常量"></a>变量与常量</h2><hr>
+<p>Java是强类型编程语言，所有的变量在使用前都必须先进行声明和初始化。</p>
+<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><hr>
+<p>声明一个变量时需指定变量的类型与变量名，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num;</span><br><span class="line"><span class="keyword">double</span> radius;</span><br><span class="line"><span class="keyword">boolean</span> isMale;</span><br><span class="line">String name;</span><br></pre></td></tr></table></figure>
+
+<h3 id="变量的初始化"><a href="#变量的初始化" class="headerlink" title="变量的初始化"></a>变量的初始化</h3><hr>
+<p>变量可以在声明的同时进行初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">&quot;this is a string&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>也可以在声明之后再初始化，但在使用该变量前，必须先进行初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str;</span><br><span class="line">str = <span class="string">&quot;this is a string&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><hr>
+<p>与变量类似，常量使用final关键字进行声明，常量在进行初始化时，也可以先声明，以后再初始化，但只能初始化一次：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="keyword">double</span> PI = <span class="number">3.14125</span>;</span><br><span class="line"><span class="comment">//等同于</span></span><br><span class="line"><span class="keyword">final</span> <span class="keyword">double</span> PI;</span><br><span class="line">PI = <span class="number">3.14125</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="变量中的引用与值"><a href="#变量中的引用与值" class="headerlink" title="变量中的引用与值"></a>变量中的引用与值</h3><hr>
+<p>对于基本类型变量，该变量存储的是相应类型的值，而对于对象变量，该变量存储的是相应对象的引用，在Java中，传递变量或将变量赋值给其他变量时，总是会复制变量存储的内容来进行传递，对于基本类型变量，总是会复制变量的值，而对于对象变量，只是单纯的复制了存储在变量中的引用，因此在传递变量给方法时，会有<strong>值传递与引用传递</strong>，而其本质都是传递存储在变量中的内容。</p>
+<h2 id="大数值类"><a href="#大数值类" class="headerlink" title="大数值类"></a>大数值类</h2><hr>
+<p>基本的数值类型表示的数值范围有限，在java.math包中定义了两个分别表示整型和浮点型的大数值类：BigInteger与BigDecimal，它们可以表示任意精度的数值，并且在类中提供了相应的算数运算方法。</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><hr>
+<p>Java中的数组可以是原始类型数组，也可以是对象数组。</p>
+<h3 id="数组的声明与初始化"><a href="#数组的声明与初始化" class="headerlink" title="数组的声明与初始化"></a>数组的声明与初始化</h3><hr>
+<p>声明数组时需要指定数组的类型，大小，数组名：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line"><span class="keyword">int</span> arr[] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">10</span>];</span><br></pre></td></tr></table></figure>
+
+<p>也可以在声明的同时进行初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="comment">//相当于</span></span><br><span class="line"><span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];</span><br><span class="line">arr[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">arr[<span class="number">1</span>] = <span class="number">2</span>;</span><br><span class="line">arr[<span class="number">2</span>] = <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<p>还可以声明一个匿名数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="comment">//将匿名数组存储给一个变量</span></span><br><span class="line"><span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h3><hr>
+<p>例如声明一个二维数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][<span class="number">3</span>];</span><br></pre></td></tr></table></figure>
+
+<p>在声明的同时进行初始化：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] a = &#123;</span><br><span class="line">                &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,</span><br><span class="line">                &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,</span><br><span class="line">            &#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="不规则数组"><a href="#不规则数组" class="headerlink" title="不规则数组"></a>不规则数组</h3><hr>
+<p>实际上Java只支持一维数组，当一维数组中的元素存储另一个数组时，即成为了多维数组，因此，可以创建不规则的多维数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>][];</span><br><span class="line">arr[<span class="number">0</span>] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">4</span>];</span><br><span class="line">arr[<span class="number">1</span>] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">5</span>];</span><br><span class="line">arr[<span class="number">2</span>] = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组的遍历"><a href="#数组的遍历" class="headerlink" title="数组的遍历"></a>数组的遍历</h3><hr>
+<p>数组拥有length属性表示创建数组时的大小，利用该值可合法的遍历数组中的所有元素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>,i&lt;arr.length;i++)&#123;</span><br><span class="line">    arr[i]++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果只需要访问数组中的元素，可以使用for each循环：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> item:arr)&#123;</span><br><span class="line">    System.out.println(item);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组的拷贝"><a href="#数组的拷贝" class="headerlink" title="数组的拷贝"></a>数组的拷贝</h3><hr>
+<p>Java中一个数组变量存储的只是一个数组的引用，因此：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arr = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">int</span>[] arrCopy = arr;</span><br></pre></td></tr></table></figure>
+
+<p>像这样的只是拷贝了数组的引用，arr与arrCopy依然是一个数组，最通用的方法是遍历第一个数组中的所有元素并将它复制给第二个数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[] arrCopy = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</span><br><span class="line">    arrCopy[i] = arr[i];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不过Java中提供了几个方法用于这样的数组拷贝：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">void</span> System.arraycopy(Object src, <span class="keyword">int</span> srcPos, Object dest, <span class="keyword">int</span> destPos, <span class="keyword">int</span> length);</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] Arrays.copyOf(<span class="keyword">int</span>[] src, <span class="keyword">int</span> newLength);</span><br><span class="line">Object.clone();</span><br></pre></td></tr></table></figure>
+
+<p>第一个拷贝方法必须先初始化目标数组；</p>
+<p>对于第二个方法，Arrays类中，重载了所有基本类型的数组拷贝方法，对于对象数组的拷贝，还实现了泛型copyOf方法；</p>
+<p>第三个拷贝方法是数组类重写了父类Object的clone()方法；</p>
+<p>不过这些拷贝方法都只是浅拷贝，对于基本类型数组，不会产生问题，但对于对象数组，拷贝数组元素时，也只是复制了元素所存储的引用，因此，使用这些方法拷贝对象数组时，它们的元素依然指向相同的对象，这时可以遍历原始数组，分别对每个对象进行复制。</p>
+<h2 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h2><hr>
+<p>对于那些只有有限个可能值的集合，可以使用枚举类型：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 定义枚举类</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Color</span></span>&#123;RED, GREEN, BLUE&#125;;</span><br><span class="line"><span class="comment">// 使用枚举</span></span><br><span class="line">Color blue = Color.BLUE;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Java包装类"><a href="#Java包装类" class="headerlink" title="Java包装类"></a>Java包装类</h2><hr>
+<p>Java中，基本类型不是对象，没有自己的方法，为了让这些基本类型拥有面向对象的特性，Java中为基本类型提供了包装类：</p>
+<table>
+<thead>
+<tr>
+<th align="center">基本类型</th>
+<th align="center">包装类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">byte</td>
+<td align="center">Byte</td>
+</tr>
+<tr>
+<td align="center">short</td>
+<td align="center">Short</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">Integer</td>
+</tr>
+<tr>
+<td align="center">long</td>
+<td align="center">Long</td>
+</tr>
+<tr>
+<td align="center">float</td>
+<td align="center">Float</td>
+</tr>
+<tr>
+<td align="center">double</td>
+<td align="center">Double</td>
+</tr>
+<tr>
+<td align="center">boolean</td>
+<td align="center">Boolean</td>
+</tr>
+<tr>
+<td align="center">char</td>
+<td align="center">Character</td>
+</tr>
+</tbody></table>
+<p>在每个基本类型的包装类中，提供了相应的属性(如最大值，最小值)，以及实现了许多操作对象的方法。</p>
+<h4 id="自动装箱-拆箱"><a href="#自动装箱-拆箱" class="headerlink" title="自动装箱/拆箱"></a>自动装箱/拆箱</h4><p>将基本类型转换为相应的包装类型即成为装箱，相反的过程成为拆箱，在需要的时候，Java编译器会为我们自动的进行装箱与拆箱，自动装箱/拆箱在两种情况下会进行：</p>
+<ul>
+<li><strong>赋值</strong></li>
+<li><strong>方法调用</strong></li>
+</ul>
+<p>如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Integer integer = <span class="number">123</span>;    <span class="comment">//自动装箱 调用Integer.valueOf(123);</span></span><br><span class="line"><span class="keyword">int</span> i = integer;          <span class="comment">//自动拆箱 调用integer.intValue();</span></span><br></pre></td></tr></table></figure>
+
+<p>如上，编译器会根据需要自动的调用方法来进行装箱与拆箱，其中 valueOf(args) 是Integer累的静态方法，返回Integer对象。同样，在进行方法调用时，编译器会根据方法需要的参数类型进行自动装箱与拆箱。</p>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><hr>
+<h3 id="基本类型之间的强制转换"><a href="#基本类型之间的强制转换" class="headerlink" title="基本类型之间的强制转换"></a>基本类型之间的强制转换</h3><hr>
+<p>对于基本数值类型(byte, short, int, long, float, double)，在需要时，低精度的数值类型会自动的往高精度的数值类型转换，此时无需手动转换，如果需要将高精度类型向低精度类型进行转换，可以手动进行强制转换：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">double</span> d = <span class="number">3.14</span>;</span><br><span class="line"><span class="keyword">int</span> i = (<span class="keyword">int</span>)d;   <span class="comment">//强制转换为3</span></span><br></pre></td></tr></table></figure>
+
+<p>这种转换会根据转换的类型自动截断，不会进行四舍五入处理。</p>
+<p>但布尔，字符型与数值型之间不能相互强制转换，但可以使用条件语句将布尔与数值型之间进行互转：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> bool = <span class="keyword">true</span>;</span><br><span class="line"><span class="keyword">int</span> i = bool? <span class="number">1</span>:<span class="number">0</span>;     <span class="comment">//使用三元运算符将布尔值转换为整型</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="基本类型转为对象"><a href="#基本类型转为对象" class="headerlink" title="基本类型转为对象"></a>基本类型转为对象</h3><hr>
+<p>除了利用编译器的自动装箱机制，也可以手动的将基本类型转换为对象，如以 int 型为例：</p>
+<ul>
+<li>利用静态方法：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer integer = Integer.valueOf(<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>利用构造方法：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Integer integer = <span class="keyword">new</span> Integer(<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串与基本类型之间的转换"><a href="#字符串与基本类型之间的转换" class="headerlink" title="字符串与基本类型之间的转换"></a>字符串与基本类型之间的转换</h3><hr>
+<p>每个包装类中提供了静态的 parseXXX方法用于将字符串转换为相应的基本类型，例如</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String str = <span class="string">&quot;123&quot;</span>;</span><br><span class="line"><span class="keyword">int</span> i = Integer.parseInt(str);</span><br></pre></td></tr></table></figure>
+
+<p>还可以制定转换基数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = Integer.parseInt(<span class="string">&quot;4a&quot;</span>,<span class="number">16</span>);   <span class="comment">// i = 74</span></span><br></pre></td></tr></table></figure>
+
+<p>注意: 如果字符串中包含其他字符会抛出NumberFormatException异常。</p>
+<p>当需要将对象转换为字符串是，只需调用字符串中的 toString() 方法即可，许多预定义类都继承或重写了该方法，在自定义类中，可根据需要重写该方法。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2018/05/04/java-base/java-class-and-object/" rel="next" title="Java类与对象">
+      Java类与对象 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E4%B8%AD%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">Java中的基本类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">整型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">浮点型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8Bchar"><span class="nav-number">1.3.</span> <span class="nav-text">字符型char</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E5%9E%8Bboolean"><span class="nav-number">1.4.</span> <span class="nav-text">布尔型boolean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2String"><span class="nav-number">1.5.</span> <span class="nav-text">字符串String</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8E%E7%BC%96%E7%A0%81"><span class="nav-number">1.5.1.</span> <span class="nav-text">字符串与编码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E9%95%BF%E5%BA%A6"><span class="nav-number">1.5.2.</span> <span class="nav-text">获取字符串的长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%A4%E6%96%AD%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E7%AD%89"><span class="nav-number">1.5.3.</span> <span class="nav-text">判断字符串相等</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">变量与常量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="nav-number">2.1.</span> <span class="nav-text">变量声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.2.</span> <span class="nav-text">变量的初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F"><span class="nav-number">2.3.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%B8%8E%E5%80%BC"><span class="nav-number">2.4.</span> <span class="nav-text">变量中的引用与值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E6%95%B0%E5%80%BC%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">大数值类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">4.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E5%A3%B0%E6%98%8E%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">4.1.</span> <span class="nav-text">数组的声明与初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="nav-number">4.2.</span> <span class="nav-text">多维数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8D%E8%A7%84%E5%88%99%E6%95%B0%E7%BB%84"><span class="nav-number">4.3.</span> <span class="nav-text">不规则数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">4.4.</span> <span class="nav-text">数组的遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%8B%B7%E8%B4%9D"><span class="nav-number">4.5.</span> <span class="nav-text">数组的拷贝</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">枚举类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%8C%85%E8%A3%85%E7%B1%BB"><span class="nav-number">6.</span> <span class="nav-text">Java包装类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E8%A3%85%E7%AE%B1-%E6%8B%86%E7%AE%B1"><span class="nav-number">6.0.1.</span> <span class="nav-text">自动装箱&#x2F;拆箱</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="nav-number">7.</span> <span class="nav-text">类型转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%BC%BA%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="nav-number">7.1.</span> <span class="nav-text">基本类型之间的强制转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E8%BD%AC%E4%B8%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">7.2.</span> <span class="nav-text">基本类型转为对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8E%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="nav-number">7.3.</span> <span class="nav-text">字符串与基本类型之间的转换</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zylyye"
+      src="/assets/images/avatar.png">
+  <p class="site-author-name" itemprop="name">zylyye</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zylyye@gmail.com" title="E-Mail → mailto:zylyye@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:zylyye?call|chat" title="Skype → skype:zylyye?call|chat" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i>Skype</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zylyye</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

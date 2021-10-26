@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.ico">
+  <link rel="mask-icon" href="/assets/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zylyye.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Bash 脚本中可以使用 if - else，case 语句 来进行条件判断，对于字符串还支持正则。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="条件判断">
+<meta property="og:url" content="https://zylyye.cn/2021/03/10/bash/12-condition/index.html">
+<meta property="og:site_name" content="Forgetful Alann">
+<meta property="og:description" content="Bash 脚本中可以使用 if - else，case 语句 来进行条件判断，对于字符串还支持正则。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-10T13:01:38.000Z">
+<meta property="article:modified_time" content="2021-03-11T14:54:11.948Z">
+<meta property="article:author" content="zylyye">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="bash">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zylyye.cn/2021/03/10/bash/12-condition/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>条件判断 | Forgetful Alann</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Forgetful Alann</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">In youth we learn, in age we understand.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://zylyye.cn/2021/03/10/bash/12-condition/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+      <meta itemprop="name" content="zylyye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Forgetful Alann">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          条件判断
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-03-10 21:01:38" itemprop="dateCreated datePublished" datetime="2021-03-10T21:01:38+08:00">2021-03-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-11 22:54:11" itemprop="dateModified" datetime="2021-03-11T22:54:11+08:00">2021-03-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Bash/" itemprop="url" rel="index"><span itemprop="name">Bash</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<p>Bash 脚本中可以使用 if - else，case 语句 来进行条件判断，对于字符串还支持正则。</p>
+<span id="more"></span>
+
+<h2 id="if-的结构"><a href="#if-的结构" class="headerlink" title="if 的结构"></a>if 的结构</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if condition; then</span><br><span class="line">  some statements</span><br><span class="line">elif condition; then</span><br><span class="line">  some statements</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>如果 if 和 else 不写在同一行，则不需要加分号：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if condition</span><br><span class="line">then</span><br><span class="line">  some statements</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> 也可以全部写在同一行</span></span><br><span class="line">if condition; then some statements; fi</span><br></pre></td></tr></table></figure>
+
+<p>if 后的判断可以有多个，多个使用分号隔开，判断的结果根据最后一个条件决定:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if condition1; condition2; condition3; then</span><br><span class="line">  some statements # 只有 condition3 的结果为 true 时才会执行</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h2 id="if-后条件的写法"><a href="#if-后条件的写法" class="headerlink" title="if 后条件的写法"></a>if 后条件的写法</h2><p>if 的条件有三种写法：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 写法一</span></span><br><span class="line">command // 例如 test -f /etc/redis/redis.conf</span><br><span class="line"><span class="meta">#</span><span class="bash"> 写法二</span></span><br><span class="line">[ expression ]</span><br><span class="line"><span class="meta">#</span><span class="bash"> 写法三</span></span><br><span class="line">[[ expression ]]  # 只有该方式支持正则比较</span><br></pre></td></tr></table></figure>
+
+<p>方括号 <code>[</code> 是 test 的简写形式，因此，方括号中的内容与 <code>[</code> 之间需要有一个空格。</p>
+<p>例如判断一个文件是否存在且是一个普通文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if test -f /path/to/file ; then</span><br><span class="line">  ...</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [ -f /path/to/file ] ; then</span><br><span class="line">  ...</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line">if [[ -f /path/to/file ]] ; then</span><br><span class="line">  ...</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>if 后面可以使用任意命令作为条件，如果命令返回 0 ，则条件成立，否则不成立。</p>
+<h2 id="字符串比较"><a href="#字符串比较" class="headerlink" title="字符串比较"></a>字符串比较</h2><p>字符常见的比较方式：</p>
+<ul>
+<li><code>[ str ]</code> ：如果字符不为空，则为 true</li>
+<li><code>[ -n str ]</code> ：字符串不为空，则为 true</li>
+<li><code>[ -z str ]</code> ：字符串为空，则为 true</li>
+<li><code>[ str1 = str2 ]</code> 等价于 <code>[ str1 == str2 ]</code> ：字符串相等</li>
+<li><code>[ str1 != str2 ]</code> ：字符串不相等</li>
+<li><code>[ str1 &#39;&gt;&#39; str2]</code>，<code>[ str1 &#39;&lt;&#39; str2 ]</code> ：字典顺序比较字符串，注意 <code>&gt;</code>、<code>&lt;</code> 要加引号，否则会被 shell 解释为重定向符</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">str=&#x27;abc&#x27;</span><br><span class="line">if [ -n &quot;$str&quot; ] ; then</span><br><span class="line">  echo &quot;str is not empty&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意进行字符串判断时，最好将变量放入引号 <code>&quot;&quot;</code> 中，防止变量为空。</strong>例如当 str 为空时，判断就会变为 <code>[ -n ]</code>，此时结果为 true，不符合预期。</p>
+<h2 id="整数判断"><a href="#整数判断" class="headerlink" title="整数判断"></a>整数判断</h2><p>判断的方式：</p>
+<ul>
+<li><code>[ num1 -eq num2 ]</code> ：等于</li>
+<li><code>[ num1 -ne num2 ]</code> ：不等于</li>
+<li><code>[ num1 -lt num2 ]</code> ：小于</li>
+<li><code>[ num1 -le num2 ]</code> ：小于等于</li>
+<li><code>[ num1 -gt num2 ]</code> ：大于</li>
+<li><code>[ num1 -ge num2 ]</code> ：大于等于</li>
+</ul>
+<h2 id="正则判断"><a href="#正则判断" class="headerlink" title="正则判断"></a>正则判断</h2><p>正则需要在 <code>[[ ... ]]</code> 中使用 <code>=~</code> 符号进行判断：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[ str =~ regex ]]</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">num=5</span><br><span class="line"><span class="meta">#</span><span class="bash"> 判断 num 是否是数字</span></span><br><span class="line">if [[ &quot;$num&quot; =~ ^-?[0-9]+$ ]] ; then</span><br><span class="line">  echo &quot;num is number&quot;</span><br><span class="line">else</span><br><span class="line">  echo &quot;num is not a valid number&quot;</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h2 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h2><p>可以使用逻辑运算 <code>&amp;&amp;</code>、<code>||</code>、<code>!</code> 将 test 表达式联结起来：</p>
+<ul>
+<li><code>&amp;&amp;</code> 或者 <code>-a</code> ： 逻辑 与</li>
+<li><code>||</code> 或者 <code>-o</code> ：逻辑 或</li>
+<li><code>!</code> ：逻辑 非</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">if [[ $a -eq $b &amp;&amp; $a -gt 0 ]] ; then</span><br><span class="line">  echo &quot;a = b &gt; 0&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意 [[]] 与 [] 写法的区别</span></span><br><span class="line">if [ $a -eq $b ] &amp;&amp; [ $a -gt 0 ] ; then</span><br><span class="line">  echo &quot;a = b &gt; 0&quot;</span><br><span class="line">fi</span><br><span class="line"><span class="meta">#</span><span class="bash"> 注意使用括号 () 界定范围时，需要使用斜杠 \ 进行转义</span></span><br><span class="line">if [[ !\( $a -eq $b || $a &gt; 0 \)]] ; then </span><br><span class="line">  ...</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p>与命令一起使用时，也可以使用算术运算符：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if [ $a -lt $b ] &amp;&amp; cd /home/$username ; then</span><br><span class="line">  ...</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<h2 id="算术判断"><a href="#算术判断" class="headerlink" title="算术判断"></a>算术判断</h2><p>可以使用 <code>((...))</code> 进行算术判断：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ((3 &gt; 2)); then</span><br><span class="line">  ...</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意，<code>((...))</code> 运算的结果如果非零，则视为 true，与命令返回值判断相反。</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">((0)) false</span><br><span class="line">((1)) true</span><br><span class="line">((a = 3)) true</span><br></pre></td></tr></table></figure>
+
+<h2 id="case-语句结构"><a href="#case-语句结构" class="headerlink" title="case 语句结构"></a>case 语句结构</h2><p>case 语句的结构：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">case expression in</span><br><span class="line">  pattern1 )</span><br><span class="line">    commands ;;</span><br><span class="line">  pattern2 )</span><br><span class="line">    commands ;;</span><br><span class="line">  ...</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<p>expression 可以是一个表达式或者变量， pattern 则是匹配的模式，可以使用通配符：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a) # 匹配 a</span><br><span class="line">a|b) # 匹配 a 或 b</span><br><span class="line">???) # 匹配三个字符</span><br><span class="line">*.txt) # 匹配 .txt 结尾的名称</span><br><span class="line">*) # 匹配任意字符串，可以作为默认匹配条件</span><br></pre></td></tr></table></figure>
+
+<p>Bash 4.0 之后，可以匹配多个，区别是，结尾使用 <code>;;&amp;</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">case $a in</span><br><span class="line">  b) ... ;;&amp;</span><br><span class="line">  ?) ... ;;&amp;</span><br><span class="line">  *) ... ;;</span><br><span class="line">esac</span><br></pre></td></tr></table></figure>
+
+<hr>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/bash/" rel="tag"># bash</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/02/bash/11-read/" rel="prev" title="read 命令">
+      <i class="fa fa-chevron-left"></i> read 命令
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/12/bash/13-loop/" rel="next" title="循环">
+      循环 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#if-%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">if 的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if-%E5%90%8E%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">if 后条件的写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%AF%94%E8%BE%83"><span class="nav-number">3.</span> <span class="nav-text">字符串比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E6%95%B0%E5%88%A4%E6%96%AD"><span class="nav-number">4.</span> <span class="nav-text">整数判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AD%A3%E5%88%99%E5%88%A4%E6%96%AD"><span class="nav-number">5.</span> <span class="nav-text">正则判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97"><span class="nav-number">6.</span> <span class="nav-text">逻辑运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%97%E6%9C%AF%E5%88%A4%E6%96%AD"><span class="nav-number">7.</span> <span class="nav-text">算术判断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#case-%E8%AF%AD%E5%8F%A5%E7%BB%93%E6%9E%84"><span class="nav-number">8.</span> <span class="nav-text">case 语句结构</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zylyye"
+      src="/assets/images/avatar.png">
+  <p class="site-author-name" itemprop="name">zylyye</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zylyye@gmail.com" title="E-Mail → mailto:zylyye@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:zylyye?call|chat" title="Skype → skype:zylyye?call|chat" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i>Skype</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zylyye</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

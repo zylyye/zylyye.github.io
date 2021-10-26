@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.ico">
+  <link rel="mask-icon" href="/assets/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zylyye.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="简介 Bash 中有两类变量：  环境变量 自定义变量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="变量">
+<meta property="og:url" content="https://zylyye.cn/2021/02/02/bash/05-variable/index.html">
+<meta property="og:site_name" content="Forgetful Alann">
+<meta property="og:description" content="简介 Bash 中有两类变量：  环境变量 自定义变量">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-02T07:27:09.000Z">
+<meta property="article:modified_time" content="2021-03-03T06:44:27.048Z">
+<meta property="article:author" content="zylyye">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="bash">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zylyye.cn/2021/02/02/bash/05-variable/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>变量 | Forgetful Alann</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Forgetful Alann</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">In youth we learn, in age we understand.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://zylyye.cn/2021/02/02/bash/05-variable/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+      <meta itemprop="name" content="zylyye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Forgetful Alann">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          变量
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2021-02-02 15:27:09" itemprop="dateCreated datePublished" datetime="2021-02-02T15:27:09+08:00">2021-02-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-03-03 14:44:27" itemprop="dateModified" datetime="2021-03-03T14:44:27+08:00">2021-03-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Bash/" itemprop="url" rel="index"><span itemprop="name">Bash</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><hr>
+<p>Bash 中有两类变量：</p>
+<ul>
+<li><strong>环境变量</strong></li>
+<li><strong>自定义变量</strong></li>
+</ul>
+<span id="more"></span>
+
+<h3 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h3><p>环境变量可以通过 <code>env</code> 或者 <code>printenv</code> 命令查看所有的环境变量。</p>
+<p><strong>常见的环境变量：</strong></p>
+<ul>
+<li><p><code>BASHPID</code>： Bash 进程ID</p>
+</li>
+<li><p><code>BASHOPTS</code>:  当前 Shell 的参数，可由 <code>shopt</code>命令修改</p>
+</li>
+<li><p><code>DISPLAY</code>:  图形环境显示器的名字，<code>:0</code> 表示第一个显示器</p>
+</li>
+<li><p><code>EDITOR</code>: 默认文本编辑器</p>
+</li>
+<li><p><code>HOME</code> ：用户主目录</p>
+</li>
+<li><p><code>IFS</code>：词之间分隔符，默认空格</p>
+</li>
+<li><p><code>LANG</code>：字符集以及语言编码，例如 <code>zh_CN.UTF-8</code></p>
+</li>
+<li><p><code>PATH</code>：可执行程序搜索目录列表</p>
+</li>
+<li><p><code>PS1</code>: Shell 提示符</p>
+</li>
+<li><p><code>PS2</code>: 输入多行命令，Shell 次要提示符</p>
+</li>
+<li><p><code>PWD</code>： 当前工作目录</p>
+</li>
+<li><p><code>RANDOM</code>： 返回 0 ~ 32767 之间的随机数</p>
+</li>
+<li><p><code>SHELL</code>：Shell 的名字</p>
+</li>
+<li><p><code>SHELLOPTS</code>:  启动当前 Shell 的 <code>set</code>  命令的参数</p>
+</li>
+<li><p><code>TERM</code>:   当前终端类型名</p>
+</li>
+<li><p><code>UID</code>： 当前用户的 ID 编号</p>
+</li>
+<li><p><code>USER</code>：当前用户的用户名</p>
+</li>
+</ul>
+<p>查看单个变量名可使用 <code>printenv</code> 或 <code>echo</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printenv PATH</span><br><span class="line">echo $PATH</span><br></pre></td></tr></table></figure>
+
+<p>​                                                                                                                    </p>
+<h3 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h3><p><strong>自定义变量只在当前 Shell 环境下有效</strong></p>
+<p>可以使用 <code>set</code> 查看当前 Shell 中所有的<strong>环境变量</strong>和<strong>自定义变量</strong>。</p>
+<h2 id="创建变量"><a href="#创建变量" class="headerlink" title="创建变量"></a>创建变量</h2><hr>
+<p>变量的命名规则：</p>
+<ul>
+<li>字母，数字和下划线字符组成</li>
+<li>第一个字符必须是字母或下划线</li>
+<li>不能有空格或标点符号</li>
+</ul>
+<p>变量声明时，等号两边<strong>不能空格</strong>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_name=var_value</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Bash 变量只有字符串类型</li>
+<li>变量可以重复赋值</li>
+</ul>
+<h2 id="变量读取"><a href="#变量读取" class="headerlink" title="变量读取"></a>变量读取</h2><hr>
+<p>使用 <code>$</code> 符号读取变量：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo $var_name</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或</span></span><br><span class="line">echo $&#123;var_name&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果变量的值是变量，可以使用 <code>$&#123;!var_name&#125;</code> 读取</li>
+</ul>
+<h2 id="删除变量"><a href="#删除变量" class="headerlink" title="删除变量"></a>删除变量</h2><hr>
+<p>使用 <code>unset</code>可以删除一个变量。</p>
+<hr>
+<h2 id="输出变量"><a href="#输出变量" class="headerlink" title="输出变量"></a>输出变量</h2><hr>
+<p>自定义变量仅在当前 Shell 下有效，子 Shell 读取不到，可以使用 <code>export</code> 来使改变量能被子 Shell 访问。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export a=1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者分两步执行</span></span><br><span class="line">a=1</span><br><span class="line">export a</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意在子 Shell 中修改 export 的变量，不会影响到父 Shell 的值</li>
+</ul>
+<h2 id="特殊变量"><a href="#特殊变量" class="headerlink" title="特殊变量"></a>特殊变量</h2><hr>
+<ul>
+<li><code>$?</code> ： 上个命令的退出状态码，一般成功返回 0</li>
+<li><code>$$</code>： 当前 Shell 的进程ID，例如可以用来命名临时文件<code>touch file.$$</code></li>
+<li><code>$_</code>： 上个命令的最后一个参数</li>
+<li><code>$!</code>： 最近一个后台执行的命令的进程 ID</li>
+<li><code>$0</code>： 当前 Shell 名称或脚本名</li>
+<li><code>$-</code>： 当前 Shell 的启动参数</li>
+<li><code>$@</code> ：表示脚本的全部参数</li>
+<li> <code>$#</code>：表示脚本的全部参数参数数量</li>
+</ul>
+<h2 id="变量的默认值"><a href="#变量的默认值" class="headerlink" title="变量的默认值"></a>变量的默认值</h2><hr>
+<ul>
+<li><code>$&#123;varname:-word&#125;</code>:  （<strong>返回默认值</strong>）如果变量不存在或为空，则返回 word，否则返回变量的值</li>
+<li><code>$&#123;varname:=word&#125;</code>：（<strong>设置默认值</strong>）如果变量不存在或为空，则被设置并返回 word，否则返回变量的值</li>
+<li><code>$&#123;varname:+word&#125;</code>:  （<strong>存在时返回设置值</strong>）用来测试变量是否存在，如果存在且不会空则返回word，否则返回空值</li>
+<li><code>$&#123;varname:?message&#125;</code>： （<strong>不存在则退出并提示指定信息</strong>）如果变量不存在或为空，则打印 <code>varname: message</code>，且中断脚本执行，用来防止变量未定义。</li>
+<li><code>$&#123;1:?&#39;变量不存在&#39;&#125;</code>： 变量名可以使用 1~9，表示脚本的参数</li>
+</ul>
+<h2 id="declare-命令"><a href="#declare-命令" class="headerlink" title="declare 命令"></a>declare 命令</h2><hr>
+<p>declare 命令用来声明变量，可以对变量增加一些特性限制。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare OPTIONS VARIABLE=value</span><br></pre></td></tr></table></figure>
+
+<p><code>declare</code> 在函数内部声明的变量只在函数内部有效，等同于 <code>local</code>命令，<code>declare</code> 命令默认合宿出当前环境的所有变量，包括函数在内，等同于不带任何参数的 <code>set</code></p>
+<p>OPTIONS 可选值：</p>
+<ul>
+<li><code>-a</code>:  声明数组变量</li>
+<li><code>-f</code>：输出所有函数定义</li>
+<li><code>-F</code>：输出所有函数名</li>
+<li><code>-i</code>：声明整数变量</li>
+</ul>
+<p>声明的整数变量，可直接进行数学运算</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">declare -i num1=1 num2=10</span><br><span class="line"><span class="meta">#</span><span class="bash"> 只要将 sum 声明为整数变量，就会进行整数运算</span></span><br><span class="line">declare -i sum</span><br><span class="line">sum=num1+num2</span><br><span class="line">echo $sum // 输出 11</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-x</code>：声明为环境变量，等同于 export</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">declare -x a=1122</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价与</span></span><br><span class="line">export a=1122</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>-r</code>：声明为只读变量，不能更改和 <code>unset</code></p>
+</li>
+<li><p><code>-u</code>：声明变量为大写字母，会自动将变量的值转化为大写字母</p>
+</li>
+<li><p><code>-l</code>：声明变量为小写字母，会自动将变量的值转化为小写字母</p>
+</li>
+<li><p><code>-p</code>： 输出变量信息</p>
+</li>
+</ul>
+<h2 id="readonly-命令"><a href="#readonly-命令" class="headerlink" title="readonly 命令"></a><code>readonly</code> 命令</h2><hr>
+<p><code>readonly</code>命令等价于 <code>declare -r</code>，用于声明只读变量。</p>
+<p><code>readonly</code> 有三个参数：</p>
+<ul>
+<li><code>-f</code>： 声明的变量为函数名</li>
+<li><code>-p</code>：打印出所有的只读变量</li>
+<li><code>-a</code>：声明的变量为数组</li>
+</ul>
+<h2 id="let-命令"><a href="#let-命令" class="headerlink" title="let 命令"></a>let 命令</h2><hr>
+<p>使用 <code>let</code> 命令声明变量可以直接进行算术计算：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let a=1+2</span><br><span class="line">let b=a++</span><br></pre></td></tr></table></figure>
+
+<p>如果有空格，需要使用引号包含整个表达式</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let &quot;a = 1 + 2&quot;</span><br></pre></td></tr></table></figure>
+
+<p>多个使用空格隔开</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let c=1 d=2</span><br><span class="line">let &quot;c = 1&quot; &quot;d = 2&quot;</span><br></pre></td></tr></table></figure>
+
+<hr>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/bash/" rel="tag"># bash</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/01/29/bash/04-quotation/" rel="prev" title="引号和转义">
+      <i class="fa fa-chevron-left"></i> 引号和转义
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/02/04/bash/06-string/" rel="next" title="字符串操作">
+      字符串操作 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">1.1.</span> <span class="nav-text">环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="nav-number">1.2.</span> <span class="nav-text">自定义变量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%8F%98%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">创建变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E8%AF%BB%E5%8F%96"><span class="nav-number">3.</span> <span class="nav-text">变量读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%8F%98%E9%87%8F"><span class="nav-number">4.</span> <span class="nav-text">删除变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%93%E5%87%BA%E5%8F%98%E9%87%8F"><span class="nav-number">5.</span> <span class="nav-text">输出变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%AE%8A%E5%8F%98%E9%87%8F"><span class="nav-number">6.</span> <span class="nav-text">特殊变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">7.</span> <span class="nav-text">变量的默认值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#declare-%E5%91%BD%E4%BB%A4"><span class="nav-number">8.</span> <span class="nav-text">declare 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#readonly-%E5%91%BD%E4%BB%A4"><span class="nav-number">9.</span> <span class="nav-text">readonly 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#let-%E5%91%BD%E4%BB%A4"><span class="nav-number">10.</span> <span class="nav-text">let 命令</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zylyye"
+      src="/assets/images/avatar.png">
+  <p class="site-author-name" itemprop="name">zylyye</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zylyye@gmail.com" title="E-Mail → mailto:zylyye@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:zylyye?call|chat" title="Skype → skype:zylyye?call|chat" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i>Skype</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zylyye</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

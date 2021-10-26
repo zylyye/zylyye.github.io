@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.ico">
+  <link rel="mask-icon" href="/assets/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zylyye.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Java集合框架对常用的算法、数据结构进行了封装，组成了一套可以用于多种处理对象集合场景的框架.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java集合框架">
+<meta property="og:url" content="https://zylyye.cn/2019/07/27/java-base/java-collections-framework/index.html">
+<meta property="og:site_name" content="Forgetful Alann">
+<meta property="og:description" content="Java集合框架对常用的算法、数据结构进行了封装，组成了一套可以用于多种处理对象集合场景的框架.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-07-27T14:44:22.000Z">
+<meta property="article:modified_time" content="2021-02-19T14:26:58.216Z">
+<meta property="article:author" content="zylyye">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content="集合框架">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zylyye.cn/2019/07/27/java-base/java-collections-framework/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>Java集合框架 | Forgetful Alann</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Forgetful Alann</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">In youth we learn, in age we understand.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://zylyye.cn/2019/07/27/java-base/java-collections-framework/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+      <meta itemprop="name" content="zylyye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Forgetful Alann">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java集合框架
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-27 22:44:22" itemprop="dateCreated datePublished" datetime="2019-07-27T22:44:22+08:00">2019-07-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-19 22:26:58" itemprop="dateModified" datetime="2021-02-19T22:26:58+08:00">2021-02-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Java基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Java集合框架对常用的算法、数据结构进行了封装，组成了一套可以用于多种处理对象集合场景的框架.</p>
+<span id="more"></span>
+
+<h2 id="集合框架中的接口"><a href="#集合框架中的接口" class="headerlink" title="集合框架中的接口"></a>集合框架中的接口</h2><hr>
+<p>Java 集合框架中为不同类型的集合定义了一个接口，并根据这个接口，提供了多种实现，几乎所有的集合接口或类都支持泛型，集合框架中定义了两大基础接口：Collection 与 Map</p>
+<p>集合框架中所有的集合类都实现自这两个接口，其中 Collection 下包含了一以下几个核心接口：</p>
+<ul>
+<li>Set - 一个没有重复元素集<ul>
+<li>SortedSet - 有序集</li>
+</ul>
+</li>
+<li>List - 有序列表</li>
+<li>Queue - 队列</li>
+<li>Deque - 双端队列</li>
+</ul>
+<p>Map 中包含了以下核心接口：</p>
+<ul>
+<li>Map - 包含键值对的映射<ul>
+<li>SortedMap - 按照键进行有序存储的映射</li>
+</ul>
+</li>
+</ul>
+<p>把功能抽象为接口与实现分离的设计使得这些集合类充分享有多态带来的灵活性，例如常见的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>如果之后希望换成其他的数据结构的列表(例如链表结构的列表)，则可以直接替换，而无需担心影响已经使用了该对象的语句：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strList = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br></pre></td></tr></table></figure>
+
+<p>官方文档给出了一个不同接口及实现的概览表格：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Interface</th>
+<th>Hash Table</th>
+<th>Resizable Array</th>
+<th>Balanced Tree</th>
+<th>Linked List</th>
+<th>Hash Table  +  Linked List</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>Set</code></td>
+<td><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/api/java/util/HashSet.html"><code>HashSet</code></a></td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/api/java/util/TreeSet.html"><code>TreeSet</code></a></td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/api/java/util/LinkedHashSet.html"><code>LinkedHashSet</code></a></td>
+</tr>
+<tr>
+<td align="left"><code>List</code></td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/api/java/util/ArrayList.html"><code>ArrayList</code></a></td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/api/java/util/LinkedList.html"><code>LinkedList</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td align="left"><code>Deque</code></td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/api/java/util/ArrayDeque.html"><code>ArrayDeque</code></a></td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/api/java/util/LinkedList.html"><code>LinkedList</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td align="left"><code>Map</code></td>
+<td><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/api/java/util/HashMap.html"><code>HashMap</code></a></td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/api/java/util/TreeMap.html"><code>TreeMap</code></a></td>
+<td></td>
+<td><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/api/java/util/LinkedHashMap.html"><code>LinkedHashMap</code></a></td>
+</tr>
+</tbody></table>
+<p>其中 Deque 是双端队列，是 Queue 的子接口.</p>
+<h2 id="抽象集合类"><a href="#抽象集合类" class="headerlink" title="抽象集合类"></a>抽象集合类</h2><hr>
+<p>集合框架中定义了几个实现基本接口的抽象类：</p>
+<ul>
+<li>AbstractCollection</li>
+<li>AbstractSet</li>
+<li>AbstractList</li>
+<li>AbstractSequentialList</li>
+<li>AbstractQueue</li>
+<li>AbstractMap</li>
+</ul>
+<p>这些抽象类给出了接口的基本实现，方便自定义实现集合类.</p>
+<h2 id="可选的方法与标记接口"><a href="#可选的方法与标记接口" class="headerlink" title="可选的方法与标记接口"></a>可选的方法与标记接口</h2><hr>
+<h3 id="可选的方法"><a href="#可选的方法" class="headerlink" title="可选的方法"></a>可选的方法</h3><p>集合接口中定义的修改集合的方法不强制子类必须实现以提供支持(例如 add, remove, clear)，子类在实现集合接口时，可以根据需要在实现了这些接口的方法中抛出 UnsupportedOperationException 以表示当前的实现类不支持该操作.</p>
+<p>例如 <code>Arrays.asList()</code> 方法返回的 List 是一个不可修改的列表，调用其 <code>add()</code> 方法时，会抛出 UnsupportedOperationException 异常.</p>
+<h3 id="RandomAccess-标记接口"><a href="#RandomAccess-标记接口" class="headerlink" title="RandomAccess 标记接口"></a>RandomAccess 标记接口</h3><p>集合框架中使用 RandomAccess 接口来标记当前集合类支持高效的随机访问.</p>
+<p>例如 ArrayList 类即有这个接口，因为 ArrayList 内部是使用数组来存储对象的，因此，可以支持使用存储索引来高效随机访问，但是 List 的另一种数据结构的实现 LinkedList 就不能高效的进行随机访问，因为其内部对象的存储基于双向链表结构，要想访问指定索引出的对象，必须对链表中的各个节点进行顺序遍历.</p>
+<h2 id="Collection-接口"><a href="#Collection-接口" class="headerlink" title="Collection 接口"></a>Collection 接口</h2><hr>
+<p>Collection 接口是所有集合的基础接口，其中定义了操作集合的基础方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回集合的大小</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断集合是否为空</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 查询集合中是否包含指定元素</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">contains</span><span class="params">(Object o)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回一个集合元素迭代器</span></span><br><span class="line"><span class="function">Iterator&lt;E&gt; <span class="title">iterator</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 向集合中添加新元素</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除集合中指定的元素</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">remove</span><span class="params">(Object o)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="遍历集合"><a href="#遍历集合" class="headerlink" title="遍历集合"></a>遍历集合</h3><p>有三种用来遍历集合中元素的方式：</p>
+<ul>
+<li>使用聚合操作（自 Java 8 起提供的 stream 流来操作集合）</li>
+<li>使用 for-each 结构语句</li>
+<li>使用迭代器</li>
+</ul>
+<h4 id="聚合操作-stream-流"><a href="#聚合操作-stream-流" class="headerlink" title="聚合操作(stream 流)"></a>聚合操作(stream 流)</h4><p>自 Java 8 起，可以通过 stream 流来对集合进行聚合操作，Collection 接口中定义了将集合转换为 stream 流的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回一个stream流</span></span><br><span class="line"><span class="function">Stream&lt;E&gt; <span class="title">stream</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回一个stream并行流</span></span><br><span class="line"><span class="function">Stream&lt;E&gt; <span class="title">parallelStream</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure>
+
+<p>例如对一个字符串集合进行筛选联结操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; strList = Arrays.asList(<span class="string">&quot;aaa&quot;</span>, <span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>);</span><br><span class="line">String result = strList.stream()</span><br><span class="line">        .filter(str -&gt; str.length() == <span class="number">1</span>)</span><br><span class="line">        .collect(Collectors.joining(<span class="string">&quot;,&quot;</span>));</span><br><span class="line">System.out.println(<span class="string">&quot;result = &quot;</span> + result);</span><br><span class="line"><span class="comment">// </span></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-for-each-结构语句"><a href="#使用-for-each-结构语句" class="headerlink" title="使用 for-each 结构语句"></a>使用 for-each 结构语句</h4><p>Collection 实现了 Iterable 接口，对于实现了 Iterable 接口的类，可以使用 for-each 结构语句对其进行遍历：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 遍历列表中的字符串并打印</span></span><br><span class="line"><span class="keyword">for</span> (String content : list) &#123;</span><br><span class="line">    System.out.println(content);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Iterable 中还定义了 <code>forEach()</code> 方法用来对集合进行遍历，不过该方法的内部同样是使用 for-each 结构语句实现.</p>
+<h4 id="使用迭代器"><a href="#使用迭代器" class="headerlink" title="使用迭代器"></a>使用迭代器</h4><p>调用集合中的 <code>iterator()</code> 会返回一个迭代器，迭代器接口 Iterator 中定义了如下的基础方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断是否还有待迭代的元素</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回下一个元素，如果没有，则抛出NoSuchElementException</span></span><br><span class="line"><span class="function">E <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 移除刚才迭代的元素，该方法在每次迭代后，只能调用一次</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理剩余的元素</span></span><br><span class="line">forEachRemaining(Consumer&lt;? <span class="keyword">super</span> E&gt; action);</span><br></pre></td></tr></table></figure>
+
+<p>迭代器典型的使用方式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Iterator&lt;String&gt; iterator = list.iterator();</span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    String nextStr = iterator.next();</span><br><span class="line">    System.out.println(nextStr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用迭代器筛选字符串列表：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;(Arrays.asList(<span class="string">&quot;aaa&quot;</span>, <span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;c&quot;</span>));</span><br><span class="line">Iterator&lt;String&gt; iterator = list.iterator();</span><br><span class="line"><span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line">    String str = iterator.next();</span><br><span class="line">    <span class="keyword">if</span> (str.length() != <span class="number">1</span>) &#123;</span><br><span class="line">        iterator.remove();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">System.out.println(<span class="string">&quot;list = &quot;</span> + list);</span><br><span class="line"><span class="comment">// list = [a, b, c]</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意与使用 stream 流进行筛选的方式不同的是，使用迭代器删除会更改原始集合，使用 stream 流进行筛选不会对原集合产生副作用.</strong></p>
+<p>默认情况下，迭代器只能向后迭代，不过 List 中可以使用 <code>listIterator()</code> 方法来获取一个列表迭代器，该迭代器支持向前迭代.</p>
+<h3 id="批操作方法"><a href="#批操作方法" class="headerlink" title="批操作方法"></a>批操作方法</h3><p>Collection 接口中定义了一些有用的批操作方法接口：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断集合中是否包含指定集合中的全部元素</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">containsAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将指定集合中的元素添加到本集合中</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 移除包含在指定集合中的全部元素</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">removeAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给定一个选择器，移除全部符合条件的元素</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">removeIf</span><span class="params">(Predicate&lt;? <span class="keyword">super</span> E&gt; filter)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 只保留和指定集合中相等的元素(取两集合交集)</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">retainAll</span><span class="params">(Collection&lt;?&gt; c)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 清除集合中的所有元素</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>例如移除集合中为 null 的元素：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">list.removeAll(Collections.singleton(<span class="keyword">null</span>));</span><br><span class="line"><span class="comment">// 或</span></span><br><span class="line">list.removeIf(Objects::isNull);</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组相关方法"><a href="#数组相关方法" class="headerlink" title="数组相关方法"></a>数组相关方法</h3><p>集合接口中定义了将集合转化为数组的方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 转化为Object数组</span></span><br><span class="line">Object[] toArray();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 转化为指定类型数组，集合顺序填充数组a，剩余的填充null，如果a的长度不够，则创建一个新的数组填充返回</span></span><br><span class="line">&lt;T&gt; T[] toArray(T[] a);</span><br></pre></td></tr></table></figure>
+
+<p>例如将字符串列表转化为字符串数组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">String[] strings = list.toArray(<span class="keyword">new</span> String[<span class="number">0</span>]);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Set-接口"><a href="#Set-接口" class="headerlink" title="Set 接口"></a>Set 接口</h2><hr>
+<p>Set 在是一种不包含重复元素的集合，Set 并没有在 Collection 的基础上增加新的方法，只是在新增时限制不能插入重复元素，利用该特性，可以为一个集合去重：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; uniList = <span class="keyword">new</span> HashSet&lt;&gt;(list);</span><br><span class="line"><span class="comment">// 或者使用stream流，一下语句返回一个HashSet实例</span></span><br><span class="line">Set&lt;String&gt; uniList = list.stream().collect(Collectors.toSet());</span><br></pre></td></tr></table></figure>
+
+<p>此外 Set 中重写了 <code>equals()</code> 方法，当两个 Set 实例之间进行比较时，只要两者包含相同的元素(即使顺序不同)，则视为相等.</p>
+<h3 id="基本实现类型"><a href="#基本实现类型" class="headerlink" title="基本实现类型"></a>基本实现类型</h3><p>Set 接口下主要包含了三种实现：</p>
+<ul>
+<li><p>HashSet - 最常用、性能最佳的实现，内部使用哈希表存储，元素无序</p>
+</li>
+<li><p>TreeSet - 使用红黑树结构存储，元素有序存储</p>
+<p>TreeSet 始终会将元素维持为一个有序的树状结构(红黑树，一种自平衡二叉树)，可以实现高效的有序插入、删除操作.</p>
+</li>
+<li><p>LinkedHashSet - 使用链表结构存储，元素按照插入时的顺序存储</p>
+<p>LinkedHashSet 内部使用链表结构的哈希表存储，可以保持元素插入的顺序(注意如果插入已存在的元素不会影响之前元素的存储顺序，因为 Set 只会插入集合中不存在的元素)，如果要对一个有序列表进行去重，则可以使用 LinkedHashSet，以保持有序列表中的位置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;String&gt; uniList = <span class="keyword">new</span> LinkedHashSet&lt;&gt;(sortedList);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>除此之外, Set 接口下还包含两种特殊用途的实现:</p>
+<ul>
+<li>EnumSet - 高性能的枚举集</li>
+<li>CopyOnWriteArraySet - 一个<strong>写时复制</strong>集, 所有的修改操作都会在内部复制一个新的数组, 避免影响修改前的数组. 在遍历该集合时, 可以无需担心并发修改的影响. 该实现适用于<strong>频繁遍历, 少数修改</strong>的场景, 例如一个不重复的事件处理器列表.</li>
+</ul>
+<h2 id="SortedSet-接口"><a href="#SortedSet-接口" class="headerlink" title="SortedSet 接口"></a>SortedSet 接口</h2><hr>
+<p>SortedSet 是一个有序的集, 该集合中的元素以升序排序, 在创建 SortedSet 对象时, 可以指定一个比较器, 如果不指定比较器, 存储的元素必须实现 Comparable 接口来指定元素的排序规则. SortedSet 构造器可以接收一个集合, 如果这个集合也是 SortedSet 的一个实例, 则新建的有序集会沿用之前的比较器, 并将旧集合的元素依照原顺序插入到新集合中.</p>
+<p>SortedSet 与普通 Set 最显著的区别是其将元素有序存储, 且该集返回的迭代器和 <code>toArray()</code> 返回的数组都可以用来有序遍历. 除此之外, SortedSet 还增加了几个额外的方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回有序集的第一个元素</span></span><br><span class="line"><span class="function">E <span class="title">first</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回有序集的最后一个元素</span></span><br><span class="line"><span class="function">E <span class="title">last</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回集合的一个范围视图 包含fromElement, 不包含toElement</span></span><br><span class="line"><span class="function">SortedSet&lt;E&gt; <span class="title">subSet</span><span class="params">(E fromElement, E toElement)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回集合开始部分的元素视图, 不包含toElement</span></span><br><span class="line"><span class="function">SortedSet&lt;E&gt; <span class="title">headSet</span><span class="params">(E toElement)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回集合结尾部分的元素视图, 包含fromElement</span></span><br><span class="line"><span class="function">SortedSet&lt;E&gt; <span class="title">tailSet</span><span class="params">(E fromElement)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>比较特别的是, 该接口中定义的几个返回视图的方法, 其中接收的参数(fromElement, toElement)是用来确定位置的参照元素, 这些元素并不一定要在集合中, 例如一个数字集的子视图:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">intSortedSet.subSet(<span class="number">3</span>, <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+
+<p>返回的子视图包含元素x: <code>x &gt;= 3 &amp;&amp; x &lt; 10</code>, 由此, 文档中给出几个有趣的例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 统计以 a 开头的单词的数量, 因为按照字符串的排序规则, &quot;ab&quot; &gt; &quot;a&quot;</span></span><br><span class="line"><span class="keyword">int</span> count = wordSet.subset(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>).size();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 统计以 a 开头的单词的数量, 但不包含 &quot;a&quot;, 其中&quot;\0&quot;表示空字符, &quot;a&quot; &lt; &quot;a\0&quot; &lt; &quot;ab&quot;</span></span><br><span class="line"><span class="keyword">int</span> count = wordSet.subset(<span class="string">&quot;a\0&quot;</span>, <span class="string">&quot;b&quot;</span>).size();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 清除 a 到 b 之间的单词</span></span><br><span class="line">wordSet.subset(<span class="string">&quot;a&quot;</span>, <span class="string">&quot;b&quot;</span>).clear();</span><br></pre></td></tr></table></figure>
+
+<p>同样的, 这些特性也能应用在<code>headSet()</code>, <code>tailSet()</code>上.</p>
+<h2 id="List-接口"><a href="#List-接口" class="headerlink" title="List 接口"></a>List 接口</h2><hr>
+<p>List 列表是一种有序集合，与 Set 不同，列表中可以包含重复元素. 此外，除了实现了集合中的基本接口外,列表中还额外添加了一些有用的功能方法:</p>
+<ul>
+<li><p>位置访问</p>
+<p>列表中可以直接使用索引来访问元素,列表接口中定义了以下方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取指定索引处的元素</span></span><br><span class="line"><span class="function">E <span class="title">get</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 设置指定索引除的元素,并返回之前的元素</span></span><br><span class="line"><span class="function">E <span class="title">set</span><span class="params">(<span class="keyword">int</span> index, E element)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 移除并返回指定索引处的元素</span></span><br><span class="line"><span class="function">E <span class="title">remove</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>List有基于数组和基于链表两种数据结构的实现,基于数组的实现可以高效的进行位置访问操作, 如 ArrayList, 而基于链表的实现, 访问指定索引出的元素时, 需要进行顺序遍历, 因此效率较低, 例如 LinkedList</p>
+</li>
+<li><p>位置搜索</p>
+<p>列表中可以根据给定元素, 确定其在列表中的位置:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回指定元素第一次和最后一次出现的位置,没有则返回-1</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">indexOf</span><span class="params">(Object o)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">lastIndexOf</span><span class="params">(Object o)</span></span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>列表迭代器</p>
+<p>与集合中默认的迭代器不同, 列表中的迭代器可以向前遍历, 列表中可以用以下方法获取一个列表迭代器:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回一个列表迭代器, 可以指定起始位置</span></span><br><span class="line"><span class="function">ListIterator&lt;E&gt; <span class="title">listIterator</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">ListIterator&lt;E&gt; <span class="title">listIterator</span><span class="params">(<span class="keyword">int</span> index)</span></span>;</span><br></pre></td></tr></table></figure></li>
+<li><p>范围视图</p>
+<p>列表可以返回一个范围内的列表视图, 列表返回的视图支持列表的所有操作:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回指定范围的子列表</span></span><br><span class="line"><span class="function">List&lt;E&gt; <span class="title">subList</span><span class="params">(<span class="keyword">int</span> fromIndex, <span class="keyword">int</span> toIndex)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>对 <code>sublist()</code> 方法返回的列表视图进行修改会直接影响到源列表, 由此,可以结合列表的其他方法来简化工作, 例如删除列表中的某个范围内的元素:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">list.subList(<span class="number">1</span>, <span class="number">5</span>).clear();</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="基本实现类型-1"><a href="#基本实现类型-1" class="headerlink" title="基本实现类型"></a>基本实现类型</h3><p>合框架中的 List 有两种基本实现:</p>
+<ul>
+<li>ArrayList - 最常用的实现, 内部基于数组实现, 可以提供高效的随机访问与遍历</li>
+<li>LinkedLisk - 内部基于链表结构, 可以提供高效的删除/插入操作</li>
+</ul>
+<p>初次之外, 列表的也有一个特殊用途的实现:</p>
+<ul>
+<li>CopyOnWriteArrayList - 一个<strong>写时复制</strong>列表, 与 CopyOnWriteArraySet 类似, 在遍历该集合时, 无需担心并发修改该集合的影响, 该实现同样适用于<strong>频繁遍历, 少数修改的情况</strong>.</li>
+</ul>
+<h2 id="Queue-接口"><a href="#Queue-接口" class="headerlink" title="Queue 接口"></a>Queue 接口</h2><hr>
+<p>Queue 是一个队列, 用于保存待处理的元素集合, 队列接口在集合的基础上增加了额外的增删/获取方法, 方法作用及特点如下(表中只有 <code>add()</code> 不是新方法):</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作类型</th>
+<th align="center">失败时方法抛出抛出异常</th>
+<th align="center">失败时返回特殊值 null/false</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">插入队列</td>
+<td align="center">add(e)</td>
+<td align="center">offer(e)</td>
+</tr>
+<tr>
+<td align="center">获取并从队列移除</td>
+<td align="center">remove()</td>
+<td align="center">poll()</td>
+</tr>
+<tr>
+<td align="center">获取但不从队列移除</td>
+<td align="center">element()</td>
+<td align="center">peek()</td>
+</tr>
+</tbody></table>
+<p>当队列为空时, 调用获取元素的方法会返回 null, 因此, 一般队列的队列的实现中限制了不能存放 null (<code>LinkedList</code> 没有这个限制, 它允许插入 null), </p>
+<h3 id="队列元素的顺序"><a href="#队列元素的顺序" class="headerlink" title="队列元素的顺序"></a>队列元素的顺序</h3><p>  Queue 的一般实现都是一个 FIFO(first in firt out, 先入先出)对列, 队列新增的元素会放置到队列的末尾, 需要取出元素时, 会从返回队列头部的元素. 不过也有可以指定排序规则的队列, 例如 PriorityQueue, 创建该队列时, 可以指定一个比较器(Compartor), 这样队列中的元素将按照指定的顺序排序. </p>
+<h3 id="有界队列"><a href="#有界队列" class="headerlink" title="有界队列"></a>有界队列</h3><p>在 java.util 包中的队列实现都是无界的, java.util.concurrent 包中的大部分实现是有界的, 该包中的存放的都是线程安全的实现.</p>
+<h3 id="Queue-基本实现类型"><a href="#Queue-基本实现类型" class="headerlink" title="Queue 基本实现类型"></a>Queue 基本实现类型</h3><p>队列的实现类型分为两种: <strong>一般实现类型</strong> 和 <strong>线程安全实现类型</strong>.</p>
+<p><strong>一般实现类型</strong></p>
+<p>常用的实现类如:</p>
+<ul>
+<li>LinkedList  - 一个FIFO(先入先出)的无界队列, 基于链表实现</li>
+<li>PriorityQueue - 一个优先级队列, 队列的排序顺序可通过构造器指定, 没有则使用自然排序</li>
+</ul>
+<p><strong>线程安全实现类型</strong></p>
+<p>线程安全的实现类都在包 java.util.concurrent 包下, 主要有:</p>
+<ul>
+<li>LinkedBlockingQueue - 有界 FIFO 阻塞队列, 基于链表实现</li>
+<li>ArrayBlockingQueue - 有界 FIFO 阻塞队列, 基于数组实现</li>
+<li>PriorityBlockingQueue - 无界优先队列</li>
+<li>DelayQueue - 元素带有过期时间(存放的元素需实现 Delayed 接口), 有序队列</li>
+<li>SynchronousQueue - 一个简单中转同步队列, 不存储元素</li>
+<li>LinkedTransferQueue - 一个无界传输队列, 生产者调用其中的 <code>trasfer(E e)</code> 会阻塞, 直到有消费者进行消费</li>
+</ul>
+<h2 id="Deque-接口"><a href="#Deque-接口" class="headerlink" title="Deque 接口"></a>Deque 接口</h2><p>Deque 是一个双端队列, 与 Queue 队列不同的是, 双端队列可以在队列的两端进行元素的插入和删除操作, 其提供的操作队列的功能与 Queue 一致, 不过分为操作队首和队尾两个版本:</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th>失败抛出异常</th>
+<th>失败返回false/null</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">插入队首或队尾</td>
+<td>addFirst(e)<br>addList(e)</td>
+<td>offerFirst(e)<br>offerLast(e)</td>
+</tr>
+<tr>
+<td align="center">获取并从队首或队尾删除</td>
+<td>removeFirst(e)<br>removeLast(e)</td>
+<td>pollFirst(e)<br>pollLast(e)</td>
+</tr>
+<tr>
+<td align="center">获取队首或队尾的元素但不删除</td>
+<td>getFirst()<br>getLast()</td>
+<td>peekFirst()<br>peekLast()</td>
+</tr>
+</tbody></table>
+<p>除了这些基本的操作队列方法外, Deque 中还提供了其它有关从队列中移除元素的方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从队列中移除第一个或最后一个出现的指定元素, 如果移除成功则返回 true, 否则返回 false</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">removeFirstOccurrence</span><span class="params">(Object o)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">removeLastOccurrence</span><span class="params">(Object o)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Deque-基本实现类型"><a href="#Deque-基本实现类型" class="headerlink" title="Deque 基本实现类型"></a>Deque 基本实现类型</h3><p>双端队列的实现类同样分为两类: <strong>一般实现类型</strong>和<strong>线程安全的实现类型</strong>.</p>
+<p><strong>一般实现类型</strong></p>
+<ul>
+<li>LinkedList - 基于链表结构的双端队列</li>
+<li>ArrayDeque - 基于数组实现的双端队列, 类似于 ArrayList, 可自动扩容</li>
+</ul>
+<p><strong>线程安全的实现</strong></p>
+<ul>
+<li>ConcurrentLinkedDeque - 基于链表结构, 无界线程安全队列</li>
+<li>LinkedBlockingDeque - 可通过构造器指定容量, 基于链表结构, 阻塞队列</li>
+</ul>
+<h2 id="Map-接口"><a href="#Map-接口" class="headerlink" title="Map`接口"></a>Map`接口</h2><hr>
+<p>Map 不是属于集合, 它是一个存放键值对的映射表, 映射表中的键不会重复, 因此同一个键值对, 映射表中最多只会存在一个, 此外, 与队列不同, Map 中的键值都可为 null, Map 接口中定义了有关映射表的基础方法:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存放指定键值对</span></span><br><span class="line"><span class="function">V <span class="title">put</span><span class="params">(K key, V value)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用键获取指定的值, 没有则返回 null</span></span><br><span class="line"><span class="function">V <span class="title">get</span><span class="params">(Object key)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取映射表中指定键对应的值, 没有则使用指定的默认值</span></span><br><span class="line"><span class="function">V <span class="title">getOrDefault</span><span class="params">(Object key, V defaultValue)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">// 删除指定的键值</span></span></span><br><span class="line"><span class="function">V <span class="title">remove</span><span class="params">(Object key)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取映射表中键值对的数量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断表映射是否为空</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断映射表中是否包含指定的键</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">containsKey</span><span class="params">(Object key)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断映射表中是否包含指定的值</span></span><br><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">containsValue</span><span class="params">(Object value)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>与其他集合类似, Map 中 <code>equals()</code> 方法的实现可以保证两个包含相等键值对的 Map 对象比较结果为 true, 而无需担心 Map 对象具体的实现类型</p>
+<h3 id="Map-的基本实现类型"><a href="#Map-的基本实现类型" class="headerlink" title="Map 的基本实现类型"></a>Map 的基本实现类型</h3><p>Map接口的基本实现类型及特点:</p>
+<ul>
+<li><p>HashMap - 最常用, 最高效的 hash 表实现, 键值无序存放</p>
+</li>
+<li><p>TreeMap - 键有序存放, 内部是红黑树结构</p>
+</li>
+<li><p>LinkedHashMap - 键值使用双向链表存放, 可以保持键的插入顺序</p>
+<p>LinkedHashMap 中元素的顺序默认使用元素第一次插入的顺序, 不过, 该实现类还提供了一种构造方法用于指定以访问顺序排序:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity,</span></span></span><br><span class="line"><span class="params"><span class="function">                         <span class="keyword">float</span> loadFactor,</span></span></span><br><span class="line"><span class="params"><span class="function">                         <span class="keyword">boolean</span> accessOrder)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>其参数的含义如下:</p>
+<ul>
+<li>initialCapacity - Map 中的初始桶数, 每个桶会存放多个元素, 默认值为 16</li>
+<li>loadFactor - 填充因子, 用于表示桶中存放元素个数的最大占比, 当占比达到此值时, 会增加新的桶, 重新散列存储元素到各个桶中, 默认为 0.75</li>
+<li>accessOrder - 元素顺序, 默认为 false, 即为元素插入顺序, 如果设置为 true, 则为元素访问顺序</li>
+</ul>
+<p>同时, 该实现类中有一个 removeEldestEntry 方法, 该方法会在每次执行插入操作后调用, 如果该方法返回 true 则会移除最旧的元素, 利用该特性可以将该 Map 作为一个 LRU (Least Recently Used, 最近最少使用) 缓存, 例如实现一个最大容量 100 的 LRU 缓存:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRUCache</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;K, V&gt; eldest)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> size() &gt; <span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>此外, Map 接口下还有三种特殊用途的实现:</p>
+<ul>
+<li>EnumMap - 以枚举作为键的映射表, 其内部使用数组实现, 拥有同数组相近的性能</li>
+<li>WeakHashMap - 弱引用映射表, 其性能与 HashMap 类似, 该实现的特别之处在于, 当值对应的键不在被外部引用, 则该键值对会在垃圾回收时被回收释放</li>
+<li>IdentityHashMap - 该映射内部的比较不是使用 <code>equals()</code> 方法, 而是使用 == , 因此需要只有两个对象内存地址相同, 才会被视为相等</li>
+</ul>
+<p>线程安全的实现:</p>
+<ul>
+<li>ConcurrentHashMap  高效的线程安全 Map, 特性与 HashMap 类似, 键值无序</li>
+<li>ConcurrentSkipListMap  有序的线程安全 Map, 元素默认按照<strong>键</strong>的自然顺序排序, 也可指定一个自定义比较器</li>
+</ul>
+<h3 id="批操作接口"><a href="#批操作接口" class="headerlink" title="批操作接口"></a>批操作接口</h3><p>Map 中定义了与集合类似的批操作接口:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 复制指定映射表中的所有键值对到当前映射表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">putAll</span><span class="params">(Map&lt;? extends K, ? extends V&gt; m)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 清空映射表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>putAll()</code> 方法通常用来合并一个映射表, 如果只是想简单的复制一个映射表, 直接使用构造方法即可:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String&gt; mapCopies = <span class="keyword">new</span> HashMap(map);</span><br></pre></td></tr></table></figure>
+
+<h3 id="集合视图"><a href="#集合视图" class="headerlink" title="集合视图"></a>集合视图</h3><p>Map 接口中定义了三个与集合视图相关的方法, 分别返回三种视图:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回键的集</span></span><br><span class="line"><span class="function">Set&lt;K&gt; <span class="title">keySet</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回值的集合</span></span><br><span class="line"><span class="function">Collection&lt;V&gt; <span class="title">values</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回键值对的集</span></span><br><span class="line">Set&lt;Map.Entry&lt;K, V&gt;&gt; entrySet();</span><br></pre></td></tr></table></figure>
+
+<h4 id="集合视图的巧妙用处"><a href="#集合视图的巧妙用处" class="headerlink" title="集合视图的巧妙用处"></a>集合视图的巧妙用处</h4><p>Map 对象返回的集合视图是可以修改的, 这些修改会直接影响到原有的映射表, 例如:</p>
+<ul>
+<li><p>删除指定的键:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.keySet().removeAll(keyList);</span><br></pre></td></tr></table></figure></li>
+<li><p>保留两个映射表共同键的部分:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map1.keySet().retainAll(map2.keySet());</span><br></pre></td></tr></table></figure></li>
+<li><p>删除表中指定的值:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map.values().removeAll(Collections.singleton(specValue));</span><br></pre></td></tr></table></figure></li>
+<li><p>删除表中键和值相等的数据:</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">map1.keySet().removeAll(map1.values());</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>此外, 可以使用集合视图来遍历映射表:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (Map.Entry&lt;String, Integer&gt; entry : map.entrySet()) &#123;</span><br><span class="line">    String key = entry.getKey();</span><br><span class="line">    Integer value = entry.getValue();</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>需留意, 调用 Map 对象获取视图的方法时, Map 对象中会缓存创建的视图, 如果多次调用, 返回的将是同一个视图对象, 即:</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">map.keySet() == map.keySet(); <span class="comment">// true</span></span><br><span class="line">map.values() == map.values();  <span class="comment">// true</span></span><br><span class="line">map.entrySet() == map.entrySet();  <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Stream-流的聚合操作"><a href="#Stream-流的聚合操作" class="headerlink" title="Stream 流的聚合操作"></a>Stream 流的聚合操作</h3><p>Stream 流只能用于处理集合, 不能直接处理 Map 对象, 使用 Stream 流提供的方法可以将一个集合转换为 Map 对象, 例如将 Student 对象集合转换为使用 id 作为键的映射表:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, Student&gt; studentMap = students.stream().collect(Collectors.toMap(Student::getId, Function.identity()));</span><br></pre></td></tr></table></figure>
+
+<p>按照性别将 Student 对象集合分组:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;Integer, List&lt;Student&gt;&gt; genderMap = students.stream().collect(Collectors.groupingBy(Student::getGender));</span><br></pre></td></tr></table></figure>
+
+<h2 id="SortedMap-接口"><a href="#SortedMap-接口" class="headerlink" title="SortedMap 接口"></a>SortedMap 接口</h2><hr>
+<p>SortedMap 是有序的映射表, 该接口定义的功能与 SortedSet 类似 (SortedSet 内部就是使用 SortedMap 来存储元素),  SortedMap 对存储的键进行排序, 因此, 在创建 SortedMap 对象时, 可以为键指定一个比较器, 或者键需要实现 Comparable 接口.</p>
+<p>SortedMap 很多特性与 SortedSet 相同:</p>
+<ul>
+<li>构造方法如果接收一个 SortedMap 对象, 则会保留该对象的比较规则和元素顺序</li>
+<li>可以进行有序遍历</li>
+<li>额外定义了获取端点 (EndPoints) 和范围视图的方法</li>
+</ul>
+<p>其在 Map 接口基础上额外定义的方法如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">K <span class="title">firstKey</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">K <span class="title">lastKey</span><span class="params">()</span></span>;</span><br><span class="line"><span class="function">SortedMap&lt;K,V&gt; <span class="title">subMap</span><span class="params">(K fromKey, K toKey)</span></span>;</span><br><span class="line"><span class="function">SortedMap&lt;K,V&gt; <span class="title">headMap</span><span class="params">(K toKey)</span></span>;</span><br><span class="line"><span class="function">SortedMap&lt;K,V&gt; <span class="title">tailMap</span><span class="params">(K fromKey)</span></span>;</span><br><span class="line"><span class="function">SortedMap&lt;K,V&gt; <span class="title">subMap</span><span class="params">(K fromKey, K toKey)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><hr>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/tutorial/collections/index.html">https://docs.oracle.com/javase/tutorial/collections/index.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/10/docs/api/java/util/package-summary.html">API文档</a></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/" rel="tag"># 集合框架</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/07/20/java-base/java-generic-type/" rel="prev" title="Java泛型">
+      <i class="fa fa-chevron-left"></i> Java泛型
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/15/java-base/java-jar/" rel="next" title="JAR包">
+      JAR包 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E4%B8%AD%E7%9A%84%E6%8E%A5%E5%8F%A3"><span class="nav-number">1.</span> <span class="nav-text">集合框架中的接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%BD%E8%B1%A1%E9%9B%86%E5%90%88%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">抽象集合类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E7%9A%84%E6%96%B9%E6%B3%95%E4%B8%8E%E6%A0%87%E8%AE%B0%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">可选的方法与标记接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">可选的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RandomAccess-%E6%A0%87%E8%AE%B0%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.2.</span> <span class="nav-text">RandomAccess 标记接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Collection-%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.</span> <span class="nav-text">Collection 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E9%9B%86%E5%90%88"><span class="nav-number">4.1.</span> <span class="nav-text">遍历集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C-stream-%E6%B5%81"><span class="nav-number">4.1.1.</span> <span class="nav-text">聚合操作(stream 流)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-for-each-%E7%BB%93%E6%9E%84%E8%AF%AD%E5%8F%A5"><span class="nav-number">4.1.2.</span> <span class="nav-text">使用 for-each 结构语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-number">4.1.3.</span> <span class="nav-text">使用迭代器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-number">4.2.</span> <span class="nav-text">批操作方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9B%B8%E5%85%B3%E6%96%B9%E6%B3%95"><span class="nav-number">4.3.</span> <span class="nav-text">数组相关方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Set-%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.</span> <span class="nav-text">Set 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.1.</span> <span class="nav-text">基本实现类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SortedSet-%E6%8E%A5%E5%8F%A3"><span class="nav-number">6.</span> <span class="nav-text">SortedSet 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List-%E6%8E%A5%E5%8F%A3"><span class="nav-number">7.</span> <span class="nav-text">List 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%9E%8B-1"><span class="nav-number">7.1.</span> <span class="nav-text">基本实现类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Queue-%E6%8E%A5%E5%8F%A3"><span class="nav-number">8.</span> <span class="nav-text">Queue 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%9F%E5%88%97%E5%85%83%E7%B4%A0%E7%9A%84%E9%A1%BA%E5%BA%8F"><span class="nav-number">8.1.</span> <span class="nav-text">队列元素的顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%89%E7%95%8C%E9%98%9F%E5%88%97"><span class="nav-number">8.2.</span> <span class="nav-text">有界队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Queue-%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">8.3.</span> <span class="nav-text">Queue 基本实现类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Deque-%E6%8E%A5%E5%8F%A3"><span class="nav-number">9.</span> <span class="nav-text">Deque 接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Deque-%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">9.1.</span> <span class="nav-text">Deque 基本实现类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Map-%E6%8E%A5%E5%8F%A3"><span class="nav-number">10.</span> <span class="nav-text">Map&#96;接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9E%E7%8E%B0%E7%B1%BB%E5%9E%8B"><span class="nav-number">10.1.</span> <span class="nav-text">Map 的基本实现类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E6%93%8D%E4%BD%9C%E6%8E%A5%E5%8F%A3"><span class="nav-number">10.2.</span> <span class="nav-text">批操作接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E8%A7%86%E5%9B%BE"><span class="nav-number">10.3.</span> <span class="nav-text">集合视图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9B%86%E5%90%88%E8%A7%86%E5%9B%BE%E7%9A%84%E5%B7%A7%E5%A6%99%E7%94%A8%E5%A4%84"><span class="nav-number">10.3.1.</span> <span class="nav-text">集合视图的巧妙用处</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stream-%E6%B5%81%E7%9A%84%E8%81%9A%E5%90%88%E6%93%8D%E4%BD%9C"><span class="nav-number">10.4.</span> <span class="nav-text">Stream 流的聚合操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SortedMap-%E6%8E%A5%E5%8F%A3"><span class="nav-number">11.</span> <span class="nav-text">SortedMap 接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">12.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zylyye"
+      src="/assets/images/avatar.png">
+  <p class="site-author-name" itemprop="name">zylyye</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zylyye@gmail.com" title="E-Mail → mailto:zylyye@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:zylyye?call|chat" title="Skype → skype:zylyye?call|chat" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i>Skype</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zylyye</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

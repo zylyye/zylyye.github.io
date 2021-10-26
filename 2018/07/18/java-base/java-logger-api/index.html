@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.ico">
+  <link rel="mask-icon" href="/assets/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zylyye.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在编写程序时，经常需要使用输出工具（例如常用的System.out.println()）来输出、记录或者对比某些变量的值，在程序的运行期间，需要记录一些关键日志信息来调试、监控或者方便以后排查问题，此时，一般输出语句无法满足日志记录的需求，因此，Java内部提供了一套用于日志记录的API.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java日志API">
+<meta property="og:url" content="https://zylyye.cn/2018/07/18/java-base/java-logger-api/index.html">
+<meta property="og:site_name" content="Forgetful Alann">
+<meta property="og:description" content="在编写程序时，经常需要使用输出工具（例如常用的System.out.println()）来输出、记录或者对比某些变量的值，在程序的运行期间，需要记录一些关键日志信息来调试、监控或者方便以后排查问题，此时，一般输出语句无法满足日志记录的需求，因此，Java内部提供了一套用于日志记录的API.">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-07-18T13:36:58.000Z">
+<meta property="article:modified_time" content="2021-02-19T14:26:58.217Z">
+<meta property="article:author" content="zylyye">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://zylyye.cn/2018/07/18/java-base/java-logger-api/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>Java日志API | Forgetful Alann</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Forgetful Alann</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">In youth we learn, in age we understand.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://zylyye.cn/2018/07/18/java-base/java-logger-api/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+      <meta itemprop="name" content="zylyye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Forgetful Alann">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java日志API
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-07-18 21:36:58" itemprop="dateCreated datePublished" datetime="2018-07-18T21:36:58+08:00">2018-07-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-02-19 22:26:58" itemprop="dateModified" datetime="2021-02-19T22:26:58+08:00">2021-02-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">Java基础</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在编写程序时，经常需要使用输出工具（例如常用的<code>System.out.println()</code>）来输出、记录或者对比某些变量的值，在程序的运行期间，需要记录一些关键日志信息来调试、监控或者方便以后排查问题，此时，一般输出语句无法满足日志记录的需求，因此，Java内部提供了一套用于日志记录的API.</p>
+<span id="more"></span>
+
+<h2 id="日志API提供的好处"><a href="#日志API提供的好处" class="headerlink" title="日志API提供的好处"></a>日志API提供的好处</h2><hr>
+<p>使用专门的日志工具来记录日志可以让这项工作更加专业和灵活性，例如：</p>
+<ul>
+<li>日志信息更加统一、标准</li>
+<li>可以配置记录日志的级别（如只记录错误信息，忽略调试信息）</li>
+<li>可以更容易的定位错误日志发生的位置</li>
+<li>可以更方便的配置日志保存的位置</li>
+</ul>
+<h2 id="记录简单的日志"><a href="#记录简单的日志" class="headerlink" title="记录简单的日志"></a>记录简单的日志</h2><hr>
+<p>需要记录一个日志只需要简单的几个步骤：</p>
+<ol>
+<li><p>获取日志记录器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取全局日志记录器</span></span><br><span class="line">Logger logger = Logger.getGlobal();</span><br></pre></td></tr></table></figure></li>
+<li><p>打印指定级别的日志</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.info(<span class="string">&quot;global message&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>这样，在程序中插入这条日志记录语句，控制台就会输出打印日志的具体类，具体方法以及自定义的日志信息.</p>
+<h2 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h2><hr>
+<p>日志API中定义了几个日志级别来帮助我们打印不同重要程度的日志：</p>
+<ul>
+<li>SEVERE</li>
+<li>WARNING</li>
+<li>INFO</li>
+<li>CONFIG</li>
+<li>FINE</li>
+<li>FINER</li>
+<li>FINEST</li>
+</ul>
+<p>这些级别中，最严重的是SEVERE级别，最普通的是FINEST级别，当程序发生严重错误时，应该记录SEVERE级别的日志，进行调试时或记录一般信息时，可以记录INFO级别或者更低级别(如FINE)的日志.</p>
+<h3 id="配置日志记录级别"><a href="#配置日志记录级别" class="headerlink" title="配置日志记录级别"></a>配置日志记录级别</h3><p>获取日志记录器后，可以使用<code>Logger</code>对象提供的<code>setLevel()</code>方法设置记录的最大级别，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.setLevel(Level.WARNING);</span><br></pre></td></tr></table></figure>
+
+<p>这样级别在WARNING以下的日志将不会记录，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.info(<span class="string">&quot;info log&quot;</span>); <span class="comment">// 不会打印</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="日志记录器的层次结构"><a href="#日志记录器的层次结构" class="headerlink" title="日志记录器的层次结构"></a>日志记录器的层次结构</h2><hr>
+<p>获取日志记录器时，一般不使用<code>Logger.getGlobal()</code>来获取并使用全局日志记录器，通常情况下，应该为日志记录器提供一个名称，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logger.getLogger(<span class="string">&quot;com.example.tech&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>全局记录器也是一个普通的记录器，只是其名称为<code>global</code>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logger.getGlobal() == Logger.getLogger(<span class="string">&quot;global&quot;</span>);	<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，这个像包名一样的名称还代表这一个层次结构，如名字为<code>com.example</code>的日志记录器就是<code>com.example.tech</code>的父级记录器，父级和子级之间存在着配置继承关系，例如在子级记录器中没有配置日志记录级别，则会默认使用父级设置的级别.</p>
+<h3 id="获取父记录器及根日志记录器"><a href="#获取父记录器及根日志记录器" class="headerlink" title="获取父记录器及根日志记录器"></a>获取父记录器及根日志记录器</h3><p>可以使用<code>Logger</code>对象的<code>getParent()</code>来获取当前记录器的父记录器，日志记录器的层次结构类似于类的继承关系，所有类都有一个公共父类<code>Object</code>，类似的，所有日志记录器都有个公共父记录器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logger.getLogger(<span class="string">&quot;&quot;</span>);	<span class="comment">// 根日志记录器</span></span><br></pre></td></tr></table></figure>
+
+<p>所有的日志记录器都是其子级，包括全局记录器（因为全局记录器只是名字为<code>global</code>的普通记录器），根日志记录器有默认配置(如默认的日志记录级别为INFO)，每次获取的日志记录器将默认使用该默认配置.</p>
+<p><strong>根日志记录器的默认配置文件位于JDK目录下的<code>jre/lib/logging.properties</code>，可以通过修改该文件中的配置来修改根日志记录器的默认配置.</strong></p>
+<h2 id="日志处理器-Handler"><a href="#日志处理器-Handler" class="headerlink" title="日志处理器(Handler)"></a>日志处理器(Handler)</h2><hr>
+<p>可以将日志记录器看成一个日志信息的收集器，记录器只是收集指定级别的日志，这些日志应该输出到什么地方则交由日志处理器来处理，<code>Logger</code>对象中定义了<code>addHandler()</code>方法用于向一个日志记录器添加处理器. 每个日志记录器可以添加多个处理器.</p>
+<h3 id="预定义的日志处理器"><a href="#预定义的日志处理器" class="headerlink" title="预定义的日志处理器"></a>预定义的日志处理器</h3><ul>
+<li><p>ConsoleHandler</p>
+<p>该处理器会将日志输出到控制台中，默认的日志记录器就带有该处理器，因此，无需任何配置，记录日志时，控制台就会打印信息.</p>
+</li>
+<li><p>FileHandler</p>
+<p>该处理器用于将日志输出到文件中.</p>
+</li>
+<li><p>SocketHandler</p>
+<p>该处理器用于将日志输出到Socket连接中.</p>
+</li>
+<li><p>StreamHandler</p>
+<p>该处理器用于将日志输出到指定输出流中，ConsoleHandler、FileHandler、SocketHandler就是继承自该处理器.</p>
+</li>
+<li><p>MemoryHandler</p>
+<p>该处理器用于将日志临时缓存在内存中(最大缓存1000条，超出后，旧的日志将被新的覆盖)，在调用<code>push()</code>方法时，缓存的日志将被输出到其中配置好的处理器中，此外，该处理器有个主动输出级别阀值(PushLevel，可调用<code>setPushLevel()</code>配置该阀值)，当记录的日志级别等于或高于该阀值时，就会主动调用<code>push()</code>.</p>
+</li>
+</ul>
+<p>如果有特殊需求，可以自己继承<code>java.util.logging.Handler</code>来自定义一个日志处理器.</p>
+<h3 id="日志处理器的级别"><a href="#日志处理器的级别" class="headerlink" title="日志处理器的级别"></a>日志处理器的级别</h3><p>日志记录器只收集指定级别的日志，日志处理器也需要配置只处理指定级别的日志(默认为INFO)，它们之间互相独立，多个日志处理器之间也可以分别设置不同的处理级别. <code>Handler</code>对象提供了<code>setLevel()</code>方法用于设置处理器的处理级别.</p>
+<h3 id="日志处理器的过滤器"><a href="#日志处理器的过滤器" class="headerlink" title="日志处理器的过滤器"></a>日志处理器的过滤器</h3><p>每个日志处理器还可以使用<code>setFilter()</code>设置一个过滤器(<code>Filter</code>)，如果需要更加细粒的过滤，可以实现<code>java.util.logging.Filter</code>接口来自定义日志的记录条件，该接口中只有一个抽象方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isLoggable</span><span class="params">(LogRecord record)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>LogRecord</code>对象中包含有日志的详细信息(例如日志级别、内容等等)，可以根据这些信息实现自己的日志过滤需求.</p>
+<h3 id="日志处理器的格式化器"><a href="#日志处理器的格式化器" class="headerlink" title="日志处理器的格式化器"></a>日志处理器的格式化器</h3><p>如果需要自定义日志的格式，可以使用<code>setFormatter()</code>为日志处理器设置一个日志格式化器，Java内置了两种日志格式化器：</p>
+<ul>
+<li><p>SimpleFormatter</p>
+<p>用于将日志格式化为简洁可读的格式，ConsoleHandler默认使用的就是该格式化器.</p>
+</li>
+<li><p>XMLFormatter</p>
+<p>将日志格式化为XML文档格式，方便存储分析，FileHandler默认使用的为该格式化器.</p>
+</li>
+</ul>
+<p>实现自定义的格式化器时，只需继承<code>java.util.logging.Formatter</code>对象，并实现以下一个方法即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">format</span><span class="params">(LogRecord record)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="日志管理器"><a href="#日志管理器" class="headerlink" title="日志管理器"></a>日志管理器</h2><hr>
+<p>Java中有一个全局唯一的日志管理器LogManager，日志管理器中维护了日志记录器和相关功能的状态，其功能主要包括：</p>
+<ul>
+<li>管理不同日志管理器的层次结构</li>
+<li>管理日志的配置属性</li>
+</ul>
+<p>全局的日志管理器方便了日志记录器的获取、存储和管理，在整个程序中，通过相同名字获取的日志管理器也都指向同一个对象.</p>
+<h3 id="获取日志管理器"><a href="#获取日志管理器" class="headerlink" title="获取日志管理器"></a>获取日志管理器</h3><p>可以通过<code>LogManager</code>类提供的静态方法获取这个全局唯一的日志管理器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LogManager <span class="title">getLogManager</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="日志管理器配置属性"><a href="#日志管理器配置属性" class="headerlink" title="日志管理器配置属性"></a>日志管理器配置属性</h3><p>日志管理器对象在类初始化时创建，初始化时会默认读取JDK目录下<code>jre/lib/logging.properties</code>配置文件来获取默认的配置，可以在运行Java程序时指定属性<code>java.util.logging.config.file</code>的值来更改默认配置文件的位置，例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Djava.util.logging.config. file=...</span><br></pre></td></tr></table></figure>
+
+<p>或者，可以调用<code>LogManager</code>对象的<code>readConfiguration(InputStream in)</code>方法来重新初始化默认配置，自JDK 9 起，这个方法被<code>updateConfiguration()</code>取代.</p>
+<h2 id="日志i18n国际化"><a href="#日志i18n国际化" class="headerlink" title="日志i18n国际化"></a>日志i18n国际化</h2><hr>
+<p>在获取日志记录器的方法<code>Logger.getLogger()</code>方法中，提供了第二个参数：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Logger <span class="title">getLogger</span><span class="params">(String name, String resourceBundleName)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><code>resourceBundleName</code>指向一个资源文件，其中定义了相应语言的对照文本，例如现在创建了某个语言资源包<code>i18n/log_zh.properties</code>和<code>i18n/log_en.properties</code>，内容分别为：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># log_zh.properties文件内容</span></span><br><span class="line"><span class="attr">login</span>=<span class="string">登录</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># log_en.properties文件内容</span></span><br><span class="line"><span class="attr">login</span>=<span class="string">sign in</span></span><br></pre></td></tr></table></figure>
+
+<p>现在再来打印一下日志：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Logger logger = Logger.getLogger(<span class="string">&quot;&quot;</span>, <span class="string">&quot;i18n.log&quot;</span>);</span><br><span class="line">logger.info(<span class="string">&quot;login&quot;</span>);	<span class="comment">// 日志内容 login 将被转换为 登录</span></span><br></pre></td></tr></table></figure>
+
+<p>此外，资源包中的内容还可以添加占位符({0}, {1}…)，例如：</p>
+<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">login</span>=<span class="string">欢迎您，&#123;0&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在打印一下带参数的日志：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Logger logger = Logger.getLogger(<span class="string">&quot;&quot;</span>, <span class="string">&quot;i18n.log&quot;</span>);</span><br><span class="line">logger.log(Level.INFO, <span class="string">&quot;login&quot;</span>, <span class="string">&quot;zylyye&quot;</span>);	<span class="comment">// 日志内容被替换为 欢迎您，zylyye</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/07/02/java-base/java-exception-and-assert/" rel="prev" title="Java异常与断言">
+      <i class="fa fa-chevron-left"></i> Java异常与断言
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/07/20/java-base/java-generic-type/" rel="next" title="Java泛型">
+      Java泛型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97API%E6%8F%90%E4%BE%9B%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-number">1.</span> <span class="nav-text">日志API提供的好处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E7%AE%80%E5%8D%95%E7%9A%84%E6%97%A5%E5%BF%97"><span class="nav-number">2.</span> <span class="nav-text">记录简单的日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB"><span class="nav-number">3.</span> <span class="nav-text">日志级别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E7%BA%A7%E5%88%AB"><span class="nav-number">3.1.</span> <span class="nav-text">配置日志记录级别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%99%A8%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">日志记录器的层次结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%88%B6%E8%AE%B0%E5%BD%95%E5%99%A8%E5%8F%8A%E6%A0%B9%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%99%A8"><span class="nav-number">4.1.</span> <span class="nav-text">获取父记录器及根日志记录器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%E5%99%A8-Handler"><span class="nav-number">5.</span> <span class="nav-text">日志处理器(Handler)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A2%84%E5%AE%9A%E4%B9%89%E7%9A%84%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%E5%99%A8"><span class="nav-number">5.1.</span> <span class="nav-text">预定义的日志处理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%E5%99%A8%E7%9A%84%E7%BA%A7%E5%88%AB"><span class="nav-number">5.2.</span> <span class="nav-text">日志处理器的级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%E5%99%A8%E7%9A%84%E8%BF%87%E6%BB%A4%E5%99%A8"><span class="nav-number">5.3.</span> <span class="nav-text">日志处理器的过滤器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%E5%99%A8%E7%9A%84%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%99%A8"><span class="nav-number">5.4.</span> <span class="nav-text">日志处理器的格式化器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number">6.</span> <span class="nav-text">日志管理器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86%E5%99%A8"><span class="nav-number">6.1.</span> <span class="nav-text">获取日志管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E7%AE%A1%E7%90%86%E5%99%A8%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7"><span class="nav-number">6.2.</span> <span class="nav-text">日志管理器配置属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97i18n%E5%9B%BD%E9%99%85%E5%8C%96"><span class="nav-number">7.</span> <span class="nav-text">日志i18n国际化</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zylyye"
+      src="/assets/images/avatar.png">
+  <p class="site-author-name" itemprop="name">zylyye</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zylyye@gmail.com" title="E-Mail → mailto:zylyye@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:zylyye?call|chat" title="Skype → skype:zylyye?call|chat" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i>Skype</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zylyye</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
