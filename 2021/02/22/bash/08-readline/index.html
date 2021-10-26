@@ -216,19 +216,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
+        <html><head></head><body><hr>
 <p>Bash 内置了 Readline 库，提供了许多命令行操作的功能。</p>
 <span id="more"></span>
 
 <h2 id="设置编辑模式"><a href="#设置编辑模式" class="headerlink" title="设置编辑模式"></a>设置编辑模式</h2><hr>
 <p>Bash 默认使用的是 Emacs 快捷键，可以临时更改成 vi 快捷键:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set -o vi</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set -o vi</span><br></pre></td></tr></tbody></table></figure>
 
 <p>如果想要永久改动，需要修改 <code>~/.inputrc</code>文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set editing-mode vi</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set editing-mode vi</span><br></pre></td></tr></tbody></table></figure>
 
 <p>关闭 Readline 库功能：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash --noediting</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash --noediting</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="光标移动"><a href="#光标移动" class="headerlink" title="光标移动"></a>光标移动</h2><hr>
 <ul>
@@ -267,7 +267,7 @@
 <li><p>语法 <code>!string</code> 可以从历史记录中匹配最近开头是 string 的命令。</p>
 </li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo hahaha</span><br><span class="line">!e // 匹配 echo hahaha</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo hahaha</span><br><span class="line">!e // 匹配 echo hahaha</span><br></pre></td></tr></tbody></table></figure>
 
 <p>注意，类似于模式扩展， <code>!str</code>会扩展历史命令，放在字符串中要小心，可以在 <code>!</code>前加反斜杠转义。</p>
 <ul>
@@ -277,12 +277,12 @@
 <ul>
 <li>如果不希望保存本次的操作历史，可以设置环境变量 <code>HISTSIZE</code> 为 0</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export HISTSIZE=0</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export HISTSIZE=0</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>可以使用行号执行对应的命令：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!100</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">!100</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li><code>history -c</code> 可以清除操作历史</li>
@@ -297,7 +297,7 @@
 <li><code>^str1^str2</code> ：执行最近一条包含 str1 的命令，将其替换为 str2</li>
 </ul>
 <hr>
-
+</body></html>
     </div>
 
     

@@ -216,7 +216,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
+        <html><head></head><body><hr>
 <p>编写脚本时常常会出现各种错误，导致意料之外的情况发生，下面说明如何尽可能的降低这些错误带来的风险，以及如何排查错误位置。</p>
 <span id="more"></span>
 
@@ -236,10 +236,10 @@
 <li><code>set -o noclobber</code>  防止重定向覆盖已存在的文件</li>
 </ul>
 <p>建议脚本前都可以加入这些配置，提高安全性</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set -Eeuo pipefail</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set -Eeuo pipefail</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="shopt-命令调整-Shell-参数"><a href="#shopt-命令调整-Shell-参数" class="headerlink" title="shopt 命令调整 Shell 参数"></a>shopt 命令调整 Shell 参数</h3><p>shopt 和 set 功能类似，shopt 命令语法：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shopt OPTION optionName</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shopt OPTION optionName</span><br></pre></td></tr></tbody></table></figure>
 
 <p>一般选项：</p>
 <ul>
@@ -248,7 +248,7 @@
 <li><code>-q</code>  查询某个特性</li>
 </ul>
 <p>例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shopt -q globstar</span><br><span class="line">echo $? // 0-开启 1-关闭</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shopt -q globstar</span><br><span class="line">echo $? // 0-开启 1-关闭</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="脚本调试"><a href="#脚本调试" class="headerlink" title="脚本调试"></a>脚本调试</h2><p>Bash 中提供了一些可用于调试脚本的参数和变量：</p>
 <ul>
@@ -261,7 +261,7 @@
 <li>BASH_LINENO  返回每一轮调用的行号，BASH_LINENO[0] 是当前脚本被调用的行号</li>
 </ul>
 <hr>
-
+</body></html>
     </div>
 
     

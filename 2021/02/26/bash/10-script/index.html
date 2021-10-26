@@ -216,20 +216,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
+        <html><head></head><body><hr>
 <p>Bash 脚本是多个 Bash 命令的集合，使用脚本的好处是可以方便处理复杂任务并且复用。</p>
 <span id="more"></span>
 
 <h2 id="指定脚本解释器"><a href="#指定脚本解释器" class="headerlink" title="指定脚本解释器"></a>指定脚本解释器</h2><hr>
 <p>脚本开头的 <code>#!</code> 称为 Shebang 字符，用来指定脚本的解释器，该行称为 Shebang 行。</p>
 <p>通常使用 Bash 作为脚本解释器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>为了更好的兼容其他系统，防止 bash 命令不在 /bin 目录下，推荐使用 env 命令来启动解释器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env bash</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env bash</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>env 命令会从 PATH 中寻找第一个匹配的 bash 命令。同理，也可以根据需要指定其他解释器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env python</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/usr/bin/env python</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>env 命令的一些参数：</p>
 <ul>
@@ -237,11 +237,11 @@
 <li>-u, –unset=NAME ： 从环境变量中删除一个变量</li>
 </ul>
 <p>如果没有指定解释器，则需要使用命令执行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash script.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash script.sh</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><hr>
 <p>Bash 只支持单行注释，注释内容使用 # 开头：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> This is comment</span></span><br><span class="line">some statements here</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> This is comment</span></span><br><span class="line">some statements here</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="向脚本传递参数"><a href="#向脚本传递参数" class="headerlink" title="向脚本传递参数"></a>向脚本传递参数</h2><hr>
 <p>脚本内部可以是用特殊变量来引用传递给脚本的参数:</p>
@@ -253,56 +253,56 @@
 <li>$*  ：所有参数，参数使用 $IFS 值的第一个字符分隔</li>
 </ul>
 <p>可以使用 for 循环遍历接收的参数：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in &quot;$@&quot;; do</span><br><span class="line">	echo $i</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in "$@"; do</span><br><span class="line">	echo $i</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 <p>如果传递参数时，有空格的参数可以使用逗号包裹：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./script.sh &quot;a b&quot; c d </span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./script.sh "a b" c d </span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="shift-命令"><a href="#shift-命令" class="headerlink" title="shift 命令"></a>shift 命令</h2><hr>
 <p>shift 命令会将参数列表向前移动一位，例如</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo $@ // 1 2 3 4</span><br><span class="line">echo $1 // 1</span><br><span class="line">shift</span><br><span class="line">echo $1 // 2</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">echo $@ // 1 2 3 4</span><br><span class="line">echo $1 // 1</span><br><span class="line">shift</span><br><span class="line">echo $1 // 2</span><br></pre></td></tr></tbody></table></figure>
 
 <p>shift 命令可以接受一个数字参数，指定移动几位，默认移动一位：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shift 2</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shift 2</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="使用-getopts-解析配置项参数"><a href="#使用-getopts-解析配置项参数" class="headerlink" title="使用 getopts 解析配置项参数"></a>使用 getopts 解析配置项参数</h2><hr>
 <p>一般命令通常都会接收配置项参数，例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-v  显示版本号</span><br><span class="line">-f  指定文件名称</span><br><span class="line">-i  操作时询问</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-v  显示版本号</span><br><span class="line">-f  指定文件名称</span><br><span class="line">-i  操作时询问</span><br></pre></td></tr></tbody></table></figure>
 
 <p>在脚本中，可以使用 getopts 便捷的解析这种参数：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">getopts</span> optstring name</span> </span><br><span class="line"><span class="meta">#</span><span class="bash"> - optstring 配置项，例如有 -i -v -f 这样的配置项，则为 ivf，带有值需要加逗号，即 ivf:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> - name 解析到的配置项会初始化到 name 变量中</span></span><br><span class="line">while getopts &#x27;ivf:&#x27; opt; do</span><br><span class="line">	case &quot;$opt&quot; in</span><br><span class="line">		v)</span><br><span class="line">			echo &quot;show version&quot;</span><br><span class="line">			;;</span><br><span class="line">		i)</span><br><span class="line">			echo &quot;ask for confirm&quot;</span><br><span class="line">			;;</span><br><span class="line">		f)</span><br><span class="line"><span class="meta">			#</span><span class="bash"> 配置项的值使用 <span class="variable">$OPTARG</span> 访问</span></span><br><span class="line">			file_name=&quot;$OPTARG&quot;</span><br><span class="line">			echo &quot;get filename $file_name&quot;</span><br><span class="line">			;;</span><br><span class="line"><span class="meta">		#</span><span class="bash"> 没有指定的配置项，解析的结果为 ?, 例如传了不在 ivf: 中的参数 -a</span></span><br><span class="line">		?)</span><br><span class="line">			echo &quot;syntax error!&quot;</span><br><span class="line">			echo &quot;usage: script [-v] [-i] [-f filename]&quot;</span><br><span class="line">			exit 1</span><br><span class="line">			;;</span><br><span class="line">		esac</span><br><span class="line">	done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">getopts</span> optstring name</span> </span><br><span class="line"><span class="meta">#</span><span class="bash"> - optstring 配置项，例如有 -i -v -f 这样的配置项，则为 ivf，带有值需要加逗号，即 ivf:</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> - name 解析到的配置项会初始化到 name 变量中</span></span><br><span class="line">while getopts 'ivf:' opt; do</span><br><span class="line">	case "$opt" in</span><br><span class="line">		v)</span><br><span class="line">			echo "show version"</span><br><span class="line">			;;</span><br><span class="line">		i)</span><br><span class="line">			echo "ask for confirm"</span><br><span class="line">			;;</span><br><span class="line">		f)</span><br><span class="line"><span class="meta">			#</span><span class="bash"> 配置项的值使用 <span class="variable">$OPTARG</span> 访问</span></span><br><span class="line">			file_name="$OPTARG"</span><br><span class="line">			echo "get filename $file_name"</span><br><span class="line">			;;</span><br><span class="line"><span class="meta">		#</span><span class="bash"> 没有指定的配置项，解析的结果为 ?, 例如传了不在 ivf: 中的参数 -a</span></span><br><span class="line">		?)</span><br><span class="line">			echo "syntax error!"</span><br><span class="line">			echo "usage: script [-v] [-i] [-f filename]"</span><br><span class="line">			exit 1</span><br><span class="line">			;;</span><br><span class="line">		esac</span><br><span class="line">	done</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>另外脚本中的 $OPTIND 变量表示 getopts 解析的配置项索引，从 1 开始，解析结束可以使用 shift 移动参数，来保证后续程序能够使用 $1, $2 来访问非配置参数</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shift $((OPTIND - 1))</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shift $((OPTIND - 1))</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="配置项终止符"><a href="#配置项终止符" class="headerlink" title="配置项终止符 --"></a>配置项终止符 <code>--</code></h2><hr>
 <p>有时候调用命令不想要指定配置项，为了防止把传递给命令的参数误当作了配置参数，可以使用 <code>--</code> 来表示没有配置项：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -- --filename.txt // 文件名叫做 --filename.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls -- --filename.txt // 文件名叫做 --filename.txt</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="exit-退出值"><a href="#exit-退出值" class="headerlink" title="exit 退出值"></a>exit 退出值</h2><hr>
 <p>执行 exit 时，脚本会立即终止并返回退出值，该命令会默认返回 0，可以指定返回值，例如： exit 123</p>
 <h2 id="命令执行结果"><a href="#命令执行结果" class="headerlink" title="命令执行结果"></a>命令执行结果</h2><hr>
 <p>脚本中的变量 $? 保存了上个命令退出时的返回值，通常 0 表示执行成功，非 0 表示失败，可以使用 if 进行判断，然后决定后续动作：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /home/abc</span><br><span class="line">if [ &quot;$?&quot; = &quot;0&quot; ]; then</span><br><span class="line">	some statements</span><br><span class="line">else</span><br><span class="line">	other statements</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /home/abc</span><br><span class="line">if [ "$?" = "0" ]; then</span><br><span class="line">	some statements</span><br><span class="line">else</span><br><span class="line">	other statements</span><br><span class="line">fi</span><br></pre></td></tr></tbody></table></figure>
 
 <p>由于 if 可以直接将 0 当作 true，因此可以简写为：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if cd /home/abc; then</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if cd /home/abc; then</span><br><span class="line">...</span><br></pre></td></tr></tbody></table></figure>
 
 <p>甚至可以使用逻辑运算符 &amp;&amp;, || 进一步简化:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/abc &amp;&amp; ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /home/abc &amp;&amp; ...</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="source-命令"><a href="#source-命令" class="headerlink" title="source 命令"></a>source 命令</h2><hr>
 <p>脚本每次执行时，会新建一个子进程，所有的变量都在子进程中的环境设置，<strong>如果希望对当前环境生效，或者共享当前环境中的环境变量</strong>，可以使用 source 命令执行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source script.sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">source</span> 可以简写为 .</span></span><br><span class="line">. script.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">source script.sh</span><br><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">source</span> 可以简写为 .</span></span><br><span class="line">. script.sh</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="alias-命令"><a href="#alias-命令" class="headerlink" title="alias 命令"></a>alias 命令</h2><hr>
 <p>alias 可以为命令指定别名，例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias ll=&#x27;ls -alG&#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alias ll='ls -alG'</span><br></pre></td></tr></tbody></table></figure>
 
 <hr>
-
+</body></html>
     </div>
 
     

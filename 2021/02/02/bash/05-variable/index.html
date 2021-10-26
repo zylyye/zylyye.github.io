@@ -216,7 +216,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><hr>
+        <html><head></head><body><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><hr>
 <p>Bash 中有两类变量：</p>
 <ul>
 <li><strong>环境变量</strong></li>
@@ -263,7 +263,7 @@
 </li>
 </ul>
 <p>查看单个变量名可使用 <code>printenv</code> 或 <code>echo</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printenv PATH</span><br><span class="line">echo $PATH</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printenv PATH</span><br><span class="line">echo $PATH</span><br></pre></td></tr></tbody></table></figure>
 
 <p>​                                                                                                                    </p>
 <h3 id="自定义变量"><a href="#自定义变量" class="headerlink" title="自定义变量"></a>自定义变量</h3><p><strong>自定义变量只在当前 Shell 环境下有效</strong></p>
@@ -276,7 +276,7 @@
 <li>不能有空格或标点符号</li>
 </ul>
 <p>变量声明时，等号两边<strong>不能空格</strong>：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_name=var_value</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var_name=var_value</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>Bash 变量只有字符串类型</li>
@@ -284,17 +284,17 @@
 </ul>
 <h2 id="变量读取"><a href="#变量读取" class="headerlink" title="变量读取"></a>变量读取</h2><hr>
 <p>使用 <code>$</code> 符号读取变量：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo $var_name</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或</span></span><br><span class="line">echo $&#123;var_name&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo $var_name</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或</span></span><br><span class="line">echo ${var_name}</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
-<li>如果变量的值是变量，可以使用 <code>$&#123;!var_name&#125;</code> 读取</li>
+<li>如果变量的值是变量，可以使用 <code>${!var_name}</code> 读取</li>
 </ul>
 <h2 id="删除变量"><a href="#删除变量" class="headerlink" title="删除变量"></a>删除变量</h2><hr>
 <p>使用 <code>unset</code>可以删除一个变量。</p>
 <hr>
 <h2 id="输出变量"><a href="#输出变量" class="headerlink" title="输出变量"></a>输出变量</h2><hr>
 <p>自定义变量仅在当前 Shell 下有效，子 Shell 读取不到，可以使用 <code>export</code> 来使改变量能被子 Shell 访问。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export a=1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者分两步执行</span></span><br><span class="line">a=1</span><br><span class="line">export a</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export a=1</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者分两步执行</span></span><br><span class="line">a=1</span><br><span class="line">export a</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>注意在子 Shell 中修改 export 的变量，不会影响到父 Shell 的值</li>
@@ -312,15 +312,15 @@
 </ul>
 <h2 id="变量的默认值"><a href="#变量的默认值" class="headerlink" title="变量的默认值"></a>变量的默认值</h2><hr>
 <ul>
-<li><code>$&#123;varname:-word&#125;</code>:  （<strong>返回默认值</strong>）如果变量不存在或为空，则返回 word，否则返回变量的值</li>
-<li><code>$&#123;varname:=word&#125;</code>：（<strong>设置默认值</strong>）如果变量不存在或为空，则被设置并返回 word，否则返回变量的值</li>
-<li><code>$&#123;varname:+word&#125;</code>:  （<strong>存在时返回设置值</strong>）用来测试变量是否存在，如果存在且不会空则返回word，否则返回空值</li>
-<li><code>$&#123;varname:?message&#125;</code>： （<strong>不存在则退出并提示指定信息</strong>）如果变量不存在或为空，则打印 <code>varname: message</code>，且中断脚本执行，用来防止变量未定义。</li>
-<li><code>$&#123;1:?&#39;变量不存在&#39;&#125;</code>： 变量名可以使用 1~9，表示脚本的参数</li>
+<li><code>${varname:-word}</code>:  （<strong>返回默认值</strong>）如果变量不存在或为空，则返回 word，否则返回变量的值</li>
+<li><code>${varname:=word}</code>：（<strong>设置默认值</strong>）如果变量不存在或为空，则被设置并返回 word，否则返回变量的值</li>
+<li><code>${varname:+word}</code>:  （<strong>存在时返回设置值</strong>）用来测试变量是否存在，如果存在且不会空则返回word，否则返回空值</li>
+<li><code>${varname:?message}</code>： （<strong>不存在则退出并提示指定信息</strong>）如果变量不存在或为空，则打印 <code>varname: message</code>，且中断脚本执行，用来防止变量未定义。</li>
+<li><code>${1:?'变量不存在'}</code>： 变量名可以使用 1~9，表示脚本的参数</li>
 </ul>
 <h2 id="declare-命令"><a href="#declare-命令" class="headerlink" title="declare 命令"></a>declare 命令</h2><hr>
 <p>declare 命令用来声明变量，可以对变量增加一些特性限制。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare OPTIONS VARIABLE=value</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare OPTIONS VARIABLE=value</span><br></pre></td></tr></tbody></table></figure>
 
 <p><code>declare</code> 在函数内部声明的变量只在函数内部有效，等同于 <code>local</code>命令，<code>declare</code> 命令默认合宿出当前环境的所有变量，包括函数在内，等同于不带任何参数的 <code>set</code></p>
 <p>OPTIONS 可选值：</p>
@@ -331,12 +331,12 @@
 <li><code>-i</code>：声明整数变量</li>
 </ul>
 <p>声明的整数变量，可直接进行数学运算</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">declare -i num1=1 num2=10</span><br><span class="line"><span class="meta">#</span><span class="bash"> 只要将 sum 声明为整数变量，就会进行整数运算</span></span><br><span class="line">declare -i sum</span><br><span class="line">sum=num1+num2</span><br><span class="line">echo $sum // 输出 11</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">declare -i num1=1 num2=10</span><br><span class="line"><span class="meta">#</span><span class="bash"> 只要将 sum 声明为整数变量，就会进行整数运算</span></span><br><span class="line">declare -i sum</span><br><span class="line">sum=num1+num2</span><br><span class="line">echo $sum // 输出 11</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li><code>-x</code>：声明为环境变量，等同于 export</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">declare -x a=1122</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价与</span></span><br><span class="line">export a=1122</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">declare -x a=1122</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价与</span></span><br><span class="line">export a=1122</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li><p><code>-r</code>：声明为只读变量，不能更改和 <code>unset</code></p>
@@ -358,16 +358,16 @@
 </ul>
 <h2 id="let-命令"><a href="#let-命令" class="headerlink" title="let 命令"></a>let 命令</h2><hr>
 <p>使用 <code>let</code> 命令声明变量可以直接进行算术计算：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let a=1+2</span><br><span class="line">let b=a++</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let a=1+2</span><br><span class="line">let b=a++</span><br></pre></td></tr></tbody></table></figure>
 
 <p>如果有空格，需要使用引号包含整个表达式</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let &quot;a = 1 + 2&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let "a = 1 + 2"</span><br></pre></td></tr></tbody></table></figure>
 
 <p>多个使用空格隔开</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let c=1 d=2</span><br><span class="line">let &quot;c = 1&quot; &quot;d = 2&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let c=1 d=2</span><br><span class="line">let "c = 1" "d = 2"</span><br></pre></td></tr></tbody></table></figure>
 
 <hr>
-
+</body></html>
     </div>
 
     

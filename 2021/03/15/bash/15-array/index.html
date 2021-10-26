@@ -216,7 +216,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
+        <html><head></head><body><hr>
 <p>Bash 中支持定义一维数组，数组中的元素无需连续，也没有数量上限。其可定义的数组类型有两种：<strong>数字索引数组</strong>和<strong>关联数组</strong>（字符串索引数组）。</p>
 <span id="more"></span>
 
@@ -224,81 +224,81 @@
 <ol>
 <li><code>arr[index]=value</code></li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr[0]=a</span><br><span class="line">arr[1]=b</span><br><span class="line">arr[2]=c</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr[0]=a</span><br><span class="line">arr[1]=b</span><br><span class="line">arr[2]=c</span><br></pre></td></tr></tbody></table></figure>
 
 <ol start="2">
 <li><code>arr=(a b c)</code></li>
 </ol>
 <p>该种方式还可以手动指定索引号：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr=(a [3]=b c)  // c 的索引号是 4，紧接着 b 之后</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr=(a [3]=b c)  // c 的索引号是 4，紧接着 b 之后</span><br></pre></td></tr></tbody></table></figure>
 
 <p>还可以使用扩展符，例如自动扩展成文件列表：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">txts=( *.txt )</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">txts=( *.txt )</span><br></pre></td></tr></tbody></table></figure>
 
 <ol start="3">
 <li>使用 declare 声明：</li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare -a arr</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare -a arr</span><br></pre></td></tr></tbody></table></figure>
 
-<h2 id="数组的访问"><a href="#数组的访问" class="headerlink" title="数组的访问"></a>数组的访问</h2><p>数组访问时，必须在 <code>$&#123;&#125;</code> 中，并指定索引号：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;arr[1]&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="数组的访问"><a href="#数组的访问" class="headerlink" title="数组的访问"></a>数组的访问</h2><p>数组访问时，必须在 <code>${}</code> 中，并指定索引号：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo ${arr[1]}</span><br></pre></td></tr></tbody></table></figure>
 
 <p><strong>如果没有指定索引号，则返回 arr[0] 的值</strong>，设置元素时，如果没有使用索引，也默认索引为 0：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">declare -a arr</span><br><span class="line">arr=1 // 相当于 arr[0]=1</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">declare -a arr</span><br><span class="line">arr=1 // 相当于 arr[0]=1</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="读取所有元素"><a href="#读取所有元素" class="headerlink" title="读取所有元素"></a>读取所有元素</h3><ul>
 <li>可以使用 <code>@</code> 或 <code>*</code> 获取数组的所有元素：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr=(a b c)</span><br><span class="line">echo $&#123;arr[@]&#125; // a b c</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr=(a b c)</span><br><span class="line">echo ${arr[@]} // a b c</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>可以配合 <code>for..in</code> 循环遍历数组：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for a in &quot;$&#123;arr[@]&#125;&quot;; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for a in "${arr[@]}"; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
-<p><strong>注意，遍历数组时，建议将数组放到 <code>&quot;&quot;</code> 中，避免数组中的元素内含有空格，导致该元素被当做空格间隔的多个元素遍历。</strong></p>
+<p><strong>注意，遍历数组时，建议将数组放到 <code>""</code> 中，避免数组中的元素内含有空格，导致该元素被当做空格间隔的多个元素遍历。</strong></p>
 <p>例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr=(&quot;a b&quot; c) // 两个元素</span><br><span class="line">for a in $&#123;arr[@]&#125;; // 相当于 for a in a b c;</span><br><span class="line">for a in &quot;$&#123;arr[@]&#125;&quot;; // 相当于 for a in &quot;a b&quot; &quot;c&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr=("a b" c) // 两个元素</span><br><span class="line">for a in ${arr[@]}; // 相当于 for a in a b c;</span><br><span class="line">for a in "${arr[@]}"; // 相当于 for a in "a b" "c"</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>可以使用此方式复制、添加数组:</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new_arr=(&quot;$&#123;arr[@]&#125;&quot;)</span><br><span class="line">new_arr=(&quot;$&#123;arr[@]&#125;&quot; 123)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">new_arr=("${arr[@]}")</span><br><span class="line">new_arr=("${arr[@]}" 123)</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="数组的长度"><a href="#数组的长度" class="headerlink" title="数组的长度"></a>数组的长度</h3><p>获取数组长度的方法：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;#arr[@]&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">echo $&#123;#arr[*]&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo ${#arr[@]}</span><br><span class="line"><span class="meta">#</span><span class="bash"> or</span></span><br><span class="line">echo ${#arr[*]}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>获取的数组长度是有值的元素个数（包含空字符串），注意，在其他 SHELL 中（例如 zsh），可能表现的不一致。</p>
 <h3 id="取数组索引列表"><a href="#取数组索引列表" class="headerlink" title="取数组索引列表"></a>取数组索引列表</h3><p>获取数组中有值得数据索引号：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;!arr[@]&#125; // 索引号空格隔开，形如 2 4 5</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo ${!arr[@]} // 索引号空格隔开，形如 2 4 5</span><br></pre></td></tr></tbody></table></figure>
 
 <p>可以配合 <code>for..in</code> 循环遍历数组：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in $&#123;!arr[@]&#125;; do</span><br><span class="line">  echo $&#123;arr[i]&#125;</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for i in ${!arr[@]}; do</span><br><span class="line">  echo ${arr[i]}</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="数组的截取"><a href="#数组的截取" class="headerlink" title="数组的截取"></a>数组的截取</h2><p>可以使用索引号，截取数组中的一部分元素内容：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;arr[@]:position:length&#125;  // 从 position 位置的元素开始（包含），截取 length 个元素</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo ${arr[@]:position:length}  // 从 position 位置的元素开始（包含），截取 length 个元素</span><br></pre></td></tr></tbody></table></figure>
 
 <p>如果不指定 length，则表示截取到数组末尾：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;arr[@]:3:4&#125; // 从索引 3 开始，截取 4 个元素</span><br><span class="line">echo $&#123;arr[@]:3&#125; // 从索引 3 开始，截取到末尾</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo ${arr[@]:3:4} // 从索引 3 开始，截取 4 个元素</span><br><span class="line">echo ${arr[@]:3} // 从索引 3 开始，截取到末尾</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="追加数组元素"><a href="#追加数组元素" class="headerlink" title="追加数组元素"></a>追加数组元素</h2><p>可以使用 <code>+=</code> 在数组末尾增加元素：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr=(1 2 3)</span><br><span class="line">arr+=(4 5 6)</span><br><span class="line">echo $&#123;arr[@]&#125; // 1 2 3 4 5 6</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">arr=(1 2 3)</span><br><span class="line">arr+=(4 5 6)</span><br><span class="line">echo ${arr[@]} // 1 2 3 4 5 6</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="删除数组元素"><a href="#删除数组元素" class="headerlink" title="删除数组元素"></a>删除数组元素</h2><p>可以使用 <code>unset</code> 命令删除元素中的成员：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">unset arr[1]</span><br><span class="line">// 等价于</span><br><span class="line">arr[1]=</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">unset arr[1]</span><br><span class="line">// 等价于</span><br><span class="line">arr[1]=</span><br></pre></td></tr></tbody></table></figure>
 
 <p>清空整个数组可以直接 <code>unset arr</code></p>
 <h2 id="关联数组"><a href="#关联数组" class="headerlink" title="关联数组"></a>关联数组</h2><p>关联数组即是用字符串当做索引的数组：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">declare -A arr</span><br><span class="line">arr[&#x27;name&#x27;]=&#x27;My Name&#x27;</span><br><span class="line">arr[&#x27;age&#x27;]=&#x27;18&#x27;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">declare -A arr</span><br><span class="line">arr['name']='My Name'</span><br><span class="line">arr['age']='18'</span><br></pre></td></tr></tbody></table></figure>
 
 <p>使用关联数组是，必须显示的使用 <code>declare -A</code> 进行声明：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare -A arr</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">declare -A arr</span><br></pre></td></tr></tbody></table></figure>
 
 <p>赋值方式有两种：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arr[&#x27;name&#x27;]=&#x27;My Name&#x27;</span><br><span class="line">arr[&#x27;age&#x27;]=&#x27;12&#x27;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line">arr=([name]=&#x27;My Name&#x27; [age]=&#x27;12&#x27;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arr['name']='My Name'</span><br><span class="line">arr['age']='12'</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line">arr=([name]='My Name' [age]='12')</span><br></pre></td></tr></tbody></table></figure>
 
 <hr>
-
+</body></html>
     </div>
 
     

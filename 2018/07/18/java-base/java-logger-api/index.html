@@ -215,7 +215,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>在编写程序时，经常需要使用输出工具（例如常用的<code>System.out.println()</code>）来输出、记录或者对比某些变量的值，在程序的运行期间，需要记录一些关键日志信息来调试、监控或者方便以后排查问题，此时，一般输出语句无法满足日志记录的需求，因此，Java内部提供了一套用于日志记录的API.</p>
+        <html><head></head><body><p>在编写程序时，经常需要使用输出工具（例如常用的<code>System.out.println()</code>）来输出、记录或者对比某些变量的值，在程序的运行期间，需要记录一些关键日志信息来调试、监控或者方便以后排查问题，此时，一般输出语句无法满足日志记录的需求，因此，Java内部提供了一套用于日志记录的API.</p>
 <span id="more"></span>
 
 <h2 id="日志API提供的好处"><a href="#日志API提供的好处" class="headerlink" title="日志API提供的好处"></a>日志API提供的好处</h2><hr>
@@ -230,9 +230,9 @@
 <p>需要记录一个日志只需要简单的几个步骤：</p>
 <ol>
 <li><p>获取日志记录器</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取全局日志记录器</span></span><br><span class="line">Logger logger = Logger.getGlobal();</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取全局日志记录器</span></span><br><span class="line">Logger logger = Logger.getGlobal();</span><br></pre></td></tr></tbody></table></figure></li>
 <li><p>打印指定级别的日志</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.info(<span class="string">&quot;global message&quot;</span>);</span><br></pre></td></tr></table></figure></li>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.info(<span class="string">"global message"</span>);</span><br></pre></td></tr></tbody></table></figure></li>
 </ol>
 <p>这样，在程序中插入这条日志记录语句，控制台就会输出打印日志的具体类，具体方法以及自定义的日志信息.</p>
 <h2 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h2><hr>
@@ -248,21 +248,21 @@
 </ul>
 <p>这些级别中，最严重的是SEVERE级别，最普通的是FINEST级别，当程序发生严重错误时，应该记录SEVERE级别的日志，进行调试时或记录一般信息时，可以记录INFO级别或者更低级别(如FINE)的日志.</p>
 <h3 id="配置日志记录级别"><a href="#配置日志记录级别" class="headerlink" title="配置日志记录级别"></a>配置日志记录级别</h3><p>获取日志记录器后，可以使用<code>Logger</code>对象提供的<code>setLevel()</code>方法设置记录的最大级别，例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.setLevel(Level.WARNING);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.setLevel(Level.WARNING);</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这样级别在WARNING以下的日志将不会记录，例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.info(<span class="string">&quot;info log&quot;</span>); <span class="comment">// 不会打印</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.info(<span class="string">"info log"</span>); <span class="comment">// 不会打印</span></span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="日志记录器的层次结构"><a href="#日志记录器的层次结构" class="headerlink" title="日志记录器的层次结构"></a>日志记录器的层次结构</h2><hr>
 <p>获取日志记录器时，一般不使用<code>Logger.getGlobal()</code>来获取并使用全局日志记录器，通常情况下，应该为日志记录器提供一个名称，例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logger.getLogger(<span class="string">&quot;com.example.tech&quot;</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logger.getLogger(<span class="string">"com.example.tech"</span>);</span><br></pre></td></tr></tbody></table></figure>
 
 <p>全局记录器也是一个普通的记录器，只是其名称为<code>global</code>：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logger.getGlobal() == Logger.getLogger(<span class="string">&quot;global&quot;</span>);	<span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logger.getGlobal() == Logger.getLogger(<span class="string">"global"</span>);	<span class="comment">// true</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>需要注意的是，这个像包名一样的名称还代表这一个层次结构，如名字为<code>com.example</code>的日志记录器就是<code>com.example.tech</code>的父级记录器，父级和子级之间存在着配置继承关系，例如在子级记录器中没有配置日志记录级别，则会默认使用父级设置的级别.</p>
 <h3 id="获取父记录器及根日志记录器"><a href="#获取父记录器及根日志记录器" class="headerlink" title="获取父记录器及根日志记录器"></a>获取父记录器及根日志记录器</h3><p>可以使用<code>Logger</code>对象的<code>getParent()</code>来获取当前记录器的父记录器，日志记录器的层次结构类似于类的继承关系，所有类都有一个公共父类<code>Object</code>，类似的，所有日志记录器都有个公共父记录器：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logger.getLogger(<span class="string">&quot;&quot;</span>);	<span class="comment">// 根日志记录器</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Logger.getLogger(<span class="string">""</span>);	<span class="comment">// 根日志记录器</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>所有的日志记录器都是其子级，包括全局记录器（因为全局记录器只是名字为<code>global</code>的普通记录器），根日志记录器有默认配置(如默认的日志记录级别为INFO)，每次获取的日志记录器将默认使用该默认配置.</p>
 <p><strong>根日志记录器的默认配置文件位于JDK目录下的<code>jre/lib/logging.properties</code>，可以通过修改该文件中的配置来修改根日志记录器的默认配置.</strong></p>
@@ -288,7 +288,7 @@
 <p>如果有特殊需求，可以自己继承<code>java.util.logging.Handler</code>来自定义一个日志处理器.</p>
 <h3 id="日志处理器的级别"><a href="#日志处理器的级别" class="headerlink" title="日志处理器的级别"></a>日志处理器的级别</h3><p>日志记录器只收集指定级别的日志，日志处理器也需要配置只处理指定级别的日志(默认为INFO)，它们之间互相独立，多个日志处理器之间也可以分别设置不同的处理级别. <code>Handler</code>对象提供了<code>setLevel()</code>方法用于设置处理器的处理级别.</p>
 <h3 id="日志处理器的过滤器"><a href="#日志处理器的过滤器" class="headerlink" title="日志处理器的过滤器"></a>日志处理器的过滤器</h3><p>每个日志处理器还可以使用<code>setFilter()</code>设置一个过滤器(<code>Filter</code>)，如果需要更加细粒的过滤，可以实现<code>java.util.logging.Filter</code>接口来自定义日志的记录条件，该接口中只有一个抽象方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isLoggable</span><span class="params">(LogRecord record)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isLoggable</span><span class="params">(LogRecord record)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p><code>LogRecord</code>对象中包含有日志的详细信息(例如日志级别、内容等等)，可以根据这些信息实现自己的日志过滤需求.</p>
 <h3 id="日志处理器的格式化器"><a href="#日志处理器的格式化器" class="headerlink" title="日志处理器的格式化器"></a>日志处理器的格式化器</h3><p>如果需要自定义日志的格式，可以使用<code>setFormatter()</code>为日志处理器设置一个日志格式化器，Java内置了两种日志格式化器：</p>
@@ -301,7 +301,7 @@
 </li>
 </ul>
 <p>实现自定义的格式化器时，只需继承<code>java.util.logging.Formatter</code>对象，并实现以下一个方法即可：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">format</span><span class="params">(LogRecord record)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">format</span><span class="params">(LogRecord record)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="日志管理器"><a href="#日志管理器" class="headerlink" title="日志管理器"></a>日志管理器</h2><hr>
 <p>Java中有一个全局唯一的日志管理器LogManager，日志管理器中维护了日志记录器和相关功能的状态，其功能主要包括：</p>
@@ -311,29 +311,29 @@
 </ul>
 <p>全局的日志管理器方便了日志记录器的获取、存储和管理，在整个程序中，通过相同名字获取的日志管理器也都指向同一个对象.</p>
 <h3 id="获取日志管理器"><a href="#获取日志管理器" class="headerlink" title="获取日志管理器"></a>获取日志管理器</h3><p>可以通过<code>LogManager</code>类提供的静态方法获取这个全局唯一的日志管理器：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LogManager <span class="title">getLogManager</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> LogManager <span class="title">getLogManager</span><span class="params">()</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="日志管理器配置属性"><a href="#日志管理器配置属性" class="headerlink" title="日志管理器配置属性"></a>日志管理器配置属性</h3><p>日志管理器对象在类初始化时创建，初始化时会默认读取JDK目录下<code>jre/lib/logging.properties</code>配置文件来获取默认的配置，可以在运行Java程序时指定属性<code>java.util.logging.config.file</code>的值来更改默认配置文件的位置，例如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Djava.util.logging.config. file=...</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Djava.util.logging.config. file=...</span><br></pre></td></tr></tbody></table></figure>
 
 <p>或者，可以调用<code>LogManager</code>对象的<code>readConfiguration(InputStream in)</code>方法来重新初始化默认配置，自JDK 9 起，这个方法被<code>updateConfiguration()</code>取代.</p>
 <h2 id="日志i18n国际化"><a href="#日志i18n国际化" class="headerlink" title="日志i18n国际化"></a>日志i18n国际化</h2><hr>
 <p>在获取日志记录器的方法<code>Logger.getLogger()</code>方法中，提供了第二个参数：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Logger <span class="title">getLogger</span><span class="params">(String name, String resourceBundleName)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Logger <span class="title">getLogger</span><span class="params">(String name, String resourceBundleName)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p><code>resourceBundleName</code>指向一个资源文件，其中定义了相应语言的对照文本，例如现在创建了某个语言资源包<code>i18n/log_zh.properties</code>和<code>i18n/log_en.properties</code>，内容分别为：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># log_zh.properties文件内容</span></span><br><span class="line"><span class="attr">login</span>=<span class="string">登录</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># log_en.properties文件内容</span></span><br><span class="line"><span class="attr">login</span>=<span class="string">sign in</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># log_zh.properties文件内容</span></span><br><span class="line"><span class="attr">login</span>=<span class="string">登录</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># log_en.properties文件内容</span></span><br><span class="line"><span class="attr">login</span>=<span class="string">sign in</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>现在再来打印一下日志：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Logger logger = Logger.getLogger(<span class="string">&quot;&quot;</span>, <span class="string">&quot;i18n.log&quot;</span>);</span><br><span class="line">logger.info(<span class="string">&quot;login&quot;</span>);	<span class="comment">// 日志内容 login 将被转换为 登录</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Logger logger = Logger.getLogger(<span class="string">""</span>, <span class="string">"i18n.log"</span>);</span><br><span class="line">logger.info(<span class="string">"login"</span>);	<span class="comment">// 日志内容 login 将被转换为 登录</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>此外，资源包中的内容还可以添加占位符({0}, {1}…)，例如：</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">login</span>=<span class="string">欢迎您，&#123;0&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight properties"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">login</span>=<span class="string">欢迎您，{0}</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>现在打印一下带参数的日志：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Logger logger = Logger.getLogger(<span class="string">&quot;&quot;</span>, <span class="string">&quot;i18n.log&quot;</span>);</span><br><span class="line">logger.log(Level.INFO, <span class="string">&quot;login&quot;</span>, <span class="string">&quot;zylyye&quot;</span>);	<span class="comment">// 日志内容被替换为 欢迎您，zylyye</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Logger logger = Logger.getLogger(<span class="string">""</span>, <span class="string">"i18n.log"</span>);</span><br><span class="line">logger.log(Level.INFO, <span class="string">"login"</span>, <span class="string">"zylyye"</span>);	<span class="comment">// 日志内容被替换为 欢迎您，zylyye</span></span><br></pre></td></tr></tbody></table></figure>
 
-
+</body></html>
     </div>
 
     

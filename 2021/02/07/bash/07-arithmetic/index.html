@@ -216,29 +216,29 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="算术表达式"><a href="#算术表达式" class="headerlink" title="算术表达式"></a>算术表达式</h2><hr>
+        <html><head></head><body><h2 id="算术表达式"><a href="#算术表达式" class="headerlink" title="算术表达式"></a>算术表达式</h2><hr>
 <p>算术表达式语法：<code>((...))</code>，在 Bash 中，该表达式只能进行<strong>整数</strong>运算，返回的结果也是<strong>整数</strong>。</p>
 <span id="more"></span>
 
 <ul>
 <li>表达式不会返回运算结果的的值，如需取表达式的运算结果，需使用语法：<code>$((...))</code></li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">((1+2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 其中的空格会被忽略</span></span><br><span class="line">((1 + 2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可直接在其中进行变量赋值</span></span><br><span class="line">((sum = 1 + 2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">sum=$((1 + 2))</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">((1+2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 其中的空格会被忽略</span></span><br><span class="line">((1 + 2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可直接在其中进行变量赋值</span></span><br><span class="line">((sum = 1 + 2))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">sum=$((1 + 2))</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li><code>((...))</code> 语法支持的运算符如下：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+	// 加</span><br><span class="line">-	// 减</span><br><span class="line">*	// 乘</span><br><span class="line">/	// 除</span><br><span class="line"><span class="meta">%</span><span class="bash">	// 余数</span></span><br><span class="line">**	// 指数</span><br><span class="line">++	// 自增</span><br><span class="line">--	// 自减</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+	// 加</span><br><span class="line">-	// 减</span><br><span class="line">*	// 乘</span><br><span class="line">/	// 除</span><br><span class="line"><span class="meta">%</span><span class="bash">	// 余数</span></span><br><span class="line">**	// 指数</span><br><span class="line">++	// 自增</span><br><span class="line">--	// 自减</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li><code>$(())</code> 内部可以嵌套，也可以增加括号改变运算顺序，<code>((...))</code> 内部不能嵌套</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum=$(((1+2)*3+4))</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sum=$(((1+2)*3+4))</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li><code>$(())</code> 内部的变量前不需要加 <code>$</code>，内部的字符串会当作变量解析</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">varname=sum</span><br><span class="line">echo $(($varname + 1))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">echo $((varname + 1))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">echo $((sum + 1))</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">varname=sum</span><br><span class="line">echo $(($varname + 1))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">echo $((varname + 1))</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">echo $((sum + 1))</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>旧的语法： <code>$[...]</code></li>
@@ -289,23 +289,23 @@
 <p><code>((...))</code>, <code>$((...))</code>中支持的赋值运算：<code>+=</code>,  <code>-=</code>,  <code>*=</code>, <code>/=</code>, <code>%=</code>, <code>&lt;&lt;=</code>, <code>&gt;&gt;=</code>, <code>&amp;=</code>, <code>|=</code>, <code>^=</code>.</p>
 <h2 id="求值运算"><a href="#求值运算" class="headerlink" title="求值运算"></a>求值运算</h2><hr>
 <p><code>$((...))</code>中的运算可以使用逗号 <code>,</code> 隔开，这个逗号叫做<strong>求值运算符</strong>，使用求值运算符分隔的运算，会先顺序执行，然后返回<strong>最后一个运算的结果</strong>。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $((1 + 2, 3 +  4)) // 7</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $((1 + 2, 3 +  4)) // 7</span><br></pre></td></tr></tbody></table></figure>
 
 
 
 <h2 id="expr-命令"><a href="#expr-命令" class="headerlink" title="expr 命令"></a>expr 命令</h2><hr>
 <p>使用 <code>expr</code> 命令可以直接进行<strong>整数</strong>算术运算，<strong>注意算术中数字与算术符号要用空格隔开</strong>：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expr 1 + 2</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">expr 1 + 2</span><br></pre></td></tr></tbody></table></figure>
 
 
 
 <h2 id="let-命令"><a href="#let-命令" class="headerlink" title="let 命令"></a>let 命令</h2><hr>
 <p>let 命令用于将算术运算结果赋值给一个变量：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let a=1+2</span><br><span class="line"><span class="meta">#</span><span class="bash"> 加空格</span></span><br><span class="line">let &quot;a = 1 + 2&quot;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 多个</span></span><br><span class="line">let &quot;a = 1 + 2&quot; &quot;b = a + 1&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let a=1+2</span><br><span class="line"><span class="meta">#</span><span class="bash"> 加空格</span></span><br><span class="line">let "a = 1 + 2"</span><br><span class="line"><span class="meta">#</span><span class="bash"> 多个</span></span><br><span class="line">let "a = 1 + 2" "b = a + 1"</span><br></pre></td></tr></tbody></table></figure>
 
 
 
-
+</body></html>
     </div>
 
     

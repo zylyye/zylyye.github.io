@@ -216,43 +216,43 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>可以使用 read 命令来读取用户输入的内容、密码以及者文件内容，并存入变量以备使用。</p>
+        <html><head></head><body><p>可以使用 read 命令来读取用户输入的内容、密码以及者文件内容，并存入变量以备使用。</p>
 <span id="more"></span>
 
 <h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><ul>
 <li>read 命令的格式：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read [-options] [variable...]</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read [-options] [variable...]</span><br></pre></td></tr></tbody></table></figure>
 
 <p>例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">read -p &quot;input username:&quot; user</span><br><span class="line">read -sp &quot;input password:&quot; password</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">read -p "input username:" user</span><br><span class="line">read -sp "input password:" password</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>read 后如果不指定接收的变量名称，则将值赋给 REPLY 变量：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">read</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 123</span></span><br><span class="line">echo $REPLY // 123</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">read</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> 123</span></span><br><span class="line">echo $REPLY // 123</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>read 可以同时指定多个变量，默认情况下，<strong>用户可以使用空格分隔多个变量的值，read 指定的最后一个变量接收剩下的所有值：</strong></li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">read a b c</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> aa bb cc dd</span></span><br><span class="line">echo $a // aa</span><br><span class="line">echo $b // bb</span><br><span class="line">echo $c // cc dd</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">read a b c</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> aa bb cc dd</span></span><br><span class="line">echo $a // aa</span><br><span class="line">echo $b // bb</span><br><span class="line">echo $c // cc dd</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>可以使用 read 命令读取文件，每次读取一行：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while read oneline</span><br><span class="line">do</span><br><span class="line">	echo $oneline</span><br><span class="line">done &lt; filename</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while read oneline</span><br><span class="line">do</span><br><span class="line">	echo $oneline</span><br><span class="line">done &lt; filename</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="read-的参数"><a href="#read-的参数" class="headerlink" title="read 的参数"></a>read 的参数</h2><ul>
 <li>-t ： 读取输入时设置超时秒数，也可以使用环境变量 TMOUT 来指定超时秒数</li>
 <li>-p ：指定输入的提示信息</li>
 <li>-n ：指定只读取若干个字符：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">read -n 1 a</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> y</span></span><br><span class="line">echo $a // y</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">read -n 1 a</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> y</span></span><br><span class="line">echo $a // y</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>-e ：允许使用 readline 库提供的快捷键，例如自动补全，在输入路径时很有用：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read -e filename</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read -e filename</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>-s ：用户输入不显示出来，适合输入密码</li>
@@ -261,7 +261,7 @@
 <ul>
 <li>-a ：将用户的输入保存为一个数组：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">read -a names</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> a b c</span></span><br><span class="line">echo $&#123;a[0]&#125; // a</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">read -a names</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> a b c</span></span><br><span class="line">echo ${a[0]} // a</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>-d (delimiter) ：指定输入结束符，默认时换行结束</li>
@@ -270,11 +270,11 @@
 </ul>
 <h2 id="IFS-变量"><a href="#IFS-变量" class="headerlink" title="IFS 变量"></a>IFS 变量</h2><p>IFS，Internal Field Separator，内部字段分隔符，默认值为空格、Tab、换行符。</p>
 <p>使用该变量可以为 read 指定读取分隔符：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IFS=&quot;:&quot; read user pw uid gid name home shell &lt;&lt;&lt; $(cat /etc/passwd | grep root)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 IFS 和 <span class="built_in">read</span> 写在一起，这样执行过后，IFS 回自动恢复默认值，其中 &lt;&lt;&lt; 是 Here 文档</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IFS=":" read user pw uid gid name home shell &lt;&lt;&lt; $(cat /etc/passwd | grep root)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将 IFS 和 <span class="built_in">read</span> 写在一起，这样执行过后，IFS 回自动恢复默认值，其中 &lt;&lt;&lt; 是 Here 文档</span></span><br></pre></td></tr></tbody></table></figure>
 
 
 
-
+</body></html>
     </div>
 
     

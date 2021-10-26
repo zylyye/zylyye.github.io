@@ -216,35 +216,35 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
+        <html><head></head><body><hr>
 <p>Bash 中有三种循环 while、 until、 for。</p>
 <span id="more"></span>
 
 <h2 id="while-循环"><a href="#while-循环" class="headerlink" title="while 循环"></a>while 循环</h2><p>while 循环的结构如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">while condition ; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">while condition ; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 <p><strong>其中 condition 与 if 的语法一致。</strong></p>
 <p>例如:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">num=0</span><br><span class="line">while ((num++ &lt; 10)); do</span><br><span class="line">  echo $num</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">num=0</span><br><span class="line">while ((num++ &lt; 10)); do</span><br><span class="line">  echo $num</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="until-循环"><a href="#until-循环" class="headerlink" title="until 循环"></a>until 循环</h2><p>until 与 while 循环刚好相反，until 等到条件满足时退出循环，语法结构与 while 一致：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">until condition ; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">until condition ; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="for-in-循环"><a href="#for-in-循环" class="headerlink" title="for .. in 循环"></a>for .. in 循环</h2><p>for .. in 循环可以用于遍历列表：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for name in list ; do</span><br><span class="line">  // todo with $name</span><br><span class="line">done</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line">for name in $var1 $var2 $var3 ; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for name in list ; do</span><br><span class="line">  // todo with $name</span><br><span class="line">done</span><br><span class="line"><span class="meta">#</span><span class="bash"> 或者</span></span><br><span class="line">for name in $var1 $var2 $var3 ; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 <p>list 可以是使用空格隔开的参数列表，例如：<code>a b c d e</code>，如果不指定 list，则默认使用 <code>$@</code>:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for name ; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">for name in &quot;$@&quot; ; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for name ; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br><span class="line"><span class="meta">#</span><span class="bash"> 等价于</span></span><br><span class="line">for name in "$@" ; do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="for-循环"><a href="#for-循环" class="headerlink" title="for 循环"></a>for 循环</h2><p>Bash 支持和很多高级语言一样的 for 循环：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (( exp1; exp2; exp3 )); do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (( exp1; exp2; exp3 )); do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 <p>exp1 初始化循环条件，exp2 作为循环判断条件，每次循环开始时执行，exp3 每次循环结束后执行。<strong>注意括号内的变量不需要加 <code>$</code>。</strong></p>
 <p>例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (( i=0; i&lt;10; i++ )); do</span><br><span class="line">  echo $i</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (( i=0; i&lt;10; i++ )); do</span><br><span class="line">  echo $i</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 <p>也可以省略括号中的语句：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for ((;;)); do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for ((;;)); do</span><br><span class="line">  ...</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="break-continue"><a href="#break-continue" class="headerlink" title="break, continue"></a>break, continue</h2><p>可以在循环体中使用 break 和 continue：</p>
 <ul>
@@ -252,11 +252,11 @@
 <li>continue ：终止本次循环，继续下次循环</li>
 </ul>
 <h2 id="select-语句"><a href="#select-语句" class="headerlink" title="select 语句"></a>select 语句</h2><p>select 语句可以生成菜单供用户选择，其语法与 select 基本一致：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select name in list ; do</span><br><span class="line">  echo $name</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select name in list ; do</span><br><span class="line">  echo $name</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 <p>用户输入的内容会保存在 <code>$REPLY</code> 变量中，select 语句会一直循环，需要使用 break 手动退出。</p>
 <hr>
-
+</body></html>
     </div>
 
     

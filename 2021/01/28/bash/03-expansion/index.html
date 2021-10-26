@@ -216,7 +216,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><hr>
+        <html><head></head><body><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><hr>
 <p>模式扩展(globbing)，Bash 中提供了八种扩展</p>
 <ul>
 <li>波浪线扩展</li>
@@ -240,18 +240,18 @@
 <h2 id="波浪线扩展"><a href="#波浪线扩展" class="headerlink" title="波浪线扩展"></a>波浪线扩展</h2><hr>
 <p><code>～</code> 会自动扩展为用户主目录，<code>~user</code> 会扩展为<strong>指定用户的主目录</strong></p>
 <p>例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo ~</span><br><span class="line">cd ~/.local</span><br><span class="line">echo ~zylyye</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo ~</span><br><span class="line">cd ~/.local</span><br><span class="line">echo ~zylyye</span><br></pre></td></tr></tbody></table></figure>
 
 
 
 <h2 id="？-字符扩展"><a href="#？-字符扩展" class="headerlink" title="？ 字符扩展"></a><code>？</code> 字符扩展</h2><hr>
 <p><code>？</code> 字符代表单个字符（不包括空字符）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls abc??.txt</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ls abc??.txt</span><br></pre></td></tr></tbody></table></figure>
 
 <p>只有文件存在时才会发生扩展，如果没有文件匹配，则会原样输出。</p>
 <h2 id="字符扩展"><a href="#字符扩展" class="headerlink" title="*字符扩展"></a><code>*</code>字符扩展</h2><hr>
 <p><code>*</code>匹配任意数量的任意字符，包括<strong>零个字符</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls *.md</span><br><span class="line">echo *.md</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ls *.md</span><br><span class="line">echo *.md</span><br></pre></td></tr></tbody></table></figure>
 
 <p>与 <code>？</code> 类似，如果没有文件匹配，则会原样输出。</p>
 <p><code>*</code> 只匹配当前目录，如需匹配子目录，<strong>每个层级都需要一个 <code>*</code> 号</strong>，如 <code>*/*/*/*.txt</code></p>
@@ -265,14 +265,14 @@
 <li><code>[</code> 或 <code>]</code> 也可放在方括号中</li>
 </ul>
 <h2 id="大括号扩展"><a href="#大括号扩展" class="headerlink" title="大括号扩展"></a>大括号扩展</h2><hr>
-<p>大括号 <code>&#123;a,b,c&#125;</code>会挨个展开括号中逗号隔开的值，如 <code>&#123;a,b,c&#125;.txt</code> 展开为 a.txt b.txt c.txt。</p>
+<p>大括号 <code>{a,b,c}</code>会挨个展开括号中逗号隔开的值，如 <code>{a,b,c}.txt</code> 展开为 a.txt b.txt c.txt。</p>
 <ul>
 <li>注意，<strong>括号中逗号前后不能有空格</strong>，否则会扩展失效</li>
-<li>括号可以嵌套 <code>&#123;a,b&#123;1,2&#125;,c&#125;</code></li>
-<li>可以使用形如 <code>&#123;a..z&#125;</code> 进行连续扩展，相当于 <code>&#123;a,b,c,d...,z&#125;</code></li>
+<li>括号可以嵌套 <code>{a,b{1,2},c}</code></li>
+<li>可以使用形如 <code>{a..z}</code> 进行连续扩展，相当于 <code>{a,b,c,d...,z}</code></li>
 </ul>
 <p><strong>可以结合 for 循环使用</strong>：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i in &#123;0..9&#125;</span><br><span class="line">do</span><br><span class="line">	echo $i</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i in {0..9}</span><br><span class="line">do</span><br><span class="line">	echo $i</span><br><span class="line">done</span><br></pre></td></tr></tbody></table></figure>
 
 
 
@@ -285,9 +285,9 @@
 <h2 id="变量扩展"><a href="#变量扩展" class="headerlink" title="变量扩展"></a>变量扩展</h2><hr>
 <p><code>$</code> 可用来展开变量，获取变量的值，例如 <code>$SHELL</code> 即展开变量 <code>SHELL</code> 的值。</p>
 <ul>
-<li><p>变量也可放在花括号中，例如<code>$&#123;SEHLL&#125;</code></p>
+<li><p>变量也可放在花括号中，例如<code>${SEHLL}</code></p>
 </li>
-<li><p>可使用 <code>$&#123;!string*&#125;</code> 或 <code>$&#123;!string@&#125;</code>匹配以 <code>string</code> 开头的变量名</p>
+<li><p>可使用 <code>${!string*}</code> 或 <code>${!string@}</code>匹配以 <code>string</code> 开头的变量名</p>
 </li>
 </ul>
 <h2 id="子命令扩展"><a href="#子命令扩展" class="headerlink" title="子命令扩展"></a>子命令扩展</h2><hr>
@@ -295,7 +295,7 @@
 <ul>
 <li>比较老的语法:</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`command`</span><br><span class="line"><span class="meta">#</span><span class="bash"> 例如</span></span><br><span class="line">echo `date`</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`command`</span><br><span class="line"><span class="meta">#</span><span class="bash"> 例如</span></span><br><span class="line">echo `date`</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>该语法可以嵌套，例如 <code>$(ls $(pwd))</code></li>
@@ -328,7 +328,7 @@
 </ul>
 <h2 id="量词语法"><a href="#量词语法" class="headerlink" title="量词语法"></a>量词语法</h2><hr>
 <p>量词语法可以指定模式匹配的次数，可以使用一下命令启用或禁用该特性：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查询开启状态</span></span><br><span class="line">shopt extglob</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启用</span></span><br><span class="line">shopt -s extglob</span><br><span class="line"><span class="meta">#</span><span class="bash"> 禁用</span></span><br><span class="line">shopt -u extglob</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 查询开启状态</span></span><br><span class="line">shopt extglob</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启用</span></span><br><span class="line">shopt -s extglob</span><br><span class="line"><span class="meta">#</span><span class="bash"> 禁用</span></span><br><span class="line">shopt -u extglob</span><br></pre></td></tr></tbody></table></figure>
 
 <p>量词语法的集中模式</p>
 <ul>
@@ -339,7 +339,7 @@
 <li><code>!(pattern-list)</code>: 匹配指定模式之外的内容</li>
 </ul>
 <p>例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 匹配零个或一个 def</span></span><br><span class="line">?(def)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 匹配一个或多个 .txt 或 .php</span></span><br><span class="line">+(.txt|.php)</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 匹配零个或一个 def</span></span><br><span class="line">?(def)</span><br><span class="line"><span class="meta">#</span><span class="bash"> 匹配一个或多个 .txt 或 .php</span></span><br><span class="line">+(.txt|.php)</span><br></pre></td></tr></tbody></table></figure>
 
 
 
@@ -359,7 +359,7 @@
 <li><code>nocaseglob</code>   - 通配符扩展不区分大小写</li>
 <li><code>globstar</code>    - 支持 <code>**</code> 来匹配零个或多层目录</li>
 </ul>
-
+</body></html>
     </div>
 
     

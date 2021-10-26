@@ -216,9 +216,9 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><hr>
+        <html><head></head><body><h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><hr>
 <p>Bash 接收的数据都视为字符串类型，遇到特殊含义的字符需要使用反斜杠转义：\</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo \$abc</span><br><span class="line">echo \\</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo \$abc</span><br><span class="line">echo \\</span><br></pre></td></tr></tbody></table></figure>
 
 <span id="more"></span>
 
@@ -227,21 +227,21 @@
 <ul>
 <li><strong>双引号中可以收入多行文本</strong>：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;one</span><br><span class="line"> two three</span><br><span class="line"> four&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">echo "one</span><br><span class="line"> two three</span><br><span class="line"> four"</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li><strong>双引号可以保存命令输出的原始格式</strong></li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;$(cal)&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo "$(cal)"</span><br></pre></td></tr></tbody></table></figure>
 
 
 
 <h2 id="Here-文档"><a href="#Here-文档" class="headerlink" title="Here 文档"></a>Here 文档</h2><hr>
 <p>Here 是一种输入多行字符串的方法，格式如下</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt; end_tag_name</span><br><span class="line">&lt;一些文本&gt;</span><br><span class="line">end_tag_name</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;&lt; end_tag_name</span><br><span class="line">&lt;一些文本&gt;</span><br><span class="line">end_tag_name</span><br></pre></td></tr></tbody></table></figure>
 
 <p>例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt; _EOF_</span><br><span class="line">This is a</span><br><span class="line">test text for</span><br><span class="line">here document.</span><br><span class="line">_EOF_</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat &lt;&lt; _EOF_</span><br><span class="line">This is a</span><br><span class="line">test text for</span><br><span class="line">here document.</span><br><span class="line">_EOF_</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li>Here 文档中的变量会发生替换，单/双引号原样输出</li>
@@ -250,8 +250,8 @@
 </ul>
 <h2 id="Here-字符串"><a href="#Here-字符串" class="headerlink" title="Here 字符串"></a>Here 字符串</h2><hr>
 <p>与 Here 文档类似，Here 字符串也用于重定向字符串到标准输入，通常用于简单的字符串文本：</p>
-<p><code>cat &lt;&lt;&lt; &#39;good job!&#39;</code></p>
-
+<p><code>cat &lt;&lt;&lt; 'good job!'</code></p>
+</body></html>
     </div>
 
     

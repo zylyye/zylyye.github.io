@@ -210,16 +210,16 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
+        <html><head></head><body><hr>
 <p>Bash 脚本中可以将需要复用的代码定义成函数，方便脚本内重复调用。</p>
 <span id="more"></span>
 
 <h2 id="函数使用基础"><a href="#函数使用基础" class="headerlink" title="函数使用基础"></a>函数使用基础</h2><p>Bash 中的函数定义方式有两种：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 第一种</span></span><br><span class="line">fn() &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 第二种</span></span><br><span class="line">function fn() &#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 第一种</span></span><br><span class="line">fn() {</span><br><span class="line">  ...</span><br><span class="line">}</span><br><span class="line"><span class="meta">#</span><span class="bash"> 第二种</span></span><br><span class="line">function fn() {</span><br><span class="line">  ...</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p><strong>注意函数在执行时不会创建子 shell 环境</strong>，且函数执行的优先级高于同名脚本，低于别名。</p>
 <p>函数调用方式：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 像执行命令一样</span></span><br><span class="line">fn</span><br><span class="line"><span class="meta">#</span><span class="bash"> 也可以传递参数</span></span><br><span class="line">fn arg1 arg2</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 像执行命令一样</span></span><br><span class="line">fn</span><br><span class="line"><span class="meta">#</span><span class="bash"> 也可以传递参数</span></span><br><span class="line">fn arg1 arg2</span><br></pre></td></tr></tbody></table></figure>
 
 
 
@@ -229,16 +229,16 @@
 <li><code>declare -F</code> ：查看所有已定义的函数的函数名，不包含函数体</li>
 </ul>
 <h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h2><p>函数调用时可以传递参数，函数内部可以像 Bash 脚本一样读取参数：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fn() &#123;</span><br><span class="line">  echo $0  // 函数所在脚本名</span><br><span class="line">  echo $1  // 传递给函数的第一个参数</span><br><span class="line">  echo $@  // 函数的全部参数</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fn() {</span><br><span class="line">  echo $0  // 函数所在脚本名</span><br><span class="line">  echo $1  // 传递给函数的第一个参数</span><br><span class="line">  echo $@  // 函数的全部参数</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="函数的返回值-return"><a href="#函数的返回值-return" class="headerlink" title="函数的返回值 return"></a>函数的返回值 return</h2><p>函数中可以使用 return 返回一个值，调用者可以使用 <code>$?</code> 来读取：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fn() &#123;</span><br><span class="line">  ...</span><br><span class="line">  return 10</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 调用</span></span><br><span class="line">fn</span><br><span class="line">echo $?</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fn() {</span><br><span class="line">  ...</span><br><span class="line">  return 10</span><br><span class="line">}</span><br><span class="line"><span class="meta">#</span><span class="bash"> 调用</span></span><br><span class="line">fn</span><br><span class="line">echo $?</span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="函数中的局部变量"><a href="#函数中的局部变量" class="headerlink" title="函数中的局部变量"></a>函数中的局部变量</h2><p>函数中可以访问脚本中的变量，函数中定义的变量也可以被脚本访问，可以使用 local 来定义只有在函数中才可以访问的局部变量：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fn() &#123;</span><br><span class="line">  local a=1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fn() {</span><br><span class="line">  local a=1</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <hr>
-
+</body></html>
     </div>
 
     

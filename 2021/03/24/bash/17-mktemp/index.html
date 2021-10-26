@@ -210,18 +210,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <hr>
+        <html><head></head><body><hr>
 <p>mktemp 命令可以创建临时文件或文件夹，trap 命令可用于指定当 shell 触发某个信号时执行指令（例如 shell 退出时清理临时文件）。</p>
 <span id="more"></span>
 
 <h2 id="创建临时文件"><a href="#创建临时文件" class="headerlink" title="创建临时文件"></a>创建临时文件</h2><p>使用 mktemp 可以创建临时文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temp_file=$(mktemp) || exit 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temp_file=$(mktemp) || exit 1</span><br></pre></td></tr></tbody></table></figure>
 
 <p>mktemp 支持的一些参数：</p>
 <ul>
 <li> <code>-d</code>  创建临时文件夹：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temp_dir=$(mktemp -d) || exit 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">temp_dir=$(mktemp -d) || exit 1</span><br></pre></td></tr></tbody></table></figure>
 
 <ul>
 <li><code>-p</code> 指定临时文件所在目录</li>
@@ -229,7 +229,7 @@
 </ul>
 <h2 id="捕捉-shell-信号"><a href="#捕捉-shell-信号" class="headerlink" title="捕捉 shell 信号"></a>捕捉 shell 信号</h2><p>使用 trap 命令可以捕捉shell 执行过程中触发的信号，指定执行某个命令。</p>
 <p>语法：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trap [动作] [信号1] [信号2]...</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trap [动作] [信号1] [信号2]...</span><br></pre></td></tr></tbody></table></figure>
 
 <p>使用 <code>trap -l</code> 可以查看系统信号列表，常见的信号如下：</p>
 <ul>
@@ -259,11 +259,11 @@
 </li>
 </ul>
 <p>例如退出时删除临时文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">trap &#x27;rm -f &quot;$temp_file&quot;&#x27; EXIT</span><br><span class="line">temp_file=$(mktemp) || exit 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">trap 'rm -f "$temp_file"' EXIT</span><br><span class="line">temp_file=$(mktemp) || exit 1</span><br></pre></td></tr></tbody></table></figure>
 
 <p>注意 trap 命令应放在脚本开头，防止还没有执行到 trap 命令就触发了信号。</p>
 <hr>
-
+</body></html>
     </div>
 
     
