@@ -119,6 +119,11 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
 
     <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
@@ -127,11 +132,6 @@
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
   </ul>
@@ -215,7 +215,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>程序执行时，运行环境的许多因素会影响到程序的正常运行，例如网络是否连接、文件是否存在等等，Java中使用异常机制来帮助程序编写者处理这些理想之外的意外情况.</p>
+        <p>程序执行时，运行环境的许多因素会影响到程序的正常运行，例如网络是否连接、文件是否存在等等，Java中使用异常机制来帮助程序编写者处理这些理想之外的意外情况.</p>
 <span id="more"></span>
 
 <h2 id="Java中异常类的层次结构"><a href="#Java中异常类的层次结构" class="headerlink" title="Java中异常类的层次结构"></a>Java中异常类的层次结构</h2><hr>
@@ -312,7 +312,7 @@
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getSalary</span><span class="params">(<span class="keyword">int</span> hours)</span> </span>{</span><br><span class="line">    <span class="keyword">assert</span> hours &gt; <span class="number">0</span>;</span><br><span class="line">    <span class="comment">// 如果需要更详细的提示，使用下面这种格式的断言</span></span><br><span class="line">    <span class="comment">// assert hours &gt; 0 : "时间不能为负数: " + hours;</span></span><br><span class="line">    <span class="keyword">return</span> hours * <span class="number">10</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p><strong>注意：断言默认是关闭的，需要在程序运行期间指定虚拟机参数<code>-ea</code>来打开断言(如使用<code>java -ea</code>来执行程序).</strong></p>
-</body></html>
+
     </div>
 
     

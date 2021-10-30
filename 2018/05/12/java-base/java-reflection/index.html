@@ -120,6 +120,11 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
 
     <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
@@ -128,11 +133,6 @@
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
   </ul>
@@ -216,7 +216,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><hr>
+        <hr>
 <p>通过使用Java反射，我们可以在程序运行期间获取任意类的属性及方法、动态的创建它们的对象、动态的访问它们的属性与方法.</p>
 <span id="more"></span>
 
@@ -315,7 +315,7 @@
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span>[][] arr = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>][<span class="number">3</span>];</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line">arr = (<span class="keyword">int</span>[][]) Array.newInstance(<span class="keyword">int</span>.class, <span class="number">2</span>, <span class="number">3</span>);</span><br></pre></td></tr></tbody></table></figure>
 
 <p>需要注意的时，<strong>通过该方法创建的数组维度不能超过255，否则会抛出<code>IllegalArgumentException</code>异常.</strong></p>
-</body></html>
+
     </div>
 
     

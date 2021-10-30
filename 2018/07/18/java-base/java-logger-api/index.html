@@ -119,6 +119,11 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
 
     <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
@@ -127,11 +132,6 @@
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
   </ul>
@@ -215,7 +215,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>在编写程序时，经常需要使用输出工具（例如常用的<code>System.out.println()</code>）来输出、记录或者对比某些变量的值，在程序的运行期间，需要记录一些关键日志信息来调试、监控或者方便以后排查问题，此时，一般输出语句无法满足日志记录的需求，因此，Java内部提供了一套用于日志记录的API.</p>
+        <p>在编写程序时，经常需要使用输出工具（例如常用的<code>System.out.println()</code>）来输出、记录或者对比某些变量的值，在程序的运行期间，需要记录一些关键日志信息来调试、监控或者方便以后排查问题，此时，一般输出语句无法满足日志记录的需求，因此，Java内部提供了一套用于日志记录的API.</p>
 <span id="more"></span>
 
 <h2 id="日志API提供的好处"><a href="#日志API提供的好处" class="headerlink" title="日志API提供的好处"></a>日志API提供的好处</h2><hr>
@@ -333,7 +333,7 @@
 <p>现在打印一下带参数的日志：</p>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Logger logger = Logger.getLogger(<span class="string">""</span>, <span class="string">"i18n.log"</span>);</span><br><span class="line">logger.log(Level.INFO, <span class="string">"login"</span>, <span class="string">"zylyye"</span>);	<span class="comment">// 日志内容被替换为 欢迎您，zylyye</span></span><br></pre></td></tr></tbody></table></figure>
 
-</body></html>
+
     </div>
 
     

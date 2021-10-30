@@ -119,6 +119,11 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
 
     <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
@@ -127,11 +132,6 @@
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
   </ul>
@@ -215,7 +215,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><hr>
+        <h2 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h2><hr>
 <p>Java中可以通过继承来扩展一个类的功能，复用现有的方法，Java中使用<code>extends</code>关键字来进行继承，被继承的类称为父类，继承了其它类的类称为子类.</p>
 <span id="more"></span>
 
@@ -340,7 +340,7 @@
 <p>这是因为编译器会根据当前类型来生成其可以调用的方法列表，此时<code>Child</code>对象存储在<code>Father</code>类型变量中，则只能查找<code>Father</code>类的方法列表，要想调用<code>Child</code>类中的方法，必须将其强制转换为<code>Child</code>类型：</p>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Child child = (Child)father;</span><br><span class="line">child.extraFunc();</span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">((Child)father).extraFunc();</span><br></pre></td></tr></tbody></table></figure>
 
-</body></html>
+
     </div>
 
     

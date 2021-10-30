@@ -120,6 +120,11 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
 
   </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
         <li class="menu-item menu-item-tags">
 
     <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
@@ -128,11 +133,6 @@
         <li class="menu-item menu-item-categories">
 
     <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
 
   </li>
   </ul>
@@ -216,7 +216,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <html><head></head><body><p>Java泛型自Java 1.5 引入，可以通过为类或方法添加类型参数定义泛型类或方法，使用泛型可以提高类或方法的通用性，还可以借助编译器的类型检查来尽可能的避免类型的不安全转换.</p>
+        <p>Java泛型自Java 1.5 引入，可以通过为类或方法添加类型参数定义泛型类或方法，使用泛型可以提高类或方法的通用性，还可以借助编译器的类型检查来尽可能的避免类型的不安全转换.</p>
 <span id="more"></span>
 
 <h2 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h2><hr>
@@ -342,7 +342,7 @@
 <p>为此，Gson使用了<code>TypeToken</code>来解决这个问题，其本质依然是因为泛型类的子类会记录父类的泛型具体信息：</p>
 <figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建匿名内部类用于保存泛型信息</span></span><br><span class="line">Type userInfoType = <span class="keyword">new</span> TypeToken&lt;List&lt;UserInfo&gt;&gt;() {}.getType();</span><br><span class="line">List&lt;UserInfo&gt; users = gson.fromJson(json);</span><br><span class="line">UserInfo user = users.get(<span class="number">0</span>);</span><br></pre></td></tr></tbody></table></figure>
 
-</body></html>
+
     </div>
 
     
