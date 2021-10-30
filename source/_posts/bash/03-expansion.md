@@ -213,11 +213,11 @@ echo `date`
 
 
 
-## 量词语法
+## extglob
 
 ---
 
-量词语法可以指定模式匹配的次数，可以使用一下命令启用或禁用该特性：
+可以使用以下命令启用或禁用该特性：
 
 ```shell
 # 查询开启状态
@@ -228,7 +228,7 @@ shopt -s extglob
 shopt -u extglob
 ```
 
-量词语法的集中模式
+extglob 允许更复杂的模式匹配(其中 pattern-list 是由 `|`  分隔的模式表达式)：
 
 - `?(pattern-list)`: 匹配零个或一个模式
 - `*(pattern-list)`: 匹配零个或多个模式

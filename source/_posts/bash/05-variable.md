@@ -121,7 +121,7 @@ echo ${var_name}
 
 ---
 
-## 输出变量
+## export 变量
 
 ---
 
