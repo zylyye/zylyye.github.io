@@ -48,7 +48,7 @@ sum=$(((1+2)*3+4))
 - `$(())` 内部的变量前不需要加 `$`，内部的字符串会当作变量解析
 
 ```shell
-varname=sum
+varname=$sum
 echo $(($varname + 1))
 # 等价于
 echo $((varname + 1))

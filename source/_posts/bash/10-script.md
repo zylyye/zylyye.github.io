@@ -37,8 +37,8 @@ env 命令会从 PATH 中寻找第一个匹配的 bash 命令。同理，也可�
 
 env 命令的一些参数：
 
-- -i, --ignore-environment ： 不带环境变量启动
-- -u, --unset=NAME ： 从环境变量中删除一个变量
+- `-i, --ignore-environment `： 不带环境变量启动
+- `-u, --unset=NAME `： 从环境变量中删除一个变量
 
 如果没有指定解释器，则需要使用命令执行：
 
@@ -118,7 +118,7 @@ shift 2
 
 ```shell
 # getopts optstring name 
-# - optstring 配置项，例如有 -i -v -f 这样的配置项，则为 ivf，带有值需要加逗号，即 ivf:
+# - optstring 配置项，例如有 -i -v -f 这样的配置项，则为 ivf，配置项带有值时需要加冒号，如 ivf:
 # - name 解析到的配置项会初始化到 name 变量中
 while getopts 'ivf:' opt; do
 	case "$opt" in
@@ -197,7 +197,7 @@ cd /home/abc && ...
 
 ---
 
-脚本每次执行时，会新建一个子进程，所有的变量都在子进程中的环境设置，**如果希望对当前环境生效，或者共享当前环境中的环境变量**，可以使用 source 命令执行：
+脚本每次执行时，会新建一个子进程，所有的变量都在子进程中的环境设置，**如果想在当前 SHELL 环境中运行**，可以使用 source 命令执行：
 
 ```shell
 source script.sh
