@@ -21,7 +21,7 @@ elif condition; then
 fi
 ```
 
-如果 if 和 else 不写在同一行，则不需要加分号：
+如果 if 和 then 不写在同一行，则不需要加分号：
 
 ```shell
 if condition
@@ -32,7 +32,7 @@ fi
 if condition; then some statements; fi
 ```
 
-if 后的判断可以有多个，多个使用分号隔开，判断的结果根据最后一个条件决定:
+if 后的判断可以有多个，多个使用分号隔开，判断的结果根据**最后一个**条件决定:
 
 ```shell
 if condition1; condition2; condition3; then
@@ -99,12 +99,12 @@ fi
 
 判断的方式：
 
-- `[ num1 -eq num2 ]` ：等于
-- `[ num1 -ne num2 ]` ：不等于
-- `[ num1 -lt num2 ]` ：小于
-- `[ num1 -le num2 ]` ：小于等于
-- `[ num1 -gt num2 ]` ：大于
-- `[ num1 -ge num2 ]` ：大于等于
+- `[ num1 -eq num2 ]` ：等于 **eq**ual
+- `[ num1 -ne num2 ]` ：不等于 **n**ot **e**qual
+- `[ num1 -lt num2 ]` ：小于 **l**ittle **t**han
+- `[ num1 -le num2 ]` ：小于等于 **l**ittle or **e**qual
+- `[ num1 -gt num2 ]` ：大于 **g**reat **t**han
+- `[ num1 -ge num2 ]` ：大于等于 **g**reat or **e**qual
 
 ## 正则判断
 

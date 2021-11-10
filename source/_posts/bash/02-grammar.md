@@ -53,8 +53,8 @@ Bash 中内置了很多命令，type 用来查询命令是内置命令还是外�
 - Ctrl + C   中止执行
 - Shift + PageUp 向上滚动
 - Shift + PageDown 向下滚动
-- Ctrl + U 删除到行首
-- Ctrl + K 删除到行尾
+- Ctrl + U 剪切到行首
+- Ctrl + K 剪切到行尾
 - Ctrl + D 关闭 Shell 会话
 - Ctrl + A 移到行首
 - Ctrl + E 移到行尾
