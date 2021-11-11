@@ -105,15 +105,16 @@ done
 
 ## select 语句
 
-select 语句可以生成菜单供用户选择，其语法与 select 基本一致：
+select 语句可以生成菜单供用户选择，其语法与 for ... in 基本一致：
 
 ```shell
 select name in list ; do
-  echo $name
+	// name 为选中的项
+  echo "your input is $REPLY, you have chosen $name" 
 done
 ```
 
-用户输入的内容会保存在 `$REPLY` 变量中，select 语句会一直循环，需要使用 break 手动退出。
+用户输入的内容会保存在 `$REPLY` 变量中,  select 语句会一直循环，需要使用 break 手动退出。
 
 ---
 
