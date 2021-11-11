@@ -28,7 +28,7 @@
 <meta property="og:description" content="Bash 脚本中可以将需要复用的代码定义成函数，方便脚本内重复调用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-14T08:17:15.000Z">
-<meta property="article:modified_time" content="2021-03-14T08:53:28.766Z">
+<meta property="article:modified_time" content="2021-11-11T06:28:23.812Z">
 <meta property="article:author" content="zylyye">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="bash">
@@ -185,10 +185,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2021-03-14 16:17:15 / Modified: 16:53:28" itemprop="dateCreated datePublished" datetime="2021-03-14T16:17:15+08:00">2021-03-14</time>
+              <time title="Created: 2021-03-14 16:17:15" itemprop="dateCreated datePublished" datetime="2021-03-14T16:17:15+08:00">2021-03-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2021-11-11 14:28:23" itemprop="dateModified" datetime="2021-11-11T14:28:23+08:00">2021-11-11</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -234,6 +240,11 @@
 <h2 id="函数的返回值-return"><a href="#函数的返回值-return" class="headerlink" title="函数的返回值 return"></a>函数的返回值 return</h2><p>函数中可以使用 return 返回一个值，调用者可以使用 <code>$?</code> 来读取：</p>
 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fn() {</span><br><span class="line">  ...</span><br><span class="line">  return 10</span><br><span class="line">}</span><br><span class="line"><span class="meta">#</span><span class="bash"> 调用</span></span><br><span class="line">fn</span><br><span class="line">echo $?</span><br></pre></td></tr></tbody></table></figure>
 
+<p><strong>return 与 exit 的区别：</strong></p>
+<ul>
+<li>return 终止当前函数，返回整定值</li>
+<li>exit 终止当前 shell，返回退出状态码(exit 后指定的值)</li>
+</ul>
 <h2 id="函数中的局部变量"><a href="#函数中的局部变量" class="headerlink" title="函数中的局部变量"></a>函数中的局部变量</h2><p>函数中可以访问脚本中的变量，函数中定义的变量也可以被脚本访问，可以使用 local 来定义只有在函数中才可以访问的局部变量：</p>
 <figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fn() {</span><br><span class="line">  local a=1</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
