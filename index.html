@@ -156,6 +156,85 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://zylyye.cn/2022/04/12/other/Jenkins-with-Docker-in-Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+      <meta itemprop="name" content="zylyye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Forgetful Alann">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/12/other/Jenkins-with-Docker-in-Docker/" class="post-title-link" itemprop="url">Jenkins with DinD</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-12 17:04:25 / Modified: 21:01:07" itemprop="dateCreated datePublished" datetime="2022-04-12T17:04:25+08:00">2022-04-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index"><span itemprop="name">Other</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <hr>
+<p>Inspired by <a target="_blank" rel="noopener" href="https://www.tiuweehan.com/blog/2020-09-10-docker-in-jenkins-in-docker/">https://www.tiuweehan.com/blog/2020-09-10-docker-in-jenkins-in-docker/</a></p>
+<p><strong>DinD</strong> 即 Docker in Docker，就是在 Docker 容器中运行 Docker 服务。</p>
+<p>使用 Docker 镜像部署 Jenkins 很方便，一个简单的 <code>docker-compose.yml</code> 如下：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">jenkins:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">jenkins/jenkins:lts</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">jenkins</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">9095</span><span class="string">:8080</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./jenkins_home:/var/jenkins_home</span></span><br></pre></td></tr></tbody></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/04/12/other/Jenkins-with-Docker-in-Docker/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
     <link itemprop="mainEntityOfPage" href="https://zylyye.cn/2022/03/28/javascript/001-CommonJs%20and%20ES6%20module%20format/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -863,88 +942,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
-    <link itemprop="mainEntityOfPage" href="https://zylyye.cn/2021/03/12/bash/13-loop/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/assets/images/avatar.png">
-      <meta itemprop="name" content="zylyye">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Forgetful Alann">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/12/bash/13-loop/" class="post-title-link" itemprop="url">循环</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2021-03-12 19:16:03" itemprop="dateCreated datePublished" datetime="2021-03-12T19:16:03+08:00">2021-03-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2021-11-12 11:30:47" itemprop="dateModified" datetime="2021-11-12T11:30:47+08:00">2021-11-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Bash/" itemprop="url" rel="index"><span itemprop="name">Bash</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <hr>
-<p>Bash 中有三种循环 while、 until、 for。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/03/12/bash/13-loop/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1016,20 +1013,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives">
         
-          <span class="site-state-item-count">36</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>

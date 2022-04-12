@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.ico">
+  <link rel="mask-icon" href="/assets/images/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"zylyye.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Inspired by https:&#x2F;&#x2F;www.tiuweehan.com&#x2F;blog&#x2F;2020-09-10-docker-in-jenkins-in-docker&#x2F; DinD 即 Docker in Docker，就是在 Docker 容器中运行 Docker 服务。 使用 Docker 镜像部署 Jenkins 很方便，一个简单的 docker-compose.yml 如下： 12345678">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Jenkins with DinD">
+<meta property="og:url" content="https://zylyye.cn/2022/04/12/other/Jenkins-with-Docker-in-Docker/index.html">
+<meta property="og:site_name" content="Forgetful Alann">
+<meta property="og:description" content="Inspired by https:&#x2F;&#x2F;www.tiuweehan.com&#x2F;blog&#x2F;2020-09-10-docker-in-jenkins-in-docker&#x2F; DinD 即 Docker in Docker，就是在 Docker 容器中运行 Docker 服务。 使用 Docker 镜像部署 Jenkins 很方便，一个简单的 docker-compose.yml 如下： 12345678">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.tiuweehan.com/img/solution-1.png">
+<meta property="og:image" content="https://www.tiuweehan.com/img/solution-2.png">
+<meta property="og:image" content="https://www.tiuweehan.com/img/solution-3.png">
+<meta property="article:published_time" content="2022-04-12T09:04:25.000Z">
+<meta property="article:modified_time" content="2022-04-12T13:01:07.668Z">
+<meta property="article:author" content="zylyye">
+<meta property="article:tag" content="Jenkins">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.tiuweehan.com/img/solution-1.png">
+
+<link rel="canonical" href="https://zylyye.cn/2022/04/12/other/Jenkins-with-Docker-in-Docker/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh_CN'
+  };
+</script>
+
+  <title>Jenkins with DinD | Forgetful Alann</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Forgetful Alann</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">In youth we learn, in age we understand.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags" rel="section"><i class="fa fa-tags fa-fw"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>Categories</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh_CN">
+    <link itemprop="mainEntityOfPage" href="https://zylyye.cn/2022/04/12/other/Jenkins-with-Docker-in-Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/assets/images/avatar.png">
+      <meta itemprop="name" content="zylyye">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Forgetful Alann">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jenkins with DinD
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2022-04-12 17:04:25 / Modified: 21:01:07" itemprop="dateCreated datePublished" datetime="2022-04-12T17:04:25+08:00">2022-04-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index"><span itemprop="name">Other</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <hr>
+<p>Inspired by <a target="_blank" rel="noopener" href="https://www.tiuweehan.com/blog/2020-09-10-docker-in-jenkins-in-docker/">https://www.tiuweehan.com/blog/2020-09-10-docker-in-jenkins-in-docker/</a></p>
+<p><strong>DinD</strong> 即 Docker in Docker，就是在 Docker 容器中运行 Docker 服务。</p>
+<p>使用 Docker 镜像部署 Jenkins 很方便，一个简单的 <code>docker-compose.yml</code> 如下：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">jenkins:</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">jenkins/jenkins:lts</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">jenkins</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">9095</span><span class="string">:8080</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./jenkins_home:/var/jenkins_home</span></span><br></pre></td></tr></tbody></table></figure>
+
+<span id="more"></span>
+
+<h2 id="容器化的-Jenkins-带来的问题"><a href="#容器化的-Jenkins-带来的问题" class="headerlink" title="容器化的 Jenkins 带来的问题"></a>容器化的 Jenkins 带来的问题</h2><p>有了 Jekins Docker 镜像，就可以一键部署多台 Jenkins 实例，但容器化的 Jenkins 在提供便利的同时也带来一些问题，例如: 如何在 Jenkins 中使用 Docker ?</p>
+<p>解决方式搜集到的有三种：</p>
+<ul>
+<li>在 Jenkins 镜像中安装 Docker（这也是一种 DinD）</li>
+<li>共享宿主机的 docker daemon</li>
+<li>使用 DinD 镜像</li>
+</ul>
+<h2 id="Jenkins-镜像中安装-Docker"><a href="#Jenkins-镜像中安装-Docker" class="headerlink" title="Jenkins 镜像中安装 Docker"></a>Jenkins 镜像中安装 Docker</h2><p>这个方式需要基于官方的 <a target="_blank" rel="noopener" href="https://hub.docker.com/r/jenkins/jenkins">Jenkins</a> 镜像构建自己的 Jenkins with Docker 镜像：</p>
+<figure class="highlight dockerfile"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> jenkins/jenkins:lts</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">USER</span> root</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y  \</span></span><br><span class="line"><span class="bash">     ca-certificates \</span></span><br><span class="line"><span class="bash">     curl \</span></span><br><span class="line"><span class="bash">     gnupg \</span></span><br><span class="line"><span class="bash">     lsb-release</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">RUN</span><span class="bash"> curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> \</span></span><br><span class="line"><span class="bash">   <span class="string">"deb [arch=<span class="subst">$(dpkg --print-architecture)</span> signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \</span></span></span><br><span class="line"><span class="string"><span class="bash">   <span class="subst">$(lsb_release -cs)</span> stable"</span> | tee /etc/apt/sources.list.d/docker.list &gt; /dev/null</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">RUN</span><span class="bash"> apt-get update &amp;&amp; apt-get install -y docker-ce docker-ce-cli containerd.io</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> <span class="keyword">RUN</span><span class="bash"> usermod -aG docker jenkins</span></span><br><span class="line"> </span><br><span class="line"> <span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"/bin/sh"</span>, <span class="string">"-c"</span>, <span class="string">"service docker start &amp;&amp; /sbin/tini -- /usr/local/bin/jenkins.sh"</span>]</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>构建镜像：</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t docker-dind:1.0 .</span><br></pre></td></tr></tbody></table></figure>
+
+<p>run</p>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --rm -v jenkins_home:/var/jenkins_home -p 9096:8080 --privileged jenkins-dind:1.0</span><br></pre></td></tr></tbody></table></figure>
+
+<p>如果你想使用 docker-compose, 这里是示例：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line">  <span class="attr">jenkins:</span></span><br><span class="line">    <span class="attr">user:</span> <span class="string">root</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">jenkins-dind:1.0</span></span><br><span class="line">    <span class="attr">container_name:</span> <span class="string">jenkins_1</span></span><br><span class="line">    <span class="attr">privileged:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="number">9096</span><span class="string">:8080</span></span><br><span class="line">    <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">./jenkins_home:/var/jenkins_home</span></span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<p>架构如图：</p>
+<p><img src="https://www.tiuweehan.com/img/solution-1.png" alt="solution-1"></p>
+<p>这种 Docker 容器里安装 Docker 的方法，有点 hack 的感觉，文章里提到的缺点就是：</p>
+<ol>
+<li>需要额外构建一个镜像</li>
+<li>需要 <code>privileged</code> 这样高级权限(有这个权限，容器内可以直接使用宿主机资源)，不安全</li>
+<li>覆盖了父镜像的 <code>Entrypoint</code> 指令(自己构建镜像，并且加了 docker 服务，只能覆盖)</li>
+<li>手动在 Dcoker 容器里安装 Docker 有点 hack，不太推荐</li>
+</ol>
+<h2 id="共享宿主机的-docker-daemon"><a href="#共享宿主机的-docker-daemon" class="headerlink" title="共享宿主机的 docker daemon"></a>共享宿主机的 docker daemon</h2><p>这种方式比较常用，由于 Docker 服务也是一个 CS 架构，一个 docker daemon 可以通过 <code>unix://</code>、<code>tcp://</code> 还有 <code>ssh://</code> 三种协议来提供给远程客户端使用，现在只演示下使用 unix socket 的方式。</p>
+<p>使用 <code>unix://</code> 协议共享 docker 思路很简单，把宿主机上的 <code>/var/run/docker.sock</code> 挂载到 jenkins 容器里就行，并且由于 jenkins 里容器缺少客户端，所以通常一并将宿主机的可执行文件 <code>docker</code> 一并挂载到容器里，为了避免权限问题，jenkins 使用 root 用户启动，docker-compose.yml 示例：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span></span><br><span class="line"> <span class="attr">services:</span></span><br><span class="line">   <span class="attr">jenkins_2:</span></span><br><span class="line">     <span class="attr">image:</span> <span class="string">jenkins/jenkins:lts</span></span><br><span class="line">     <span class="attr">user:</span> <span class="string">root</span></span><br><span class="line">     <span class="attr">volumes:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">./jenkins_home:/var/jenkins_home</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">/var/run/docker.sock:/var/run/docker.sock</span></span><br><span class="line">       <span class="comment"># 由于我的宿主机是 OSX，所以下载的 linux 的docker，用来挂载</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">./docker/docker:/usr/local/bin/docker</span></span><br><span class="line">     <span class="attr">ports:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="number">9097</span><span class="string">:8080</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>架构：</p>
+<p><img src="https://www.tiuweehan.com/img/solution-2.png" alt="solution-2"></p>
+<p>用这个方式的缺点是：</p>
+<ol>
+<li>Jenkins 容器需要依赖宿主机的 docker，不能独立运行</li>
+<li>需要配置好权限来连接宿主机的 docker.sock</li>
+</ol>
+<h2 id="使用-DinD-镜像"><a href="#使用-DinD-镜像" class="headerlink" title="使用 DinD 镜像"></a>使用 DinD 镜像</h2><p>使用官方的 DinD 镜像来独立部署 Jenkins 专用的 Docker 服务，这种方式文章作者和我都比较喜欢，docker-compose.yml 示例如下：</p>
+<figure class="highlight yaml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">"3"</span></span><br><span class="line"> </span><br><span class="line"> <span class="attr">services:</span></span><br><span class="line">   <span class="attr">jenkins:</span></span><br><span class="line">     <span class="attr">image:</span> <span class="string">jenkins/jenkins:lts</span></span><br><span class="line">     <span class="attr">user:</span> <span class="string">root</span></span><br><span class="line">     <span class="attr">volumes:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">./jenkins_home:/var/jenkins_home</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">./docker/docker:/usr/bin/docker</span></span><br><span class="line">     <span class="attr">ports:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="number">9091</span><span class="string">:8080</span></span><br><span class="line">     <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">     <span class="attr">environment:</span></span><br><span class="line">       <span class="comment"># 使用 tcp:// 协议访问远程 docker</span></span><br><span class="line">       <span class="attr">DOCKER_HOST:</span> <span class="string">'tcp://dind:2375'</span></span><br><span class="line">     <span class="attr">networks:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">jenkins_dind</span></span><br><span class="line"> </span><br><span class="line">   <span class="attr">dind:</span></span><br><span class="line">     <span class="attr">image:</span> <span class="string">docker:dind</span></span><br><span class="line">     <span class="attr">user:</span> <span class="string">root</span></span><br><span class="line">     <span class="attr">privileged:</span> <span class="literal">true</span></span><br><span class="line">     <span class="attr">container_name:</span> <span class="string">dind</span></span><br><span class="line">     <span class="attr">restart:</span> <span class="string">always</span></span><br><span class="line">     <span class="attr">volumes:</span></span><br><span class="line">       <span class="comment"># 服务端和客户端共享工作目录，避免客户端 docker run 绑定的目录客户端没有的问题</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">./jenkins_home:/var/jenkins_home</span></span><br><span class="line">     <span class="attr">expose:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="number">2375</span></span><br><span class="line">     <span class="attr">networks:</span></span><br><span class="line">       <span class="bullet">-</span> <span class="string">jenkins_dind</span></span><br><span class="line">     <span class="attr">environment:</span></span><br><span class="line">       <span class="attr">DOCKER_TLS_CERTDIR:</span> <span class="string">""</span></span><br><span class="line"> </span><br><span class="line"> <span class="attr">networks:</span></span><br><span class="line">   <span class="attr">jenkins_dind:</span></span><br><span class="line">     <span class="attr">driver:</span> <span class="string">bridge</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>需要注意的是，客户端执行 <code>docker build</code> 时，build 目录会打包上传到 docker daemon，没有什么问题，但是如果客户端执行 <code>docker run</code> 时绑定了客户端的某个目录，由于服务端没有这个目录，就会出错，所以这个方案的好处就是，可以把工作目录同时绑定到 Jenkins 和 DinD 容器里，实现共享。</p>
+<p>架构如下：</p>
+<p><img src="https://www.tiuweehan.com/img/solution-3.png" alt="solution-3"></p>
+<p>缺点当然是有的：</p>
+<ol>
+<li>需要多跑个容器，不过至少 Jenkins 可以做到完全独立部署了</li>
+</ol>
+<p>完。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Jenkins/" rel="tag"># Jenkins</a>
+              <a href="/tags/Docker/" rel="tag"># Docker</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/03/28/javascript/001-CommonJs%20and%20ES6%20module%20format/" rel="prev" title="CommonJs and ES6 module format">
+      <i class="fa fa-chevron-left"></i> CommonJs and ES6 module format
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E5%8C%96%E7%9A%84-Jenkins-%E5%B8%A6%E6%9D%A5%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">容器化的 Jenkins 带来的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jenkins-%E9%95%9C%E5%83%8F%E4%B8%AD%E5%AE%89%E8%A3%85-Docker"><span class="nav-number">2.</span> <span class="nav-text">Jenkins 镜像中安装 Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%AE%BF%E4%B8%BB%E6%9C%BA%E7%9A%84-docker-daemon"><span class="nav-number">3.</span> <span class="nav-text">共享宿主机的 docker daemon</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-DinD-%E9%95%9C%E5%83%8F"><span class="nav-number">4.</span> <span class="nav-text">使用 DinD 镜像</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="zylyye"
+      src="/assets/images/avatar.png">
+  <p class="site-author-name" itemprop="name">zylyye</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+        
+          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:zylyye@gmail.com" title="E-Mail → mailto:zylyye@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="skype:zylyye?call|chat" title="Skype → skype:zylyye?call|chat" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i>Skype</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zylyye</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
