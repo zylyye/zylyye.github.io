@@ -55,14 +55,14 @@ Bash 提供的字符串搜索和替换方法：
 
 ```shell
 # 非贪婪匹配，匹配最短部分，返回剩余部分
-${var#pattern}
+${var#word}
 # 贪婪匹配，匹配最长部分，返回剩余部分
-${var##pattern}
+${var##word}
 # 匹配后替换
-${var/#pattern/string}
+${var/#word/new_word}
 ```
 
-其中的 pattern 可取 `*`, `?`, `[]` 等通配符。
+其中的 word 可取 `*`, `?`, `[]` 等通配符。
 
 ### 字符串尾部模式匹配
 
@@ -70,20 +70,20 @@ ${var/#pattern/string}
 
 ```shell
 # 非贪婪匹配，返回剩余部分
-${var%pattern}
+${var%word}
 # 贪婪匹配，返回剩余部分
-${var%%pattern}
+${var%%word}
 # 替换尾部的内容
-${var/%pattern/string}
+${var/%word/new_word}
 ```
 
-### 任意位置匹配
+### 任意位置匹配替换
 
 ```shell
 # 贪婪匹配替换，仅替换第一个匹配
-${var/pattern/string}
+${var/word/new_word}
 # 贪婪匹配替换，替换所有的匹配
-${var//pattern/string}
+${var//word/new_word}
 ```
 
 ### 改变大小写

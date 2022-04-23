@@ -109,7 +109,7 @@ select 语句可以生成菜单供用户选择，其语法与 for ... in 基本�
 
 ```shell
 select name in list ; do
-	// name 为选中的项
+  // name 为选中的项
   echo "your input is $REPLY, you have chosen $name" 
 done
 ```

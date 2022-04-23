@@ -73,7 +73,7 @@ echo $?
 
 **return 与 exit 的区别：**
 
-- return 终止当前函数，返回整定值
+- return 终止当前函数，返回指定值
 - exit 终止当前 shell，返回退出状态码(exit 后指定的值)
 
 ## 函数中的局部变量
