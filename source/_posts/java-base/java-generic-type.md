@@ -322,8 +322,8 @@ UserInfo user = users.get(0);
 
 ```java
 // 创建匿名内部类用于保存泛型信息
-Type userInfoType = new TypeToken<List<UserInfo>>() {}.getType();
-List<UserInfo> users = gson.fromJson(json);
+Type userInfoListType = new TypeToken<List<UserInfo>>() {}.getType();
+List<UserInfo> users = gson.fromJson(json, userInfoListType);
 UserInfo user = users.get(0);
 ```
 
