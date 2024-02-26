@@ -7,13 +7,13 @@ title: Forgetful Alann
 subtitle: 'In youth we learn, in age we understand.'
 description: ''
 keywords:
-author: zylyye
+author: Alann
 language: zh_CN
-timezone: ''
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://zylyye.cn
+url: https://elong.vip
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
